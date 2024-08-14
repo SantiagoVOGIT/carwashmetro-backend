@@ -22,7 +22,12 @@ public class Employee {
 
     private final ZonedDateTime createdAt;
 
-    public Employee(EmployeeId id, UserId userId, EmployeePosition position, EmployeeStatus status, Salary salary, ZonedDateTime createdAt) {
+    public Employee(EmployeeId id,
+                    UserId userId,
+                    EmployeePosition position,
+                    EmployeeStatus status,
+                    Salary salary,
+                    ZonedDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.position = position;
@@ -53,6 +58,18 @@ public class Employee {
 
     public ZonedDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "createdAt=" + createdAt +
+                ", salary=" + salary.getValue() +
+                ", status=" + status +
+                ", position=" + position +
+                ", userId=" + userId +
+                ", id=" + id +
+                '}';
     }
 
 }

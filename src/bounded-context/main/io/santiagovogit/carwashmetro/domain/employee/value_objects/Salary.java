@@ -5,51 +5,42 @@ import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import java.math.BigDecimal;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
 
 public class Salary {
 
-    private static final BigDecimal MIN_SALARY = new BigDecimal("0");
-    private static final BigDecimal MAX_SALARY = new BigDecimal("50000000");
+    private static final int MIN_SALARY = 0;
+    private static final int MAX_SALARY = 50000000;
 
-    private final BigDecimal value;
+    private final int value;
 
-    private Salary(BigDecimal value) {
+    private Salary(int value) {
         this.value = value;
     }
 
-    public static Salary of(BigDecimal value) {
-        validateSalary(value);
-        return new Salary(value);
+    public static Salary of(Integer salary) {
+        validateNotNull(salary, ErrorMessage.SALARY_NULL.getMessage());
+        validateSalary(salary);
+        return new Salary(salary);
     }
 
-    public static Salary createSalary(String value){
-       return Salary.of(new BigDecimal(value));
+    public int getValue() {
+        return value;
     }
 
-    private static void validateSalary(BigDecimal salary) {
-        if (salary == null) {
-            throw new DomainException(
-                    ErrorType.VALIDATION_ERROR,
-                    ErrorMessage.SALARY_NULL.getMessage()
-            );
-        }
-        if (salary.compareTo(MIN_SALARY) <= 0 || salary.compareTo(MAX_SALARY) > 0) {
+    private static void validateSalary(int salary) {
+        if (salary <= MIN_SALARY || salary > MAX_SALARY) {
             throw new DomainException(
                     ErrorType.VALIDATION_ERROR,
                     ErrorMessage.INVALID_SALARY_RANGE.getMessage()
             );
         }
-        if (!StringDomainUtils.isSalaryFormat(salary.toPlainString())) {
+        if (!StringDomainUtils.isSalaryFormat(String.valueOf(salary))) {
             throw new DomainException(
                     ErrorType.VALIDATION_ERROR,
                     ErrorMessage.INVALID_SALARY_FORMAT.getMessage()
             );
         }
-    }
-
-    public BigDecimal getValue() {
-        return value;
     }
 
 }

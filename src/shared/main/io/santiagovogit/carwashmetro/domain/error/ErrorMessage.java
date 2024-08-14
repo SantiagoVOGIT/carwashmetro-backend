@@ -17,7 +17,19 @@ public enum ErrorMessage {
     SALARY_NULL("El salario no puede ser nulo"),
     SPACE_NUMBER_NULL("El número de espacio no puede ser nulo"),
     VEHICLE_TYPE_NULL("El tipo de vehículo no puede ser nulo"),
-    CELL_STATUS_NULL("El estado de la celda ");
+    CELL_STATUS_NULL("El estado de la celda no puede ser nulo"),
+    CELL_ID_NULL("El id de celda no puede ser nulo"),
+    VEHICLE_ID_NULL("El id de vehículo no puede ser nulo"),
+    RESERVATION_STATUS_NULL("El id de reserva no puede ser nulo"),
+    USER_FIRSTNAME_EMPTY("El primer nombre no puede estar vacío"),
+    USER_LASTNAME_EMPTY("El segundo nombre no puede estar vacío"),
+    DNI_NUMBER_EMPTY("El número de identificación no puede estar vacío"),
+    PHONE_NUMBER_EMPTY("El número de teléfono no puede estar vacio"),
+    EMAIL_EMPTY("El correo electrónico no puede estar vacio"),
+    USER_ROLE_NULL("El rol de usuario no puede ser nulo"),
+    DNI_TYPE_NULL("El tipo de documento no puede ser nulo"),
+    USER_STATUS_NULL("El estado de un usuario no puede ser nulo"),
+    INVALID_SPACE_NUMBER("Número de espacio invalido");
 
     private final String message;
 

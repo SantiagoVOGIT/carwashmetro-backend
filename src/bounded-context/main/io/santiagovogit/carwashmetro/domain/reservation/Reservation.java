@@ -85,4 +85,19 @@ public class Reservation {
         return createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "createdAt=" + createdAt +
+                ", endTime=" + endTime +
+                ", startTime=" + startTime +
+                ", reservationStatus=" + reservationStatus +
+                ", reservationCode=" + reservationCode +
+                ", vehicleId=" + vehicleId +
+                ", cellId=" + cellId +
+                ", userId=" + userId +
+                ", id=" + id +
+                '}';
+    }
+
 }

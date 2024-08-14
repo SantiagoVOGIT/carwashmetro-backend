@@ -47,4 +47,15 @@ public class Cell {
         return createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "id=" + id +
+                ", spaceNumber=" + spaceNumber +
+                ", vehicleType=" + vehicleType +
+                ", cellStatus=" + cellStatus +
+                ", createdAt=" + createdAt +
+                '}';
+    }
+
 }
