@@ -1,6 +1,5 @@
 package io.santiagovogit.carwashmetro.domain.reservation;
 
-import io.santiagovogit.carwashmetro.domain.ValidationsUtils;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationCode;

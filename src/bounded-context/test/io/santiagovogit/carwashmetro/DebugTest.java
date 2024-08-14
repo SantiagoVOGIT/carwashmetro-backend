@@ -67,8 +67,8 @@ public class DebugTest {
                 cell1.getId(),
                 vehicle1.getId(),
                 ReservationStatus.PENDING,
-                ZonedDateTime.now(),
-                ZonedDateTime.now()
+                null,
+                null
         );
 
         System.out.println(cell1.toString());
