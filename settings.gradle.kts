@@ -1,4 +1,4 @@
-rootProject.name = "hexagonal-spring-skeleton"
+rootProject.name = "carwashmetro-backend"
 
 include(":shared")
 project(":shared").projectDir = file("src/shared")
