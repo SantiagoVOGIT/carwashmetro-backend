@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.reservation.value_objects.Reservatio
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Reservation {
 
@@ -21,13 +21,13 @@ public class Reservation {
 
     private final ReservationCode reservationCode;
 
-    private final ReservationStatus reservationStatus;
+    private final ReservationStatus status;
 
-    private final ZonedDateTime startTime;
+    private final Date startTime;
 
-    private final ZonedDateTime endTime;
+    private final Date endTime;
 
-    private final ZonedDateTime createdAt;
+    private final Date createdAt;
 
     public Reservation(ReservationId id,
                        UserId userId,
@@ -35,15 +35,15 @@ public class Reservation {
                        VehicleId vehicleId,
                        ReservationCode reservationCode,
                        ReservationStatus reservationStatus,
-                       ZonedDateTime startTime,
-                       ZonedDateTime endTime,
-                       ZonedDateTime createdAt) {
+                       Date startTime,
+                       Date endTime,
+                       Date createdAt) {
         this.id = id;
         this.userId = userId;
         this.cellId = cellId;
         this.vehicleId = vehicleId;
         this.reservationCode = reservationCode;
-        this.reservationStatus = reservationStatus;
+        this.status = reservationStatus;
         this.startTime = startTime;
         this.endTime = endTime;
         this.createdAt = createdAt;
@@ -70,18 +70,18 @@ public class Reservation {
     }
 
     public ReservationStatus getReservationStatus() {
-        return reservationStatus;
+        return status;
     }
 
-    public ZonedDateTime getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public ZonedDateTime getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -91,7 +91,7 @@ public class Reservation {
                 "createdAt=" + createdAt +
                 ", endTime=" + endTime +
                 ", startTime=" + startTime +
-                ", reservationStatus=" + reservationStatus +
+                ", reservationStatus=" + status +
                 ", reservationCode=" + reservationCode +
                 ", vehicleId=" + vehicleId +
                 ", cellId=" + cellId +

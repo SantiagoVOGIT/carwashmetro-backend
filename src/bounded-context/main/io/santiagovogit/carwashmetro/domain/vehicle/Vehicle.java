@@ -4,7 +4,7 @@ import io.santiagovogit.carwashmetro.domain.VehicleType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Vehicle {
 
@@ -18,7 +18,7 @@ public class Vehicle {
 
     private final VehicleType vehicleType;
 
-    private final ZonedDateTime createdAt;
+    private final Date createdAt;
 
 
     public Vehicle(VehicleId id,
@@ -26,7 +26,7 @@ public class Vehicle {
                    String licensePlate,
                    String model,
                    VehicleType vehicleType,
-                   ZonedDateTime createdAt) {
+                   Date createdAt) {
         this.id = id;
         this.userId = userId;
         this.licensePlate = licensePlate;
@@ -55,7 +55,7 @@ public class Vehicle {
         return vehicleType;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 

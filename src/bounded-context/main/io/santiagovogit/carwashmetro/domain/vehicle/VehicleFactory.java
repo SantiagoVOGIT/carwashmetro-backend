@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.isLicensePlateFormat;
 import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.isModelFormat;
@@ -26,7 +26,7 @@ public class VehicleFactory {
                 licensePlate,
                 model,
                 vehicleType,
-                ZonedDateTime.now()
+                new Date()
         );
     }
 

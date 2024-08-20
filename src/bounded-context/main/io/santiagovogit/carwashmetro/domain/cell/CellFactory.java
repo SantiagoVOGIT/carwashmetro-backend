@@ -6,7 +6,7 @@ import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
 import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
 
@@ -24,7 +24,7 @@ public class CellFactory {
                 spaceNumber,
                 vehicleType,
                 cellStatus,
-                ZonedDateTime.now()
+                new Date()
         );
     }
 

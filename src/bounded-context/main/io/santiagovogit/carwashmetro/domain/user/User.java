@@ -5,7 +5,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class User {
 
@@ -27,7 +27,7 @@ public class User {
 
     private final UserStatus status;
 
-    private final ZonedDateTime createdAt;
+    private final Date createdAt;
 
 
     public User(UserId id,
@@ -39,7 +39,7 @@ public class User {
                 String email,
                 UserRole role,
                 UserStatus status,
-                ZonedDateTime createdAt) {
+                Date createdAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,7 +88,7 @@ public class User {
         return status;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 

@@ -5,7 +5,7 @@ import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Cell {
 
@@ -17,9 +17,9 @@ public class Cell {
 
     private final CellStatus cellStatus;
 
-    private final ZonedDateTime createdAt;
+    private final Date createdAt;
 
-    public Cell(CellId id, SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus, ZonedDateTime createdAt) {
+    public Cell(CellId id, SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus, Date createdAt) {
         this.id = id;
         this.spaceNumber = spaceNumber;
         this.vehicleType = vehicleType;
@@ -43,7 +43,7 @@ public class Cell {
         return cellStatus;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 

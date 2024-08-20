@@ -15,7 +15,7 @@ public abstract class Identifier {
         this.value = UUID.randomUUID();
     }
 
-    public String value() {
+    public String getValue() {
         return value.toString();
     }
 

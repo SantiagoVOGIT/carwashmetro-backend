@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
 
@@ -28,7 +28,7 @@ public class EmployeeFactory {
                 employeePosition,
                 employeeStatus,
                 salary,
-                ZonedDateTime.now()
+                new Date()
         );
     }
 

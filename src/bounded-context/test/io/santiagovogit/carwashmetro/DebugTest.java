@@ -1,5 +1,6 @@
 package io.santiagovogit.carwashmetro;
 
+import io.santiagovogit.carwashmetro.application.CellUseCase;
 import io.santiagovogit.carwashmetro.domain.VehicleType;
 import io.santiagovogit.carwashmetro.domain.cell.Cell;
 import io.santiagovogit.carwashmetro.domain.cell.CellFactory;
@@ -23,12 +24,14 @@ import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
 import io.santiagovogit.carwashmetro.domain.vehicle.VehicleFactory;
 import org.junit.jupiter.api.Test;
 
-import java.time.ZonedDateTime;
 
-public class DebugTest {
+class DebugTest {
+
+    CellUseCase cellUseCase;
 
     @Test
-    public void domainTest(){
+    void domainTest(){
+
 
         Cell cell1 = CellFactory.createCell(
                 SpaceNumber.SPACE_ONE,
@@ -37,7 +40,7 @@ public class DebugTest {
         );
 
         User user1 = UserFactory.createUser(
-                "Santiago",
+                "valencía",
                 "Valencia",
                 "1036928592",
                 DniType.CC,
@@ -56,7 +59,7 @@ public class DebugTest {
 
         Vehicle vehicle1 = VehicleFactory.createVehicle(
                 user1.getId(),
-                "AAA777",
+                "AB1234566",
                 "Lamborghini gallardo",
                 VehicleType.CAR
 

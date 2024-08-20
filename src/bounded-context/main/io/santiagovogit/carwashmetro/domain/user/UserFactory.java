@@ -8,7 +8,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.*;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
@@ -39,7 +39,7 @@ public class UserFactory {
                 email,
                 role,
                 status,
-                ZonedDateTime.now()
+                new Date()
         );
     }
 

@@ -8,7 +8,7 @@ import io.santiagovogit.carwashmetro.domain.reservation.value_objects.Reservatio
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
 
@@ -19,11 +19,11 @@ public class ReservationFactory {
     public static Reservation createReservartion(UserId userId,
                                                  CellId cellId,
                                                  VehicleId vehicleId,
-                                                 ReservationStatus reservationStatus,
-                                                 ZonedDateTime startTime,
-                                                 ZonedDateTime endTime){
+                                                 ReservationStatus status,
+                                                 Date startTime,
+                                                 Date endTime){
 
-        validateReservation(userId, cellId, vehicleId, reservationStatus);
+        validateReservation(userId, cellId, vehicleId, status);
 
         return new Reservation(
                 new ReservationId(),
@@ -31,10 +31,10 @@ public class ReservationFactory {
                 cellId,
                 vehicleId,
                 new ReservationCode(),
-                reservationStatus,
+                status,
                 startTime,
                 endTime,
-                ZonedDateTime.now()
+                new Date()
         );
     }
 

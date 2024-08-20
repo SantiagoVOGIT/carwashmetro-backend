@@ -6,7 +6,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatu
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Employee {
 
@@ -20,14 +20,14 @@ public class Employee {
 
     private final Salary salary;
 
-    private final ZonedDateTime createdAt;
+    private final Date createdAt;
 
     public Employee(EmployeeId id,
                     UserId userId,
                     EmployeePosition position,
                     EmployeeStatus status,
                     Salary salary,
-                    ZonedDateTime createdAt) {
+                    Date createdAt) {
         this.id = id;
         this.userId = userId;
         this.position = position;
@@ -56,7 +56,7 @@ public class Employee {
         return salary;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
