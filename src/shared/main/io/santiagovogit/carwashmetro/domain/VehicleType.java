@@ -15,4 +15,8 @@ public enum VehicleType {
         return value;
     }
 
+    public static VehicleType fromValue(String value) {
+        return EnumUtils.fromValue(VehicleType.class, value, VehicleType::getValue);
+    }
+
 }

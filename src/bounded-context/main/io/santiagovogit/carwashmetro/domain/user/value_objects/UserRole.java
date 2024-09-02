@@ -1,5 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
+import io.santiagovogit.carwashmetro.domain.EnumUtils;
+
 public enum UserRole {
 
     ADMIN("ADMINISTRADOR"),
@@ -13,6 +15,10 @@ public enum UserRole {
 
     public String getValue() {
         return value;
+    }
+
+    public static UserRole fromValue(String value) {
+        return EnumUtils.fromValue(UserRole.class, value, UserRole::getValue);
     }
 
 }

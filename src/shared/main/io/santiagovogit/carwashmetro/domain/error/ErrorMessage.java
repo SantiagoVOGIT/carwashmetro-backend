@@ -30,6 +30,7 @@ public enum ErrorMessage {
     DNI_TYPE_NULL("El tipo de documento no puede ser nulo"),
     USER_STATUS_NULL("El estado de un usuario no puede ser nulo"),
     INVALID_SPACE_NUMBER("Número de espacio invalido"),
+    INVALID_ENUM_VALUE("Tipo de valor incorrecto"),
     CELL_ALREADY_EXIST("Esta celda ya existe");
 
     private final String message;

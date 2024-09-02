@@ -1,5 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 
+import io.santiagovogit.carwashmetro.domain.EnumUtils;
+
 public enum CellStatus {
 
     AVAILABLE("DISPONIBLE"),
@@ -16,6 +18,10 @@ public enum CellStatus {
 
     public String getValue() {
         return value;
+    }
+
+    public static CellStatus fromValue(String value) {
+        return EnumUtils.fromValue(CellStatus.class, value, CellStatus::getValue);
     }
 
 }

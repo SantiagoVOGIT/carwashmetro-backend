@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.infrastructure.shared;
+package io.santiagovogit.carwashmetro.infrastructure.entry_adapters;
 
 
 import org.springframework.http.HttpStatus;

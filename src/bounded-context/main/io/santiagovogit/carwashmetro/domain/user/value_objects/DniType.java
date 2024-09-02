@@ -1,5 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
+import io.santiagovogit.carwashmetro.domain.EnumUtils;
+
 public enum DniType {
 
     CC("CÉDULA CIUDADANÍA"),
@@ -15,6 +17,10 @@ public enum DniType {
 
     public String getValue() {
         return value;
+    }
+
+    public static DniType fromValue(String value) {
+        return EnumUtils.fromValue(DniType.class, value, DniType::getValue);
     }
 
 }

@@ -1,5 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
+import io.santiagovogit.carwashmetro.domain.EnumUtils;
+
 public enum UserStatus {
 
     ACTIVE("ACTIVO"),
@@ -14,6 +16,10 @@ public enum UserStatus {
 
     public String getValue() {
         return value;
+    }
+
+    public static UserStatus fromValue(String value) {
+        return EnumUtils.fromValue(UserStatus.class, value, UserStatus::getValue);
     }
 
 }
