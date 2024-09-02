@@ -1,6 +1,9 @@
 rootProject.name = "carwashmetro-backend"
 
-include(":shared")
-project(":shared").projectDir = file("src/shared")
+include(":app")
 include(":bounded-context")
+include(":shared")
+
+project(":app").projectDir = file("app")
 project(":bounded-context").projectDir = file("src/bounded-context")
+project(":shared").projectDir = file("src/shared")

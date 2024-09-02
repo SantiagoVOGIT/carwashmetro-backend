@@ -2,24 +2,24 @@ package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 
 public enum SpaceNumber {
 
-    SPACE_ONE("1"),
-    SPACE_TWO("2"),
-    SPACE_THREE("3"),
-    SPACE_FOUR("4"),
-    SPACE_FIVE("5"),
-    SPACE_SIX("6"),
-    SPACE_SEVEN("7"),
-    SPACE_EIGHT("8"),
-    SPACE_NINE("9"),
-    SPACE_TEN("10");
+    ONE(1),
+    TWO(2),
+    THREE(3),
+    FOUR(4),
+    FIVE(5),
+    SIX(6),
+    SEVEN(7),
+    EIGHT(8),
+    NINE(9),
+    TEN(10);
 
-    private final String value;
+    private final Integer value;
 
-    SpaceNumber(String value) {
+    SpaceNumber(Integer value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 

@@ -51,9 +51,9 @@ public class Cell {
     public String toString() {
         return "Cell{" +
                 "id=" + id +
-                ", spaceNumber=" + spaceNumber +
-                ", vehicleType=" + vehicleType +
-                ", cellStatus=" + cellStatus +
+                ", spaceNumber=" + spaceNumber.getValue() +
+                ", vehicleType=" + vehicleType.getValue() +
+                ", cellStatus=" + cellStatus.getValue() +
                 ", createdAt=" + createdAt +
                 '}';
     }

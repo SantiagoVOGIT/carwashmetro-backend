@@ -23,7 +23,7 @@ CREATE TABLE _vehicle (
 
 CREATE TABLE _cell (
                        id UUID PRIMARY KEY,
-                       space_number VARCHAR NOT NULL UNIQUE,
+                       space_number INTEGER NOT NULL UNIQUE,
                        vehicle_type VARCHAR NOT NULL,
                        status VARCHAR NOT NULL,
                        created_at TIMESTAMP NOT NULL

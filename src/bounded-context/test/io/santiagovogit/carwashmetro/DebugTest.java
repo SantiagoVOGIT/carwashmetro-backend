@@ -34,7 +34,7 @@ class DebugTest {
 
 
         Cell cell1 = CellFactory.createCell(
-                SpaceNumber.SPACE_ONE,
+                SpaceNumber.ONE,
                 VehicleType.CAR,
                 CellStatus.AVAILABLE
         );
