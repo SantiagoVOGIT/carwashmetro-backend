@@ -1,6 +1,9 @@
 package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.EnumUtils;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
 
 public enum CellStatus {
 
@@ -21,7 +24,12 @@ public enum CellStatus {
     }
 
     public static CellStatus fromValue(String value) {
-        return EnumUtils.fromValue(CellStatus.class, value, CellStatus::getValue);
+        validateNotEmpty(value, ErrorType.CELL_STATUS_NULL.getMessage());
+        return EnumUtils.fromValue(
+                CellStatus.class,
+                CellStatus::getValue,
+                value,
+                ErrorType.INVALID_CELL_STATUS.getMessage());
     }
 
 }

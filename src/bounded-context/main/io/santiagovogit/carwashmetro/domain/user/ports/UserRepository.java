@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface UserRepository {
 
-    void save(User employee);
+    void save(User user);
 
     User findById(UserId employeeId);
+
+    User findByEmail(String email);
 
     List<User> findAll();
 }

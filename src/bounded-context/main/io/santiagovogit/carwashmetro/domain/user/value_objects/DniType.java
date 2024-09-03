@@ -1,6 +1,9 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.EnumUtils;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
 
 public enum DniType {
 
@@ -20,7 +23,13 @@ public enum DniType {
     }
 
     public static DniType fromValue(String value) {
-        return EnumUtils.fromValue(DniType.class, value, DniType::getValue);
+        validateNotEmpty(value, ErrorType.DNI_TYPE_NULL.getMessage());
+        return EnumUtils.fromValue(
+                DniType.class,
+                DniType::getValue,
+                value,
+                ErrorType.INVALID_DNI_TYPE.getMessage()
+        );
     }
 
 }

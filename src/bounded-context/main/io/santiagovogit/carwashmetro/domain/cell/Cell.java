@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.domain.cell;
 
-import io.santiagovogit.carwashmetro.domain.VehicleType;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;

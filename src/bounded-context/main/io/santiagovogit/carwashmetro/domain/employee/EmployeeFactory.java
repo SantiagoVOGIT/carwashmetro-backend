@@ -4,7 +4,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
-import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
 import java.util.Date;
@@ -33,9 +33,9 @@ public class EmployeeFactory {
     }
 
     private static void validateEmployee(UserId userId, EmployeePosition employeePosition, EmployeeStatus employeeStatus) {
-        validateNotNull(userId, ErrorMessage.USER_ID_NULL.getMessage());
-        validateNotNull(employeePosition, ErrorMessage.EMPLOYEE_POSITION_NULL.getMessage());
-        validateNotNull(employeeStatus, ErrorMessage.EMPLOYEE_STATUS_NULL.getMessage());
+        validateNotNull(userId, ErrorType.USER_ID_NULL.getMessage());
+        validateNotNull(employeePosition, ErrorType.EMPLOYEE_POSITION_NULL.getMessage());
+        validateNotNull(employeeStatus, ErrorType.EMPLOYEE_STATUS_NULL.getMessage());
     }
     
 }

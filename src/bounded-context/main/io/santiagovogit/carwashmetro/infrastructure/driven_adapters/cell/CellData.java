@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.cell;
 
-import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.data.ReservationData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation.ReservationData;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -28,7 +28,7 @@ public class CellData {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @OneToMany(mappedBy = "cell")
+    @OneToMany(mappedBy = "cellData")
     private Set<ReservationData> reservationData = new LinkedHashSet<>();
 
     public Set<ReservationData> getReservations() {

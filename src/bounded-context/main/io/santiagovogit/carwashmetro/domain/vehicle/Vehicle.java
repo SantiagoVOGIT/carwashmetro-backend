@@ -1,8 +1,8 @@
 package io.santiagovogit.carwashmetro.domain.vehicle;
 
-import io.santiagovogit.carwashmetro.domain.VehicleType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.util.Date;
 

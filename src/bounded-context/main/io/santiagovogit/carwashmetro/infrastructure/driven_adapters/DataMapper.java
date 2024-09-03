@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.driven_adapters;
 
-import io.santiagovogit.carwashmetro.domain.VehicleType;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.domain.cell.Cell;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
@@ -11,7 +11,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.cell.CellData;
-import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.data.UserData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
 
 public class DataMapper {
 

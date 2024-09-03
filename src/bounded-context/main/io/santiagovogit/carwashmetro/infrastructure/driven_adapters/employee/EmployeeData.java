@@ -1,5 +1,6 @@
-package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.data;
+package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.employee;
 
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
 import jakarta.persistence.*;
 
 import java.util.Date;

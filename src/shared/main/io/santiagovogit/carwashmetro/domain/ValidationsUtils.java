@@ -1,10 +1,6 @@
 package io.santiagovogit.carwashmetro.domain;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
-
-import java.util.function.Predicate;
 
 public class ValidationsUtils {
 
@@ -22,21 +18,15 @@ public class ValidationsUtils {
         return obj == null;
     }
 
-    public static void validateNotNull(Object obj, String errorMessage) {
+    public static void validateNotNull(Object obj, String errorType) {
         if (isNull(obj)) {
-            throw new DomainException(
-                    ErrorType.VALIDATION_ERROR,
-                    errorMessage
-            );
+            throw new DomainException(errorType);
         }
     }
 
-    public static void validateNotEmpty(String str, String errorMessage){
+    public static void validateNotEmpty(String str, String errorType){
         if (isEmpty(str)){
-            throw new DomainException(
-                    ErrorType.VALIDATION_ERROR,
-                    errorMessage
-            );
+            throw new DomainException(errorType);
         }
     }
 

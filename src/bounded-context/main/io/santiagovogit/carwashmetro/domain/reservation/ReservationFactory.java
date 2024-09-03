@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.reservation;
 
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
-import io.santiagovogit.carwashmetro.domain.error.ErrorMessage;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationCode;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationStatus;
@@ -43,10 +43,10 @@ public class ReservationFactory {
                                             VehicleId vehicleId,
                                             ReservationStatus reservationStatus){
 
-        validateNotNull(userId, ErrorMessage.USER_ID_NULL.getMessage());
-        validateNotNull(cellId, ErrorMessage.CELL_ID_NULL.getMessage());
-        validateNotNull(vehicleId, ErrorMessage.VEHICLE_ID_NULL.getMessage());
-        validateNotNull(reservationStatus, ErrorMessage.RESERVATION_STATUS_NULL.getMessage());
+        validateNotNull(userId, ErrorType.USER_ID_NULL.getMessage());
+        validateNotNull(cellId, ErrorType.CELL_ID_NULL.getMessage());
+        validateNotNull(vehicleId, ErrorType.VEHICLE_ID_NULL.getMessage());
+        validateNotNull(reservationStatus, ErrorType.RESERVATION_STATUS_NULL.getMessage());
     }
 
 }

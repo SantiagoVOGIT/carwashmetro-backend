@@ -1,6 +1,9 @@
 package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.EnumUtils;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
 
 
 public enum SpaceNumber {
@@ -27,7 +30,13 @@ public enum SpaceNumber {
     }
 
     public static SpaceNumber fromValue(String value) {
-        return EnumUtils.fromValue(SpaceNumber.class, value, SpaceNumber::getValue);
+        validateNotEmpty(value, ErrorType.SPACE_NUMBER_NULL.getMessage());
+        return EnumUtils.fromValue(
+                SpaceNumber.class,
+                SpaceNumber::getValue,
+                value,
+                ErrorType.INVALID_SPACE_NUMBER.getMessage()
+        );
     }
 
 }

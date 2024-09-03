@@ -1,8 +1,10 @@
-package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.data;
+package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user;
 
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.employee.EmployeeData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation.ReservationData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.vehicle.VehicleData;
 import jakarta.persistence.*;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -43,13 +45,13 @@ public class UserData {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userData")
     private Set<EmployeeData> employeeData = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userData")
     private Set<ReservationData> reservationData = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userData")
     private Set<VehicleData> vehicleData = new LinkedHashSet<>();
 
     public Set<VehicleData> getVehicles() {
