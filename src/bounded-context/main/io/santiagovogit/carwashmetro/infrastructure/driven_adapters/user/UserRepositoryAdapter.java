@@ -25,10 +25,11 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public User findById(UserId employeeId) {
-        return null;
+    public User findById(UserId userId) {
+        Optional<UserData> userData = userJpaRepository.findById(userId.getIdentifier());
+        return userData.map(DataMapper::toDomain).orElse(null);
     }
-
+    
     @Override
     public User findByEmail(String email) {
         Optional<UserData> userData = userJpaRepository.findByEmail(email);
