@@ -4,7 +4,7 @@ import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation.
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,8 +17,8 @@ public class VehicleData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserData userData;
 
     @Column(name = "license_plate", nullable = false, length = 9)
@@ -31,24 +31,24 @@ public class VehicleData {
     private String vehicleType;
 
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "vehicleData")
-    private Set<ReservationData> reservationData = new LinkedHashSet<>();
+    private Set<ReservationData> reservations = new LinkedHashSet<>();
 
     public Set<ReservationData> getReservations() {
-        return reservationData;
+        return reservations;
     }
 
-    public void setReservations(Set<ReservationData> reservationData) {
-        this.reservationData = reservationData;
+    public void setReservations(Set<ReservationData> reservations) {
+        this.reservations = reservations;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -76,11 +76,11 @@ public class VehicleData {
         this.licensePlate = licensePlate;
     }
 
-    public UserData getUser() {
+    public UserData getUserData() {
         return userData;
     }
 
-    public void setUser(UserData userData) {
+    public void setUserData(UserData userData) {
         this.userData = userData;
     }
 

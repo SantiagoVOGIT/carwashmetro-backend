@@ -4,7 +4,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Vehicle {
 
@@ -18,15 +18,14 @@ public class Vehicle {
 
     private final VehicleType vehicleType;
 
-    private final Date createdAt;
-
+    private final LocalDateTime createdAt;
 
     public Vehicle(VehicleId id,
                    UserId userId,
                    String licensePlate,
                    String model,
                    VehicleType vehicleType,
-                   Date createdAt) {
+                   LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.licensePlate = licensePlate;
@@ -55,20 +54,8 @@ public class Vehicle {
         return vehicleType;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "vehicleId=" + id +
-                ", userId=" + userId +
-                ", licensePlate='" + licensePlate + '\'' +
-                ", model='" + model + '\'' +
-                ", vehicleType=" + vehicleType +
-                ", createdAt=" + createdAt +
-                '}';
     }
 
 }

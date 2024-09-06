@@ -1,13 +1,13 @@
 CREATE TABLE _user (
                        id UUID PRIMARY KEY,
-                       dni_number VARCHAR(10) NOT NULL UNIQUE,
-                       dni_type VARCHAR NOT NULL,
                        first_name VARCHAR(40) NOT NULL,
                        last_name VARCHAR(40) NOT NULL,
+                       dni_type VARCHAR NOT NULL,
+                       dni_number VARCHAR(10) NOT NULL,
                        phone_number VARCHAR(10),
                        email VARCHAR(254) NOT NULL UNIQUE,
-                       role VARCHAR NOT NULL,
                        status VARCHAR NOT NULL,
+                       role VARCHAR NOT NULL,
                        created_at TIMESTAMP NOT NULL
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE _vehicle (
 
 CREATE TABLE _cell (
                        id UUID PRIMARY KEY,
-                       space_number INTEGER NOT NULL UNIQUE,
+                       space_number VARCHAR NOT NULL UNIQUE,
                        vehicle_type VARCHAR NOT NULL,
                        status VARCHAR NOT NULL,
                        created_at TIMESTAMP NOT NULL
@@ -48,8 +48,8 @@ CREATE TABLE _employee (
                            id UUID PRIMARY KEY,
                            user_id UUID NOT NULL,
                            position VARCHAR NOT NULL,
-                           status VARCHAR NOT NULL,
                            salary INTEGER NOT NULL,
+                           status VARCHAR NOT NULL,
                            created_at TIMESTAMP NOT NULL,
                            FOREIGN KEY (user_id) REFERENCES _user(id)
 );

@@ -6,7 +6,6 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.DataMapper;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
 import java.util.Optional;
 

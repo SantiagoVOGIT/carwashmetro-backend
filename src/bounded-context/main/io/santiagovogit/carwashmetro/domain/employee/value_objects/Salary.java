@@ -1,10 +1,11 @@
 package io.santiagovogit.carwashmetro.domain.employee.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.StringDomainUtils;
+
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
+import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.isSalaryFormat;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 
 public class Salary {
 
@@ -18,7 +19,9 @@ public class Salary {
     }
 
     public static Salary of(Integer salary) {
-        validateNotNull(salary, ErrorType.SALARY_NULL.getMessage());
+        if (isNull(salary)){
+            return null;
+        }
         validateSalary(salary);
         return new Salary(salary);
     }
@@ -31,7 +34,7 @@ public class Salary {
         if (salary <= MIN_SALARY || salary > MAX_SALARY) {
             throw new DomainException(ErrorType.INVALID_SALARY_RANGE.getMessage());
         }
-        if (!StringDomainUtils.isSalaryFormat(String.valueOf(salary))) {
+        if (!isSalaryFormat(String.valueOf(salary))) {
             throw new DomainException(ErrorType.INVALID_SALARY_FORMAT.getMessage());
         }
     }

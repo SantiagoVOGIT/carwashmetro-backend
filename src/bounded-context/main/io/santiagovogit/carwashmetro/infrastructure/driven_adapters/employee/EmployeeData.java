@@ -3,7 +3,7 @@ package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.employee;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -14,36 +14,28 @@ public class EmployeeData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserData userData;
 
     @Column(name = "position", nullable = false, length = Integer.MAX_VALUE)
     private String position;
 
-    @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
-    private String status;
-
     @Column(name = "salary", nullable = false)
     private Integer salary;
 
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
+    private String status;
 
-    public Date getCreatedAt() {
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
     }
 
     public String getStatus() {
@@ -54,6 +46,14 @@ public class EmployeeData {
         this.status = status;
     }
 
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
     public String getPosition() {
         return position;
     }
@@ -62,20 +62,20 @@ public class EmployeeData {
         this.position = position;
     }
 
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
+    }
+
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UserData getUser() {
-        return userData;
-    }
-
-    public void setUser(UserData userData) {
-        this.userData = userData;
     }
 
 }

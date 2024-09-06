@@ -1,8 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters;
 
 import io.santiagovogit.carwashmetro.application.UserUseCase;
-
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
@@ -26,7 +24,6 @@ public class UserService {
 
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody CreateUserRequest request) {
-        try {
             User user = userUseCase.createUser(
                     request.getFirstName(),
                     request.getLastName(),
@@ -38,9 +35,6 @@ public class UserService {
                     UserStatus.fromValue(request.getStatus())
             );
             return new ResponseEntity<>(user, HttpStatus.CREATED);
-        } catch (DomainException exc) {
-            return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
 
     public static class CreateUserRequest {

@@ -14,6 +14,7 @@ public class DomainException extends RuntimeException {
         this.details = details != null ? details : "";
     }
 
+    @Override
     public String getMessage() {
         return errorType;
     }

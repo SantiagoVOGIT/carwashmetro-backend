@@ -7,10 +7,11 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.*;
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 
 public class UserFactory {
 
@@ -23,49 +24,70 @@ public class UserFactory {
                                   String phoneNumber,
                                   String email,
                                   UserRole role,
-                                  UserStatus status){
+                                  UserStatus status) {
 
-        validateUser(firstName, lastName, dniNumber, phoneNumber, email);
+        validateUser(firstName, lastName, dniNumber, dniType, phoneNumber, email, role, status);
 
         return new User(
                 new UserId(),
-                firstName.toUpperCase(),
-                lastName.toUpperCase(),
+                firstName,
+                lastName,
                 dniNumber,
                 dniType,
                 phoneNumber,
-                email.toLowerCase(),
+                email,
                 role,
                 status,
-                new Date()
+                LocalDateTime.now()
         );
     }
 
     private static void validateUser(String firstName,
-                                    String lastName,
-                                    String dniNumber,
-                                    String phoneNumber,
-                                    String email){
+                                     String lastName,
+                                     String dniNumber,
+                                     DniType dniType,
+                                     String phoneNumber,
+                                     String email,
+                                     UserRole role,
+                                     UserStatus status) {
 
-        validateNotEmpty(firstName, ErrorType.USER_FIRSTNAME_EMPTY.getMessage());
-        validateNotEmpty(lastName, ErrorType.USER_LASTNAME_EMPTY.getMessage());
-        validateNotEmpty(dniNumber, ErrorType.DNI_NUMBER_EMPTY.getMessage());
-        validateNotEmpty(phoneNumber, ErrorType.PHONE_NUMBER_EMPTY.getMessage());
-        validateNotEmpty(email, ErrorType.EMAIL_EMPTY.getMessage());
-
+        if (isNull(dniType)) {
+            throw new DomainException(ErrorType.DNI_TYPE_EMPTY.getMessage());
+        }
+        if (isNull(role)) {
+            throw new DomainException(ErrorType.USER_ROLE_EMPTY.getMessage());
+        }
+        if (isNull(status)) {
+            throw new DomainException(ErrorType.USER_STATUS_EMPTY.getMessage());
+        }
+        if (isEmpty(firstName)) {
+            throw new DomainException(ErrorType.USER_FIRSTNAME_EMPTY.getMessage());
+        }
         if (!isNameFormat(firstName)) {
             throw new DomainException(ErrorType.INVALID_NAME_FORMAT.getMessage());
+        }
+        if (isEmpty(lastName)) {
+            throw new DomainException(ErrorType.USER_LASTNAME_EMPTY.getMessage());
         }
         if (!isLastnameFormat(lastName)) {
             throw new DomainException(ErrorType.INVALID_NAME_FORMAT.getMessage());
         }
+        if (isEmpty(dniNumber)) {
+            throw new DomainException(ErrorType.DNI_NUMBER_EMPTY.getMessage());
+        }
         if (!isDniNumberFormat(dniNumber)) {
             throw new DomainException(ErrorType.INVALID_DNI_NUMBER_FORMAT.getMessage());
         }
-        if (!isPhoneNumberFormat(phoneNumber)){
+        if (isEmpty(phoneNumber)) {
+            throw new DomainException(ErrorType.PHONE_NUMBER_EMPTY.getMessage());
+        }
+        if (!isPhoneNumberFormat(phoneNumber)) {
             throw new DomainException(ErrorType.INVALID_PHONE_NUMBER_FORMAT.getMessage());
         }
-        if(!isEmailFormat(email)){
+        if (isEmpty(email)) {
+            throw new DomainException(ErrorType.EMAIL_EMPTY.getMessage());
+        }
+        if (!isEmailFormat(email)) {
             throw new DomainException(ErrorType.INVALID_EMAIL_FORMAT.getMessage());
         }
     }

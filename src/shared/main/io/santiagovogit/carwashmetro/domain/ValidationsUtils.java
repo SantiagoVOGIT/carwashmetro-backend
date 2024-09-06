@@ -1,7 +1,5 @@
 package io.santiagovogit.carwashmetro.domain;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-
 public class ValidationsUtils {
 
     private ValidationsUtils() {}
@@ -16,18 +14,6 @@ public class ValidationsUtils {
 
     public static boolean isNull(Object obj) {
         return obj == null;
-    }
-
-    public static void validateNotNull(Object obj, String errorType) {
-        if (isNull(obj)) {
-            throw new DomainException(errorType);
-        }
-    }
-
-    public static void validateNotEmpty(String str, String errorType){
-        if (isEmpty(str)){
-            throw new DomainException(errorType);
-        }
     }
 
 }

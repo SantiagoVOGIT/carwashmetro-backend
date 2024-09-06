@@ -1,9 +1,11 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.EnumUtils;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
+import java.util.Arrays;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum DniType {
 
@@ -23,13 +25,16 @@ public enum DniType {
     }
 
     public static DniType fromValue(String value) {
-        validateNotEmpty(value, ErrorType.DNI_TYPE_NULL.getMessage());
-        return EnumUtils.fromValue(
-                DniType.class,
-                DniType::getValue,
-                value,
-                ErrorType.INVALID_DNI_TYPE.getMessage()
-        );
+        if (isEmpty(value)) {
+            return null;
+        }
+        return Arrays.stream(DniType.values())
+                .filter(e -> e.getValue().equals(value))
+                .findFirst()
+                .orElseThrow(() -> new DomainException(
+                        ErrorType.INVALID_DNI_TYPE.getMessage(),
+                        String.format(value)
+                ));
     }
 
 }

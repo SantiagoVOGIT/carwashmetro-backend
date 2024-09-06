@@ -5,19 +5,19 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class User {
 
     private final UserId id;
 
-    private final String firstName;
-
-    private final String lastName;
-
     private final String dniNumber;
 
     private final DniType dniType;
+
+    private final String firstName;
+
+    private final String lastName;
 
     private final String phoneNumber;
 
@@ -27,8 +27,7 @@ public class User {
 
     private final UserStatus status;
 
-    private final Date createdAt;
-
+    private final LocalDateTime createdAt;
 
     public User(UserId id,
                 String firstName,
@@ -39,7 +38,7 @@ public class User {
                 String email,
                 UserRole role,
                 UserStatus status,
-                Date createdAt) {
+                LocalDateTime createdAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,24 +87,9 @@ public class User {
         return status;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dniNumber='" + dniNumber + '\'' +
-                ", dniType=" + dniType +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                '}';
-    }
-
 }
+

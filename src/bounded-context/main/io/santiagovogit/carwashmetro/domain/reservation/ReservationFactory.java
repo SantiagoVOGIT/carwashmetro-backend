@@ -1,6 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.reservation;
 
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationCode;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
@@ -8,20 +9,21 @@ import io.santiagovogit.carwashmetro.domain.reservation.value_objects.Reservatio
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 
 public class ReservationFactory {
 
-    private ReservationFactory(){}
+    private ReservationFactory() {}
 
     public static Reservation createReservartion(UserId userId,
                                                  CellId cellId,
                                                  VehicleId vehicleId,
                                                  ReservationStatus status,
-                                                 Date startTime,
-                                                 Date endTime){
+                                                 LocalDateTime startTime,
+                                                 LocalDateTime endTime) {
 
         validateReservation(userId, cellId, vehicleId, status);
 
@@ -34,19 +36,27 @@ public class ReservationFactory {
                 status,
                 startTime,
                 endTime,
-                new Date()
+                LocalDateTime.now()
         );
     }
 
     private static void validateReservation(UserId userId,
                                             CellId cellId,
                                             VehicleId vehicleId,
-                                            ReservationStatus reservationStatus){
+                                            ReservationStatus status) {
 
-        validateNotNull(userId, ErrorType.USER_ID_NULL.getMessage());
-        validateNotNull(cellId, ErrorType.CELL_ID_NULL.getMessage());
-        validateNotNull(vehicleId, ErrorType.VEHICLE_ID_NULL.getMessage());
-        validateNotNull(reservationStatus, ErrorType.RESERVATION_STATUS_NULL.getMessage());
+        if (isEmpty(userId.getValue())) {
+            throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
+        }
+        if (isEmpty(cellId.getValue())) {
+            throw new DomainException(ErrorType.CELL_ID_EMPTY.getMessage());
+        }
+        if (isEmpty(vehicleId.getValue())) {
+            throw new DomainException(ErrorType.VEHICLE_ID_EMPTY.getMessage());
+        }
+        if (isNull(status)) {
+            throw new DomainException(ErrorType.RESERVATION_STATUS_EMPTY.getMessage());
+        }
     }
 
 }

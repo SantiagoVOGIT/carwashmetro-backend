@@ -1,10 +1,11 @@
 package io.santiagovogit.carwashmetro.domain.vehicle.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.EnumUtils;
-import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
+import java.util.Arrays;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum VehicleType {
 
@@ -22,13 +23,16 @@ public enum VehicleType {
     }
 
     public static VehicleType fromValue(String value) {
-        validateNotNull(value, ErrorType.VEHICLE_TYPE_NULL.getMessage());
-        return EnumUtils.fromValue(
-                VehicleType.class,
-                VehicleType::getValue,
-                value,
-                ErrorType.INVALID_VEHICLE_TYPE.getMessage()
-        );
+        if (isEmpty(value)) {
+            return null;
+        }
+        return Arrays.stream(VehicleType.values())
+                .filter(e -> e.getValue().equals(value))
+                .findFirst()
+                .orElseThrow(() -> new DomainException(
+                        ErrorType.INVALID_VEHICLE_TYPE.getMessage(),
+                        String.format(value)
+                ));
     }
 
 }

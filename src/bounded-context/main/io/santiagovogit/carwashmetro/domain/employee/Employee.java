@@ -6,7 +6,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatu
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Employee {
 
@@ -16,23 +16,23 @@ public class Employee {
 
     private final EmployeePosition position;
 
-    private final EmployeeStatus status;
-
     private final Salary salary;
 
-    private final Date createdAt;
+    private final EmployeeStatus status;
+
+    private final LocalDateTime createdAt;
 
     public Employee(EmployeeId id,
                     UserId userId,
                     EmployeePosition position,
-                    EmployeeStatus status,
                     Salary salary,
-                    Date createdAt) {
+                    EmployeeStatus status,
+                    LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.position = position;
-        this.status = status;
         this.salary = salary;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -48,28 +48,16 @@ public class Employee {
         return position;
     }
 
-    public EmployeeStatus getStatus() {
-        return status;
-    }
-
     public Salary getSalary() {
         return salary;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public EmployeeStatus getStatus() {
+        return status;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "createdAt=" + createdAt +
-                ", salary=" + salary.getValue() +
-                ", status=" + status +
-                ", position=" + position +
-                ", userId=" + userId +
-                ", id=" + id +
-                '}';
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
 }

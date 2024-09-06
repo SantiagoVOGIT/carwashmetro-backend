@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.reservation.value_objects.Reservatio
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Reservation {
 
@@ -23,27 +23,27 @@ public class Reservation {
 
     private final ReservationStatus status;
 
-    private final Date startTime;
+    private final LocalDateTime startTime;
 
-    private final Date endTime;
+    private final LocalDateTime endTime;
 
-    private final Date createdAt;
+    private final LocalDateTime createdAt;
 
     public Reservation(ReservationId id,
                        UserId userId,
                        CellId cellId,
                        VehicleId vehicleId,
                        ReservationCode reservationCode,
-                       ReservationStatus reservationStatus,
-                       Date startTime,
-                       Date endTime,
-                       Date createdAt) {
+                       ReservationStatus status,
+                       LocalDateTime startTime,
+                       LocalDateTime endTime,
+                       LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.cellId = cellId;
         this.vehicleId = vehicleId;
         this.reservationCode = reservationCode;
-        this.status = reservationStatus;
+        this.status = status;
         this.startTime = startTime;
         this.endTime = endTime;
         this.createdAt = createdAt;
@@ -69,35 +69,20 @@ public class Reservation {
         return reservationCode;
     }
 
-    public ReservationStatus getReservationStatus() {
+    public ReservationStatus getStatus() {
         return status;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "createdAt=" + createdAt +
-                ", endTime=" + endTime +
-                ", startTime=" + startTime +
-                ", reservationStatus=" + status +
-                ", reservationCode=" + reservationCode +
-                ", vehicleId=" + vehicleId +
-                ", cellId=" + cellId +
-                ", userId=" + userId +
-                ", id=" + id +
-                '}';
     }
 
 }

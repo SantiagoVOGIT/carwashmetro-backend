@@ -1,9 +1,11 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.EnumUtils;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotEmpty;
+import java.util.Arrays;
+
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum UserStatus {
 
@@ -22,13 +24,16 @@ public enum UserStatus {
     }
 
     public static UserStatus fromValue(String value) {
-        validateNotEmpty(value, ErrorType.USER_STATUS_NULL.getMessage());
-        return EnumUtils.fromValue(
-                UserStatus.class,
-                UserStatus::getValue,
-                value,
-                ErrorType.INVALID_USER_ROLE.getMessage()
-        );
+        if (isEmpty(value)) {
+            return null;
+        }
+        return Arrays.stream(UserStatus.values())
+                .filter(e -> e.getValue().equals(value))
+                .findFirst()
+                .orElseThrow(() -> new DomainException(
+                        ErrorType.INVALID_USER_STATUS.getMessage(),
+                        String.format(value)
+                ));
     }
 
 }

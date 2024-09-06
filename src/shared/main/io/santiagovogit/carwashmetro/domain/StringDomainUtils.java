@@ -1,7 +1,5 @@
 package io.santiagovogit.carwashmetro.domain;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 public final class StringDomainUtils {

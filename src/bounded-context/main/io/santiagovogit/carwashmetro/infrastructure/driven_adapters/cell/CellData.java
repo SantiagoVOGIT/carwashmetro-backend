@@ -3,7 +3,7 @@ package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.cell;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation.ReservationData;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class CellData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "space_number", nullable = false)
+    @Column(name = "space_number", nullable = false, length = Integer.MAX_VALUE)
     private String spaceNumber;
 
     @Column(name = "vehicle_type", nullable = false, length = Integer.MAX_VALUE)
@@ -26,24 +26,24 @@ public class CellData {
     private String status;
 
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "cellData")
-    private Set<ReservationData> reservationData = new LinkedHashSet<>();
+    private Set<ReservationData> reservations = new LinkedHashSet<>();
 
     public Set<ReservationData> getReservations() {
-        return reservationData;
+        return reservations;
     }
 
-    public void setReservations(Set<ReservationData> reservationData) {
-        this.reservationData = reservationData;
+    public void setReservations(Set<ReservationData> reservations) {
+        this.reservations = reservations;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -1,14 +1,14 @@
 package io.santiagovogit.carwashmetro.domain;
 
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class Identifier {
+public abstract class Identifier implements Serializable {
 
     private final UUID value;
 
-    protected Identifier(String value) {
-        this.value = UUID.fromString(value);
+    protected Identifier(UUID value) {
+        this.value = value;
     }
 
     protected Identifier() {
@@ -28,17 +28,12 @@ public abstract class Identifier {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Identifier that = (Identifier) o;
-        return Objects.equals(value, that.value);
+        return value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
+        return value.hashCode();
     }
 
 }

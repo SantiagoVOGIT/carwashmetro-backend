@@ -4,38 +4,49 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.validateNotNull;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 
 public class EmployeeFactory {
 
     private EmployeeFactory() {}
 
     public static Employee createEmployee(UserId userId,
-                                          EmployeePosition employeePosition,
-                                          EmployeeStatus employeeStatus,
-                                          Salary salary) {
+                                          EmployeePosition position,
+                                          Salary salary,
+                                          EmployeeStatus status) {
 
-        validateEmployee(userId, employeePosition, employeeStatus);
+        validateEmployee(userId, position, salary, status);
 
         return new Employee(
                 new EmployeeId(),
                 userId,
-                employeePosition,
-                employeeStatus,
+                position,
                 salary,
-                new Date()
+                status,
+                LocalDateTime.now()
         );
     }
 
-    private static void validateEmployee(UserId userId, EmployeePosition employeePosition, EmployeeStatus employeeStatus) {
-        validateNotNull(userId, ErrorType.USER_ID_NULL.getMessage());
-        validateNotNull(employeePosition, ErrorType.EMPLOYEE_POSITION_NULL.getMessage());
-        validateNotNull(employeeStatus, ErrorType.EMPLOYEE_STATUS_NULL.getMessage());
+    private static void validateEmployee(UserId userId, EmployeePosition position, Salary salary, EmployeeStatus status) {
+        if (isEmpty(userId.getValue())) {
+            throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
+        }
+        if (isNull(salary)) {
+            throw new DomainException(ErrorType.SALARY_NULL.getMessage());
+        }
+        if (isNull(position)) {
+            throw new DomainException(ErrorType.EMPLOYEE_POSITION_EMPTY.getMessage());
+        }
+        if (isNull(status)) {
+            throw new DomainException(ErrorType.EMPLOYEE_STATUS_EMPTY.getMessage());
+        }
     }
     
 }

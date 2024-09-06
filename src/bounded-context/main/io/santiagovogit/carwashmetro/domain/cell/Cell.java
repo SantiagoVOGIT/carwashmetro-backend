@@ -1,11 +1,11 @@
 package io.santiagovogit.carwashmetro.domain.cell;
 
-import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Cell {
 
@@ -15,15 +15,15 @@ public class Cell {
 
     private final VehicleType vehicleType;
 
-    private final CellStatus cellStatus;
+    private final CellStatus status;
 
-    private final Date createdAt;
+    private final LocalDateTime createdAt;
 
-    public Cell(CellId id, SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus, Date createdAt) {
+    public Cell(CellId id, SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status, LocalDateTime createdAt) {
         this.id = id;
         this.spaceNumber = spaceNumber;
         this.vehicleType = vehicleType;
-        this.cellStatus = cellStatus;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -39,23 +39,12 @@ public class Cell {
         return vehicleType;
     }
 
-    public CellStatus getCellStatus() {
-        return cellStatus;
+    public CellStatus getStatus() {
+        return status;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Cell{" +
-                "id=" + id +
-                ", spaceNumber=" + spaceNumber.getValue() +
-                ", vehicleType=" + vehicleType.getValue() +
-                ", cellStatus=" + cellStatus.getValue() +
-                ", createdAt=" + createdAt +
-                '}';
     }
 
 }

@@ -1,11 +1,11 @@
 package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation;
 
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.cell.CellData;
-import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.vehicle.VehicleData;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.vehicle.VehicleData;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -16,13 +16,13 @@ public class ReservationData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cell_id")
-    private CellData cellData;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private UserData userData;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cell_id", nullable = false)
+    private CellData cellData;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vehicle_id", nullable = false)
@@ -35,52 +35,36 @@ public class ReservationData {
     private String status;
 
     @Column(name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "end_time")
-    private Date endTime;
+    private LocalDateTime endTime;
 
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    public UUID getId() {
-        return id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public CellData getCellData() {
-        return cellData;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    public void setCellData(CellData cellData) {
-        this.cellData = cellData;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
-    public UserData getUserData() {
-        return userData;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
-
-    public VehicleData getVehicleData() {
-        return vehicleData;
-    }
-
-    public void setVehicleData(VehicleData vehicleData) {
-        this.vehicleData = vehicleData;
-    }
-
-    public String getReservationCode() {
-        return reservationCode;
-    }
-
-    public void setReservationCode(String reservationCode) {
-        this.reservationCode = reservationCode;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
     public String getStatus() {
@@ -91,28 +75,44 @@ public class ReservationData {
         this.status = status;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getReservationCode() {
+        return reservationCode;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public VehicleData getVehicleData() {
+        return vehicleData;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setVehicleData(VehicleData vehicleData) {
+        this.vehicleData = vehicleData;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public CellData getCellData() {
+        return cellData;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCellData(CellData cellData) {
+        this.cellData = cellData;
+    }
+
+    public UserData getUser() {
+        return userData;
+    }
+
+    public void setUser(UserData user) {
+        this.userData = user;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }
