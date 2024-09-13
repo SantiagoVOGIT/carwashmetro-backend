@@ -78,7 +78,7 @@ public class DataMapper {
                 new EmployeeId(employeeData.getId()),
                 new UserId(employeeData.getUserData().getId()),
                 EmployeePosition.fromValue(employeeData.getPosition()),
-                Salary.of(employeeData.getSalary()),
+                new Salary(employeeData.getSalary()),
                 EmployeeStatus.fromValue(employeeData.getStatus()),
                 employeeData.getCreatedAt()
         );

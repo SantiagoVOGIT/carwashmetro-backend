@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.error;
+package io.santiagovogit.carwashmetro.infrastructure.error;
 
 
 import java.time.LocalDateTime;
@@ -60,7 +60,7 @@ public class ErrorResponse {
         private ErrorId errorId;
         private String error;
         private String message;
-        private String details = "";
+        private String details;
         private LocalDateTime timestamp;
         private int status;
 

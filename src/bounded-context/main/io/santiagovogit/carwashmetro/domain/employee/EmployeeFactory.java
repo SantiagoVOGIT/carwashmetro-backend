@@ -22,8 +22,7 @@ public class EmployeeFactory {
                                           Salary salary,
                                           EmployeeStatus status) {
 
-        validateEmployee(userId, position, salary, status);
-
+        validateEmployee(userId, position, status);
         return new Employee(
                 new EmployeeId(),
                 userId,
@@ -34,12 +33,9 @@ public class EmployeeFactory {
         );
     }
 
-    private static void validateEmployee(UserId userId, EmployeePosition position, Salary salary, EmployeeStatus status) {
+    private static void validateEmployee(UserId userId, EmployeePosition position, EmployeeStatus status) {
         if (isEmpty(userId.getValue())) {
             throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
-        }
-        if (isNull(salary)) {
-            throw new DomainException(ErrorType.SALARY_NULL.getMessage());
         }
         if (isNull(position)) {
             throw new DomainException(ErrorType.EMPLOYEE_POSITION_EMPTY.getMessage());

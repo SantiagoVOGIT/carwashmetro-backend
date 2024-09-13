@@ -1,6 +1,8 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.error;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.infrastructure.error.ErrorId;
+import io.santiagovogit.carwashmetro.infrastructure.error.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,14 +20,14 @@ public class ErrorHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         log.error("Unexpected exception occurred", ex);
-        String details = ex.getCause() != null ? ex.getCause().toString() : "No additional details";
+        String details = ex.getCause() != null ? ex.getCause().toString() : null;
         return createErrorResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR, details);
     }
 
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<ErrorResponse> handleDomainException(DomainException ex) {
         log.error("Domain exception occurred", ex);
-        String details = ex.getCause() != null ? ex.getDetails() : "No additional details";
+        String details = ex.getCause() != null ? ex.getDetails() : null;
         return createErrorResponse(ex, HttpStatus.BAD_REQUEST, details);
     }
 

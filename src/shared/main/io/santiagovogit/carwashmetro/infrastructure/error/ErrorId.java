@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.error;
+package io.santiagovogit.carwashmetro.infrastructure.error;
 
 import io.santiagovogit.carwashmetro.domain.Identifier;
 

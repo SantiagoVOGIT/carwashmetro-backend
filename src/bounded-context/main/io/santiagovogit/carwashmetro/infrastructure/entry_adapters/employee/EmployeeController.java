@@ -1,10 +1,12 @@
-package io.santiagovogit.carwashmetro.infrastructure.entry_adapters;
+package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee;
 
 import io.santiagovogit.carwashmetro.application.EmployeeUseCase;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
+import io.santiagovogit.carwashmetro.infrastructure.Response;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.CreateEmployeeDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,53 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/employees")
-public class EmployeeService {
+public class EmployeeController {
 
     private final EmployeeUseCase employeeUseCase;
 
-    public EmployeeService(EmployeeUseCase employeeUseCase) {
+    public EmployeeController(EmployeeUseCase employeeUseCase) {
         this.employeeUseCase = employeeUseCase;
     }
 
     @PostMapping
-    public ResponseEntity<String> createEmployee(@RequestBody CreateEmployeeRequest request){
+    public ResponseEntity<Response> createEmployee(@RequestBody CreateEmployeeDTO request) {
         employeeUseCase.createEmployee(
                 new UserId(request.getUserId()),
                 EmployeePosition.fromValue(request.getPosition()),
-                Salary.of(request.getSalary()),
+                new Salary(request.getSalary()),
                 EmployeeStatus.fromValue(request.getStatus())
         );
-        return new ResponseEntity<>("Empleado creado correctamente", HttpStatus.CREATED);
+        Response response = Response.builder()
+                .message("Empleado creado correctamente")
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-    public static class CreateEmployeeRequest {
-
-        private UUID userId;
-        private String position;
-        private int salary;
-        private String status;
-
-        public UUID getUserId() {
-            return userId;
-        }
-
-        public String getPosition() {
-            return position;
-        }
-
-        public int getSalary() {
-            return salary;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-    }
-
 
 }

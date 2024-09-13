@@ -1,10 +1,11 @@
-package io.santiagovogit.carwashmetro.infrastructure.entry_adapters;
+package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user;
 
 import io.santiagovogit.carwashmetro.application.UserUseCase;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user.dto.CreateUserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class UserService {
+public class UserController {
 
     private final UserUseCase userUseCase;
 
-    public UserService(UserUseCase userUseCase) {
+    public UserController(UserUseCase userUseCase) {
         this.userUseCase = userUseCase;
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<Object> createUser(@RequestBody CreateUserDTO request) {
             User user = userUseCase.createUser(
                     request.getFirstName(),
                     request.getLastName(),
@@ -35,51 +36,6 @@ public class UserService {
                     UserStatus.fromValue(request.getStatus())
             );
             return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }
-
-    public static class CreateUserRequest {
-
-        private String firstName;
-        private String lastName;
-        private String dniNumber;
-        private String dniType;
-        private String phoneNumber;
-        private String email;
-        private String role;
-        private String status;
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public String getDniNumber() {
-            return dniNumber;
-        }
-
-        public String getDniType() {
-            return dniType;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getRole() {
-            return role;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
     }
 
 }

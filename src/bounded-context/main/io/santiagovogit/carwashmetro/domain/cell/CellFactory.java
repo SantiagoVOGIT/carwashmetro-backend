@@ -28,9 +28,6 @@ public class CellFactory {
     }
 
     private static void validateCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status) {
-        if(isNull(spaceNumber)) {
-            throw new DomainException(ErrorType.SPACE_NUMBER_EMPTY.getMessage());
-        }
         if(isNull(vehicleType)) {
             throw new DomainException(ErrorType.VEHICLE_TYPE_EMPTY.getMessage());
         }

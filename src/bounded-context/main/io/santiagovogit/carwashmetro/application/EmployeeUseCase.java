@@ -7,27 +7,28 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosit
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.user.User;
-import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EmployeeUseCase {
 
     private final EmployeeRepository employeeRepository;
-    private final UserRepository userRepository;
 
-    public EmployeeUseCase(EmployeeRepository employeeRepository, UserRepository userRepository) {
+    public EmployeeUseCase(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.userRepository = userRepository;
     }
 
     public void createEmployee(UserId userId,
                                EmployeePosition position,
                                Salary salary,
                                EmployeeStatus status) {
+
         validateEmployeeDoesExist(userId);
+
         Employee employee = EmployeeFactory.createEmployee(
                 userId,
                 position,
@@ -37,10 +38,10 @@ public class EmployeeUseCase {
         employeeRepository.save(employee);
     }
 
-    private void validateEmployeeDoesExist(UserId userId){
-        User user = userRepository.findById(userId);
-        if (user != null){
-            throw new DomainException("Este usuario ya esta vinculado a otro empleado");
+    private void validateEmployeeDoesExist(UserId userId) {
+        Optional<Employee> employee = employeeRepository.findByUserId(userId);
+        if (employee.isPresent()) {
+            throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());
         }
     }
 

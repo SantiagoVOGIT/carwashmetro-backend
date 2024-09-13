@@ -3,10 +3,12 @@ package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.employee;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.ports.EmployeeRepository;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
+import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.DataMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EmployeeRepositoryAdapter implements EmployeeRepository {
@@ -29,8 +31,19 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
+    public Optional<Employee> findByUserId(UserId userId) {
+        Optional<EmployeeData> employeeData = employeeJpaRepository.findByUserDataId(userId.getIdentifier());
+        return employeeData.map(DataMapper::toDomain);
+    }
+
+    @Override
     public List<Employee> findAll() {
         return List.of();
+    }
+
+    @Override
+    public void update(Employee employee) {
+
     }
 
 }

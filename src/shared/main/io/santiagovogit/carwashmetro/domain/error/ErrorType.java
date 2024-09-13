@@ -43,7 +43,8 @@ public enum ErrorType {
     INVALID_EMPLOYEE_POSITION("Tipo de posición de empleado inválida"),
     INVALID_EMPLOYEE_STATUS("Tipo de estado de empleado inválido"),
     INVALID_RESERVATION_STATUS("Tipo de estado de reserva inválido"),
-    INVALID_USER_STATUS("Tipo de estado de usuario inválido");
+    INVALID_USER_STATUS("Tipo de estado de usuario inválido"),
+    EMPLOYEE_ALREADY_EXIST("Este usuario ya se encuentra asociado a otro empleado");
 
     private final String message;
 
