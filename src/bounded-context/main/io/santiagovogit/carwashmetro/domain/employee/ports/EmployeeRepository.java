@@ -8,15 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository {
-
     void save(Employee employee);
-
-    Employee findById(EmployeeId employeeId);
-
+    Optional<Employee> findById(EmployeeId employeeId);
     Optional<Employee> findByUserId(UserId userId);
-
     List<Employee> findAll();
-
-    void update(Employee employee);
-
 }

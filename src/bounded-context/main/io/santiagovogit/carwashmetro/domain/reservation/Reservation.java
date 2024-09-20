@@ -12,21 +12,13 @@ import java.time.LocalDateTime;
 public class Reservation {
 
     private final ReservationId id;
-
     private final UserId userId;
-
     private final CellId cellId;
-
     private final VehicleId vehicleId;
-
     private final ReservationCode reservationCode;
-
-    private final ReservationStatus status;
-
-    private final LocalDateTime startTime;
-
-    private final LocalDateTime endTime;
-
+    private ReservationStatus status;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private final LocalDateTime createdAt;
 
     public Reservation(ReservationId id,
@@ -38,15 +30,35 @@ public class Reservation {
                        LocalDateTime startTime,
                        LocalDateTime endTime,
                        LocalDateTime createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.cellId = cellId;
-        this.vehicleId = vehicleId;
+        this.id              = id;
+        this.userId          = userId;
+        this.cellId          = cellId;
+        this.vehicleId       = vehicleId;
         this.reservationCode = reservationCode;
-        this.status = status;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.createdAt = createdAt;
+        this.status          = status;
+        this.startTime       = startTime;
+        this.endTime         = endTime;
+        this.createdAt       = createdAt;
+    }
+
+    public void cancel(LocalDateTime cancellationTime) {
+        this.status = ReservationStatus.CANCELLED;
+        this.endTime = cancellationTime;
+    }
+
+    public void reject(LocalDateTime rejectionTime) {
+        this.status = ReservationStatus.REJECTED;
+        this.endTime = rejectionTime;
+    }
+
+    public void complete(LocalDateTime completionTime) {
+        this.status = ReservationStatus.COMPLETED;
+        this.endTime = completionTime;
+    }
+
+    public void confirm(LocalDateTime confirmationTime) {
+        this.status = ReservationStatus.CONFIRMED;
+        this.startTime = confirmationTime;
     }
 
     public ReservationId getId() {

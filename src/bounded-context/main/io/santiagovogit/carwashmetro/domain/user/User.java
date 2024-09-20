@@ -10,45 +10,36 @@ import java.time.LocalDateTime;
 public class User {
 
     private final UserId id;
-
     private final String dniNumber;
-
     private final DniType dniType;
-
     private final String firstName;
-
     private final String lastName;
-
     private final String phoneNumber;
-
     private final String email;
-
     private final UserRole role;
-
     private final UserStatus status;
-
     private final LocalDateTime createdAt;
 
     public User(UserId id,
-                String firstName,
-                String lastName,
                 String dniNumber,
                 DniType dniType,
+                String firstName,
+                String lastName,
                 String phoneNumber,
                 String email,
                 UserRole role,
                 UserStatus status,
                 LocalDateTime createdAt) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dniNumber = dniNumber;
-        this.dniType = dniType;
+        this.id          = id;
+        this.dniNumber   = dniNumber;
+        this.dniType     = dniType;
+        this.firstName   = firstName;
+        this.lastName    = lastName;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.role = role;
-        this.status = status;
-        this.createdAt = createdAt;
+        this.email       = email;
+        this.role        = role;
+        this.status      = status;
+        this.createdAt   = createdAt;
     }
 
     public UserId getId() {

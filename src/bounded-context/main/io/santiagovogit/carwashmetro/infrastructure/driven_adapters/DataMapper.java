@@ -47,9 +47,9 @@ public class DataMapper {
         return new User(
                 new UserId(userData.getId()),
                 userData.getFirstName(),
-                userData.getLastName(),
-                userData.getDniNumber(),
                 DniType.fromValue(userData.getDniType()),
+                userData.getDniNumber(),
+                userData.getLastName(),
                 userData.getPhoneNumber(),
                 userData.getEmail(),
                 UserRole.fromValue(userData.getRole()),

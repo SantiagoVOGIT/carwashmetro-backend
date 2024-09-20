@@ -1,5 +1,8 @@
 package io.santiagovogit.carwashmetro.domain.vehicle;
 
+import io.santiagovogit.carwashmetro.domain.cell.Cell;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
@@ -9,15 +12,10 @@ import java.time.LocalDateTime;
 public class Vehicle {
 
     private final VehicleId id;
-
     private final UserId userId;
-
     private final String licensePlate;
-
     private final String model;
-
     private final VehicleType vehicleType;
-
     private final LocalDateTime createdAt;
 
     public Vehicle(VehicleId id,
@@ -26,12 +24,18 @@ public class Vehicle {
                    String model,
                    VehicleType vehicleType,
                    LocalDateTime createdAt) {
-        this.id = id;
-        this.userId = userId;
+        this.id           = id;
+        this.userId       = userId;
         this.licensePlate = licensePlate;
-        this.model = model;
-        this.vehicleType = vehicleType;
-        this.createdAt = createdAt;
+        this.model        = model;
+        this.vehicleType  = vehicleType;
+        this.createdAt    = createdAt;
+    }
+
+    public void validateCompatibilityWith(Cell cell) {
+        if (this.vehicleType != cell.getVehicleType()) {
+            throw new DomainException(ErrorType.VEHICLE_INCOMPATIBLE_WITH_CELL.getMessage());
+        }
     }
 
     public VehicleId getId() {

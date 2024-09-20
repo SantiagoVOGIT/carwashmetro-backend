@@ -44,7 +44,18 @@ public enum ErrorType {
     INVALID_EMPLOYEE_STATUS("Tipo de estado de empleado inválido"),
     INVALID_RESERVATION_STATUS("Tipo de estado de reserva inválido"),
     INVALID_USER_STATUS("Tipo de estado de usuario inválido"),
-    EMPLOYEE_ALREADY_EXIST("Este usuario ya se encuentra asociado a otro empleado");
+    EMPLOYEE_ALREADY_EXIST("Este usuario ya se encuentra asociado a otro empleado"),
+    CELL_NOT_AVAILABLE("Esta ce"),
+    VEHICLE_INCOMPATIBLE_WITH_CELL(""),
+    RESERVATION_NOT_FOUND(""),
+    RESERVATIONS_NOT_FOUND(""),
+    VEHICLE_NOT_FOUND(""),
+    CELL_NOT_FOUND(""),
+    INVALID_RESERVATION_STATUS_CHANGE(""),
+    VEHICLES_NOT_FOUND(""),
+    USER_NOT_FOUND(""), CELLS_NOT_FOUND(""),
+    EMPLOYEE_NOT_FOUND(""), EMPLOYEES_NOT_FOUND(""), USERS_NOT_FOUND("");
+
 
     private final String message;
 

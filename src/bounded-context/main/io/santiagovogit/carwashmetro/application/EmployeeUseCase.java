@@ -3,6 +3,7 @@ package io.santiagovogit.carwashmetro.application;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.EmployeeFactory;
 import io.santiagovogit.carwashmetro.domain.employee.ports.EmployeeRepository;
+import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
@@ -11,6 +12,7 @@ import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +45,24 @@ public class EmployeeUseCase {
         if (employee.isPresent()) {
             throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());
         }
+    }
+
+    public Employee getEmployeeById(EmployeeId employeeId){
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new DomainException(ErrorType.EMPLOYEE_NOT_FOUND.getMessage()));
+    }
+
+    public Employee getEmployeeByUserId(UserId userId){
+        return employeeRepository.findByUserId(userId)
+                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
+    }
+
+    public List<Employee> getAllEmployees(){
+        List<Employee> employees = employeeRepository.findAll();
+        if (employees.isEmpty()) {
+            throw new DomainException(ErrorType.EMPLOYEES_NOT_FOUND.getMessage());
+        }
+        return employees;
     }
 
 }

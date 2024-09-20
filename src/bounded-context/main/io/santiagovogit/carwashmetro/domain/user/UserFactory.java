@@ -31,9 +31,9 @@ public class UserFactory {
         return new User(
                 new UserId(),
                 firstName,
-                lastName,
-                dniNumber,
                 dniType,
+                dniNumber,
+                lastName,
                 phoneNumber,
                 email,
                 role,

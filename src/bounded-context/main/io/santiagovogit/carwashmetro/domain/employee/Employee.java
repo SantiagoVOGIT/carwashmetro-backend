@@ -11,28 +11,18 @@ import java.time.LocalDateTime;
 public class Employee {
 
     private final EmployeeId id;
-
     private final UserId userId;
-
     private final EmployeePosition position;
-
     private final Salary salary;
-
     private final EmployeeStatus status;
-
     private final LocalDateTime createdAt;
 
-    public Employee(EmployeeId id,
-                    UserId userId,
-                    EmployeePosition position,
-                    Salary salary,
-                    EmployeeStatus status,
-                    LocalDateTime createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.position = position;
-        this.salary = salary;
-        this.status = status;
+    public Employee(EmployeeId id, UserId userId, EmployeePosition position, Salary salary, EmployeeStatus status, LocalDateTime createdAt) {
+        this.id        = id;
+        this.userId    = userId;
+        this.position  = position;
+        this.salary    = salary;
+        this.status    = status;
         this.createdAt = createdAt;
     }
 
