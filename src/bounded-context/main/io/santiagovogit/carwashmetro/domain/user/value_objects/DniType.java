@@ -3,8 +3,6 @@ package io.santiagovogit.carwashmetro.domain.user.value_objects;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import java.util.Arrays;
-
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum DniType {
@@ -28,13 +26,17 @@ public enum DniType {
         if (isEmpty(value)) {
             return null;
         }
-        return Arrays.stream(DniType.values())
-                .filter(e -> e.getValue().equals(value))
-                .findFirst()
-                .orElseThrow(() -> new DomainException(
-                        ErrorType.INVALID_DNI_TYPE.getMessage(),
-                        String.format(value)
-                ));
+
+        for (DniType status : DniType.values()) {
+            if (status.getValue().equals(value)) {
+                return status;
+            }
+        }
+
+        throw new DomainException(
+                ErrorType.INVALID_DNI_TYPE.getMessage(),
+                String.format(value)
+        );
     }
 
 }

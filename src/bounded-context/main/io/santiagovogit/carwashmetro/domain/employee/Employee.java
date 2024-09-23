@@ -17,7 +17,12 @@ public class Employee {
     private final EmployeeStatus status;
     private final LocalDateTime createdAt;
 
-    public Employee(EmployeeId id, UserId userId, EmployeePosition position, Salary salary, EmployeeStatus status, LocalDateTime createdAt) {
+    public Employee(EmployeeId id,
+                    UserId userId,
+                    EmployeePosition position,
+                    Salary salary,
+                    EmployeeStatus status,
+                    LocalDateTime createdAt) {
         this.id        = id;
         this.userId    = userId;
         this.position  = position;

@@ -32,7 +32,7 @@ public class UserUseCase {
                            UserRole role,
                            UserStatus status){
 
-        validateUserDoesNotExist(email);
+        validateUniqueUser(email);
         User user = UserFactory.createUser(
                 firstName,
                 lastName,
@@ -60,7 +60,7 @@ public class UserUseCase {
                 .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
     }
 
-    public void validateUserDoesNotExist(String email){
+    public void validateUniqueUser(String email){
         Optional<User> isExistingUser = userRepository.findByEmail(email);
         if (isExistingUser.isPresent()) {
             throw new DomainException(ErrorType.EMAIL_ALREADY_EXISTS.getMessage());

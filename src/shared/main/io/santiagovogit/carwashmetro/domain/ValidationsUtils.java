@@ -8,6 +8,13 @@ public class ValidationsUtils {
         return str == null || str.trim().isEmpty();
     }
 
+    public static String emptyToNull(String value) {
+        if (isEmpty(value)) {
+            return null;
+        }
+        return value;
+    }
+
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }

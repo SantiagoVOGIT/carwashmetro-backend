@@ -3,8 +3,6 @@ package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import java.util.Arrays;
-
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum CellStatus {
@@ -29,13 +27,17 @@ public enum CellStatus {
         if (isEmpty(value)) {
             return null;
         }
-        return Arrays.stream(CellStatus.values())
-                .filter(e -> e.getValue().equals(value))
-                .findFirst()
-                .orElseThrow(() -> new DomainException(
-                        ErrorType.INVALID_CELL_STATUS.getMessage(),
-                        String.format(value)
-                ));
+
+        for (CellStatus status : CellStatus.values()) {
+            if (status.getValue().equals(value)) {
+                return status;
+            }
+        }
+
+        throw new DomainException(
+                ErrorType.INVALID_CELL_STATUS.getMessage(),
+                String.format(value)
+        );
     }
 
 }

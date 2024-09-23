@@ -1,8 +1,5 @@
 package io.santiagovogit.carwashmetro.domain.vehicle;
 
-import io.santiagovogit.carwashmetro.domain.cell.Cell;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
@@ -30,12 +27,6 @@ public class Vehicle {
         this.model        = model;
         this.vehicleType  = vehicleType;
         this.createdAt    = createdAt;
-    }
-
-    public void validateCompatibilityWith(Cell cell) {
-        if (this.vehicleType != cell.getVehicleType()) {
-            throw new DomainException(ErrorType.VEHICLE_INCOMPATIBLE_WITH_CELL.getMessage());
-        }
     }
 
     public VehicleId getId() {

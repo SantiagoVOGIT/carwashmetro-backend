@@ -24,20 +24,13 @@ public class CellUseCase {
     }
 
     public void createCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus){
-        validateCellDoesNotExist(spaceNumber);
+        validateUniqueCell(spaceNumber);
         Cell cell = CellFactory.createCell(
                 spaceNumber,
                 vehicleType,
                 cellStatus
         );
         cellRepository.save(cell);
-    }
-
-    protected void validateCellDoesNotExist(SpaceNumber spaceNumber){
-        Optional<Cell> cell = cellRepository.findBySpaceNumber(spaceNumber);
-        if (cell.isPresent()) {
-            throw new DomainException(ErrorType.CELL_ALREADY_EXIST.getMessage());
-        }
     }
 
     public List<Cell> getAllCells(){
@@ -51,6 +44,13 @@ public class CellUseCase {
     public Cell getCellById(CellId cellId){
         return cellRepository.findById(cellId)
                 .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
+    }
+
+    private void validateUniqueCell(SpaceNumber spaceNumber){
+        Optional<Cell> cell = cellRepository.findBySpaceNumber(spaceNumber);
+        if (cell.isPresent()) {
+            throw new DomainException(ErrorType.CELL_ALREADY_EXIST.getMessage());
+        }
     }
 
 }

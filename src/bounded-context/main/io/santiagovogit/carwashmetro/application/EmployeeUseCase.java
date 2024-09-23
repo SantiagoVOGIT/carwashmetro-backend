@@ -29,8 +29,7 @@ public class EmployeeUseCase {
                                Salary salary,
                                EmployeeStatus status) {
 
-        validateEmployeeDoesExist(userId);
-
+        validateUniqueEmployee(userId);
         Employee employee = EmployeeFactory.createEmployee(
                 userId,
                 position,
@@ -40,7 +39,7 @@ public class EmployeeUseCase {
         employeeRepository.save(employee);
     }
 
-    private void validateEmployeeDoesExist(UserId userId) {
+    private void validateUniqueEmployee(UserId userId) {
         Optional<Employee> employee = employeeRepository.findByUserId(userId);
         if (employee.isPresent()) {
             throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());

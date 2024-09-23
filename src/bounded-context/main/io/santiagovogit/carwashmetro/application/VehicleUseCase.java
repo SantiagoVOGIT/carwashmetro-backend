@@ -10,6 +10,7 @@ import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.util.List;
+import java.util.Optional;
 
 public class VehicleUseCase {
 
@@ -20,6 +21,7 @@ public class VehicleUseCase {
     }
 
     public void createVehicle(UserId userId, String licensePlate, String model, VehicleType vehicleType){
+        validateUniqueVehicle(licensePlate);
         Vehicle vehicle = VehicleFactory.createVehicle(userId, licensePlate, model, vehicleType);
         vehicleRepository.save(vehicle);
     }
@@ -40,6 +42,13 @@ public class VehicleUseCase {
             throw new DomainException(ErrorType.VEHICLES_NOT_FOUND.getMessage());
         }
         return vehicles;
+    }
+
+    public void validateUniqueVehicle(String licensePlate){
+        Optional<Vehicle> vehicle = vehicleRepository.findByLicensePlate(licensePlate);
+        if (vehicle.isPresent()) {
+            throw new DomainException(ErrorType.VEHICLE_ALREADY_EXISTS.getMessage());
+        }
     }
 
 }

@@ -3,8 +3,6 @@ package io.santiagovogit.carwashmetro.domain.vehicle.value_objects;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 
-import java.util.Arrays;
-
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
 public enum VehicleType {
@@ -26,13 +24,17 @@ public enum VehicleType {
         if (isEmpty(value)) {
             return null;
         }
-        return Arrays.stream(VehicleType.values())
-                .filter(e -> e.getValue().equals(value))
-                .findFirst()
-                .orElseThrow(() -> new DomainException(
-                        ErrorType.INVALID_VEHICLE_TYPE.getMessage(),
-                        String.format(value)
-                ));
+
+        for (VehicleType status : VehicleType.values()) {
+            if (status.getValue().equals(value)) {
+                return status;
+            }
+        }
+
+        throw new DomainException(
+                ErrorType.INVALID_USER_STATUS.getMessage(),
+                String.format(value)
+        );
     }
 
 }
