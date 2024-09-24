@@ -4,7 +4,6 @@ import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.ports.EmployeeRepository;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
-import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.DataMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,29 +20,22 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
 
     @Override
     public void save(Employee employee) {
-        EmployeeData employeeData = DataMapper.toData(employee);
-        employeeJpaRepository.save(employeeData);
+
     }
 
     @Override
-    public Employee findById(EmployeeId employeeId) {
-        return null;
+    public Optional<Employee> findById(EmployeeId employeeId) {
+        return Optional.empty();
     }
 
     @Override
     public Optional<Employee> findByUserId(UserId userId) {
-        Optional<EmployeeData> employeeData = employeeJpaRepository.findByUserDataId(userId.getIdentifier());
-        return employeeData.map(DataMapper::toDomain);
+        return Optional.empty();
     }
 
     @Override
     public List<Employee> findAll() {
         return List.of();
-    }
-
-    @Override
-    public void update(Employee employee) {
-
     }
 
 }

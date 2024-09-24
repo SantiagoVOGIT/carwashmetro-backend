@@ -3,7 +3,6 @@ package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
-import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.DataMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,20 +19,17 @@ public class UserRepositoryAdapter implements UserRepository {
 
     @Override
     public void save(User user) {
-        UserData userData = DataMapper.toData(user);
-        userJpaRepository.save(userData);
+
     }
 
     @Override
-    public User findById(UserId userId) {
-        Optional<UserData> userData = userJpaRepository.findById(userId.getIdentifier());
-        return userData.map(DataMapper::toDomain).orElse(null);
+    public Optional<User> findById(UserId employeeId) {
+        return Optional.empty();
     }
-    
+
     @Override
-    public User findByEmail(String email) {
-        Optional<UserData> userData = userJpaRepository.findByEmail(email);
-        return userData.map(DataMapper::toDomain).orElse(null);
+    public Optional<User> findByEmail(String email) {
+        return Optional.empty();
     }
 
     @Override

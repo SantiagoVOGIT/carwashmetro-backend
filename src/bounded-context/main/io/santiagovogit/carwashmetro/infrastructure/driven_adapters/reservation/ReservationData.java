@@ -43,52 +43,20 @@ public class ReservationData {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public UUID getId() {
+        return id;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public UserData getUserData() {
+        return userData;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getReservationCode() {
-        return reservationCode;
-    }
-
-    public void setReservationCode(String reservationCode) {
-        this.reservationCode = reservationCode;
-    }
-
-    public VehicleData getVehicleData() {
-        return vehicleData;
-    }
-
-    public void setVehicleData(VehicleData vehicleData) {
-        this.vehicleData = vehicleData;
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
     public CellData getCellData() {
@@ -99,20 +67,52 @@ public class ReservationData {
         this.cellData = cellData;
     }
 
-    public UserData getUser() {
-        return userData;
+    public VehicleData getVehicleData() {
+        return vehicleData;
     }
 
-    public void setUser(UserData user) {
-        this.userData = user;
+    public void setVehicleData(VehicleData vehicleData) {
+        this.vehicleData = vehicleData;
     }
 
-    public UUID getId() {
-        return id;
+    public String getReservationCode() {
+        return reservationCode;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

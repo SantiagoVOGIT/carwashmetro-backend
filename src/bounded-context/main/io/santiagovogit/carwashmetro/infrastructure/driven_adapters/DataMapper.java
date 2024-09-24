@@ -9,15 +9,23 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
+import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationCode;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationStatus;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
+import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.cell.CellData;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.employee.EmployeeData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.reservation.ReservationData;
 import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.user.UserData;
+import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.vehicle.VehicleData;
 
 public class DataMapper {
 
@@ -41,6 +49,69 @@ public class DataMapper {
         cellData.setStatus(cell.getStatus().getValue());
         cellData.setCreatedAt(cell.getCreatedAt());
         return cellData;
+    }
+
+    public static Employee toDomain(EmployeeData employeeData) {
+        return new Employee(
+                new EmployeeId(employeeData.getId()),
+                new UserId(employeeData.getUserData().getId()),
+                EmployeePosition.fromValue(employeeData.getPosition()),
+                new Salary(employeeData.getSalary()),
+                EmployeeStatus.fromValue(employeeData.getStatus()),
+                employeeData.getCreatedAt()
+        );
+    }
+
+    public static EmployeeData toData(Employee employee) {
+        EmployeeData employeeData = new EmployeeData();
+        UserData userData = new UserData();
+        employeeData.setId(employee.getId().getIdentifier());
+        userData.setId(employee.getUserId().getIdentifier());
+        employeeData.setUserData(userData);
+        employeeData.setPosition(employee.getPosition().getValue());
+        employeeData.setSalary(employee.getSalary().getValue());
+        employeeData.setStatus(employee.getStatus().getValue());
+        employeeData.setCreatedAt(employee.getCreatedAt());
+        return employeeData;
+    }
+
+    public static Reservation toDomain(ReservationData reservationData){
+        return new Reservation(
+                new ReservationId(reservationData.getId()),
+                new UserId(reservationData.getUserData().getId()),
+                new CellId(reservationData.getCellData().getId()),
+                new VehicleId(reservationData.getVehicleData().getId()),
+                new ReservationCode(reservationData.getReservationCode()),
+                ReservationStatus.fromValue(reservationData.getStatus()),
+                reservationData.getStartTime(),
+                reservationData.getEndTime(),
+                reservationData.getCreatedAt()
+        );
+    }
+
+    public static ReservationData toData(Reservation reservation) {
+        ReservationData reservationData = new ReservationData();
+        reservationData.setId(reservation.getId().getIdentifier());
+
+        UserData userData = new UserData();
+        userData.setId(reservation.getUserId().getIdentifier());
+        reservationData.setUserData(userData);
+
+        CellData cellData = new CellData();
+        cellData.setId(reservation.getCellId().getIdentifier());
+        reservationData.setCellData(cellData);
+
+        VehicleData vehicleData = new VehicleData();
+        vehicleData.setId(reservation.getVehicleId().getIdentifier());
+        reservationData.setVehicleData(vehicleData);
+
+        reservationData.setReservationCode(reservation.getReservationCode().getValue());
+        reservationData.setStatus(reservation.getStatus().getValue());
+        reservationData.setStartTime(reservation.getStartTime());
+        reservationData.setEndTime(reservation.getEndTime());
+        reservationData.setCreatedAt(reservation.getCreatedAt());
+
+        return reservationData;
     }
 
     public static User toDomain(UserData userData) {
@@ -73,33 +144,31 @@ public class DataMapper {
         return userData;
     }
 
-    public static Employee toDomain(EmployeeData employeeData) {
-        return new Employee(
-                new EmployeeId(employeeData.getId()),
-                new UserId(employeeData.getUserData().getId()),
-                EmployeePosition.fromValue(employeeData.getPosition()),
-                new Salary(employeeData.getSalary()),
-                EmployeeStatus.fromValue(employeeData.getStatus()),
-                employeeData.getCreatedAt()
+    public static Vehicle toDomain(VehicleData vehicleData) {
+        return new Vehicle(
+                new VehicleId(vehicleData.getId()),
+                new UserId(vehicleData.getUserData().getId()),
+                vehicleData.getLicensePlate(),
+                vehicleData.getModel(),
+                VehicleType.fromValue(vehicleData.getVehicleType()),
+                vehicleData.getCreatedAt()
         );
     }
 
-    public static EmployeeData toData(Employee employee) {
-        EmployeeData employeeData = new EmployeeData();
+    public static VehicleData toData(Vehicle vehicle) {
+        VehicleData vehicleData = new VehicleData();
+        vehicleData.setId(vehicle.getId().getIdentifier());
+
         UserData userData = new UserData();
-        employeeData.setId(employee.getId().getIdentifier());
-        userData.setId(employee.getUserId().getIdentifier());
-        employeeData.setUserData(userData);
-        employeeData.setPosition(employee.getPosition().getValue());
-        employeeData.setSalary(employee.getSalary().getValue());
-        employeeData.setStatus(employee.getStatus().getValue());
-        employeeData.setCreatedAt(employee.getCreatedAt());
-        return employeeData;
+        userData.setId(vehicle.getUserId().getIdentifier());
+        vehicleData.setUserData(userData);
+
+        vehicleData.setLicensePlate(vehicle.getLicensePlate());
+        vehicleData.setModel(vehicle.getModel());
+        vehicleData.setVehicleType(vehicle.getVehicleType().getValue());
+        vehicleData.setCreatedAt(vehicle.getCreatedAt());
+
+        return vehicleData;
     }
-
-
-
-
-
 
 }
