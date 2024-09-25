@@ -11,7 +11,7 @@ public class ReservationCode extends Identifier {
 
     public ReservationCode() {
         super();
-        this.value = generateReservationCode();
+        this.value = generateCode();
     }
 
     public ReservationCode(String value) {
@@ -19,8 +19,11 @@ public class ReservationCode extends Identifier {
         this.value = value;
     }
 
-    private static String generateReservationCode() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, 10).toUpperCase();
+    private static String generateCode() {
+        return UUID.randomUUID().toString()
+                .replace("-", "")
+                .substring(0, 10)
+                .toUpperCase();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.vehicle.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -30,11 +30,7 @@ public enum VehicleType {
                 return status;
             }
         }
-
-        throw new DomainException(
-                ErrorType.INVALID_USER_STATUS.getMessage(),
-                String.format(value)
-        );
+        throw new DomainException(ErrorType.INVALID_VEHICLE_TYPE.getMessage());
     }
 
 }

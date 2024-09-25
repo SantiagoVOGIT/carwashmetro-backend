@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.infrastructure.driven_adapters;
+package io.santiagovogit.carwashmetro.infrastructure.driven_adapters.common;
 
 import io.santiagovogit.carwashmetro.domain.cell.Cell;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;

@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
@@ -9,7 +9,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
 import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.*;
+import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.*;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 
@@ -30,9 +30,9 @@ public class UserFactory {
 
         return new User(
                 new UserId(),
-                firstName,
-                dniType,
                 dniNumber,
+                dniType,
+                firstName,
                 lastName,
                 phoneNumber,
                 email,

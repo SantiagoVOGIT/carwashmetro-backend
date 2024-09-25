@@ -1,15 +1,15 @@
 package io.santiagovogit.carwashmetro.domain.vehicle;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.isLicensePlateFormat;
-import static io.santiagovogit.carwashmetro.domain.StringDomainUtils.isModelFormat;
+import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.isLicensePlateFormat;
+import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.isModelFormat;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 

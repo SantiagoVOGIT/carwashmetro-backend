@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +24,18 @@ public class CellUseCase {
     }
 
     public void createCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus){
-        validateUniqueCell(spaceNumber);
         Cell cell = CellFactory.createCell(
                 spaceNumber,
                 vehicleType,
                 cellStatus
         );
+        validateUniqueCell(spaceNumber);
         cellRepository.save(cell);
+    }
+
+    public Cell getCellById(CellId cellId){
+        return cellRepository.findById(cellId)
+                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
     }
 
     public List<Cell> getAllCells(){
@@ -39,11 +44,6 @@ public class CellUseCase {
             throw new DomainException(ErrorType.CELLS_NOT_FOUND.getMessage());
         }
         return cells;
-    }
-
-    public Cell getCellById(CellId cellId){
-        return cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
     }
 
     private void validateUniqueCell(SpaceNumber spaceNumber){

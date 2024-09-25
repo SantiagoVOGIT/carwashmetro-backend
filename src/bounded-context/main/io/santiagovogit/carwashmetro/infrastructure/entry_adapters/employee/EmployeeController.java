@@ -1,22 +1,25 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee;
 
 import io.santiagovogit.carwashmetro.application.EmployeeUseCase;
+import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.employee.Employee;
+import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.ResponseMapper;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.CreateEmployeeDTO;
-import org.springframework.http.HttpStatus;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/v1/employees")
 public class EmployeeController {
 
     private final EmployeeUseCase employeeUseCase;
@@ -33,10 +36,31 @@ public class EmployeeController {
                 new Salary(request.getSalary()),
                 EmployeeStatus.fromValue(request.getStatus())
         );
-        Response response = Response.builder()
-                .message("Empleado creado correctamente")
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        Response response = ResponseMapper.toResponse(InfoType.SUCCESS_CREATED_EMPLOYEE.getMessage());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<EmployeeDTO> getEmployeeByid(@PathVariable UUID employeeId){
+        Employee employee = employeeUseCase.getEmployeeById(new EmployeeId(employeeId));
+        EmployeeDTO response = ResponseMapper.toResponse(employee);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<EmployeeDTO> getEmployeeByUserId(@PathVariable UUID userId) {
+        Employee employee = employeeUseCase.getEmployeeByUserId(new UserId(userId));
+        EmployeeDTO response = ResponseMapper.toResponse(employee);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
+        List<Employee> employees = employeeUseCase.getAllEmployees();
+        List<EmployeeDTO> response = employees.stream()
+                .map(ResponseMapper::toResponse)
+                .toList();
+        return ResponseEntity.ok(response);
     }
 
 }

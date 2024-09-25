@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.application;
 
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.UserFactory;
 import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
@@ -23,7 +23,7 @@ public class UserUseCase {
         this.userRepository = userRepository;
     }
 
-    public User createUser(String firstName,
+    public void createUser(String firstName,
                            String lastName,
                            String dniNumber,
                            DniType dniType,
@@ -32,7 +32,6 @@ public class UserUseCase {
                            UserRole role,
                            UserStatus status){
 
-        validateUniqueUser(email);
         User user = UserFactory.createUser(
                 firstName,
                 lastName,
@@ -43,8 +42,13 @@ public class UserUseCase {
                 role,
                 status
         );
+        validateUniqueUser(email);
         userRepository.save(user);
-        return user;
+    }
+
+    public User getUserById(UserId userId){
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
     }
 
     public List<User> getAllUsers(){
@@ -53,11 +57,6 @@ public class UserUseCase {
             throw new DomainException(ErrorType.USERS_NOT_FOUND.getMessage());
         }
         return users;
-    }
-
-    public User getUserById(UserId userId){
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
     }
 
     public void validateUniqueUser(String email){

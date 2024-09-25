@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -32,11 +32,7 @@ public enum DniType {
                 return status;
             }
         }
-
-        throw new DomainException(
-                ErrorType.INVALID_DNI_TYPE.getMessage(),
-                String.format(value)
-        );
+        throw new DomainException(ErrorType.INVALID_DNI_TYPE.getMessage());
     }
 
 }

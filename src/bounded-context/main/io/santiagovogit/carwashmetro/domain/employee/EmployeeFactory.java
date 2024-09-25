@@ -5,7 +5,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosit
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 
 import java.time.LocalDateTime;

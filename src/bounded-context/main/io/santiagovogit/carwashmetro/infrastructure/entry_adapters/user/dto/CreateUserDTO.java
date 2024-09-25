@@ -42,5 +42,4 @@ public class CreateUserDTO {
     public String getStatus() {
         return status;
     }
-
 }

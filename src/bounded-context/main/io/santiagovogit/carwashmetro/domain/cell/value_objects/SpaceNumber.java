@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.cell.value_objects;
 
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -39,11 +39,7 @@ public enum SpaceNumber {
                 return status;
             }
         }
-
-        throw new DomainException(
-                ErrorType.INVALID_SPACE_NUMBER.getMessage(),
-                String.format(value)
-        );
+        throw new DomainException(ErrorType.INVALID_SPACE_NUMBER.getMessage());
     }
 
 }

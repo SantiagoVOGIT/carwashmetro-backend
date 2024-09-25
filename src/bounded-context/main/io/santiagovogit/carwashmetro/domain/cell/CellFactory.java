@@ -4,7 +4,7 @@ import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.time.LocalDateTime;
@@ -29,12 +29,12 @@ public class CellFactory {
 
     private static void validateCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status) {
         if (isNull(spaceNumber)) {
-            throw new DomainException(ErrorType.INVALID_SPACE_NUMBER.getMessage());
+            throw new DomainException(ErrorType.SPACE_NUMBER_EMPTY.getMessage());
         }
-        if(isNull(vehicleType)) {
+        if (isNull(vehicleType)) {
             throw new DomainException(ErrorType.VEHICLE_TYPE_EMPTY.getMessage());
         }
-        if(isNull(status)) {
+        if (isNull(status)) {
             throw new DomainException(ErrorType.CELL_STATUS_EMPTY.getMessage());
         }
     }

@@ -8,7 +8,7 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosit
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
 
@@ -29,21 +29,14 @@ public class EmployeeUseCase {
                                Salary salary,
                                EmployeeStatus status) {
 
-        validateUniqueEmployee(userId);
         Employee employee = EmployeeFactory.createEmployee(
                 userId,
                 position,
                 salary,
                 status
         );
+        validateUniqueEmployee(userId);
         employeeRepository.save(employee);
-    }
-
-    private void validateUniqueEmployee(UserId userId) {
-        Optional<Employee> employee = employeeRepository.findByUserId(userId);
-        if (employee.isPresent()) {
-            throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());
-        }
     }
 
     public Employee getEmployeeById(EmployeeId employeeId){
@@ -62,6 +55,13 @@ public class EmployeeUseCase {
             throw new DomainException(ErrorType.EMPLOYEES_NOT_FOUND.getMessage());
         }
         return employees;
+    }
+
+    private void validateUniqueEmployee(UserId userId) {
+        Optional<Employee> employee = employeeRepository.findByUserId(userId);
+        if (employee.isPresent()) {
+            throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());
+        }
     }
 
 }

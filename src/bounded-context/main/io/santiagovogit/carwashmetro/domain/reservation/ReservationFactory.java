@@ -2,7 +2,7 @@ package io.santiagovogit.carwashmetro.domain.reservation;
 
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.error.ErrorType;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationCode;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationStatus;

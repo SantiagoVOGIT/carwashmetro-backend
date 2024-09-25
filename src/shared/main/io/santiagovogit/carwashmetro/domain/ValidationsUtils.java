@@ -5,7 +5,7 @@ public class ValidationsUtils {
     private ValidationsUtils() {}
 
     public static boolean isEmpty(String str) {
-        return str == null || str.trim().isEmpty();
+        return str == null || str.trim().isEmpty() || str.isEmpty();
     }
 
     public static String emptyToNull(String value) {

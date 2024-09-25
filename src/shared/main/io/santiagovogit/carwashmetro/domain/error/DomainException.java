@@ -2,21 +2,21 @@ package io.santiagovogit.carwashmetro.domain.error;
 
 public class DomainException extends RuntimeException {
 
-    private final String errorType;
+    private final String message;
     private final String details;
 
-    public DomainException(String messageKey) {
-        this(messageKey, null);
+    public DomainException(String message) {
+        this(message, null);
     }
 
-    public DomainException(String messageKey, String details) {
-        this.errorType = messageKey;
-        this.details = details != null ? details : "";
+    public DomainException(String message, String details) {
+        this.message = message;
+        this.details = details;
     }
 
     @Override
     public String getMessage() {
-        return errorType;
+        return message;
     }
 
     public String getDetails() {

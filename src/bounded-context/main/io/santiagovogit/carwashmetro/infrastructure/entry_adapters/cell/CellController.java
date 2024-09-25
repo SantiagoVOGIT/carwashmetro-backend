@@ -1,23 +1,24 @@
-
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell;
 
 import io.santiagovogit.carwashmetro.application.CellUseCase;
+import io.santiagovogit.carwashmetro.domain.cell.Cell;
+import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
+import io.santiagovogit.carwashmetro.domain.common.InfoType;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell.dto.CellDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell.dto.CreateCellDTO;
-import org.springframework.http.HttpStatus;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.ResponseMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/cells")
+@RequestMapping("/v1/cells")
 public class CellController {
 
     private final CellUseCase cellUseCase;
@@ -31,14 +32,26 @@ public class CellController {
         cellUseCase.createCell(
                 SpaceNumber.fromValue(request.getSpaceNumber()),
                 VehicleType.fromValue(request.getVehicleType()),
-                CellStatus.fromValue(request.getCellStatus())
+                CellStatus.fromValue(request.getStatus())
         );
-        Response response = Response.builder()
-                .message("Celda creada correctamente")
-                .timestamp(LocalDateTime.now())
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        Response response = ResponseMapper.toResponse(InfoType.SUCCESS_CREATED_CELL.getMessage());
+        return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{cellId}")
+    public ResponseEntity<CellDTO> getCellById(@PathVariable UUID cellId) {
+        Cell cell = cellUseCase.getCellById(new CellId(cellId));
+        CellDTO response = ResponseMapper.toResponse(cell);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CellDTO>> getAllCells() {
+        List<Cell> cells = cellUseCase.getAllCells();
+        List<CellDTO> response = cells.stream()
+                .map(ResponseMapper::toResponse)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
 
 }

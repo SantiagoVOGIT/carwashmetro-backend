@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.domain;
+package io.santiagovogit.carwashmetro.domain.common;
 
 import java.util.regex.Pattern;
 
