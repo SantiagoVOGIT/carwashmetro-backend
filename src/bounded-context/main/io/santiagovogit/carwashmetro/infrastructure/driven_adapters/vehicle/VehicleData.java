@@ -17,10 +17,6 @@ public class VehicleData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserData userData;
-
     @Column(name = "license_plate", nullable = false, length = 9)
     private String licensePlate;
 
@@ -33,15 +29,19 @@ public class VehicleData {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "vehicleData")
-    private Set<ReservationData> reservations = new LinkedHashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserData userData;
 
-    public Set<ReservationData> getReservations() {
-        return reservations;
+    @OneToMany(mappedBy = "vehicleData")
+    private Set<ReservationData> reservationsData = new LinkedHashSet<>();
+
+    public Set<ReservationData> getReservationsData() {
+        return reservationsData;
     }
 
-    public void setReservations(Set<ReservationData> reservations) {
-        this.reservations = reservations;
+    public void setReservationsData(Set<ReservationData> reservationsData) {
+        this.reservationsData = reservationsData;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -76,20 +76,20 @@ public class VehicleData {
         this.licensePlate = licensePlate;
     }
 
-    public UserData getUserData() {
-        return userData;
-    }
-
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
-
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
 }

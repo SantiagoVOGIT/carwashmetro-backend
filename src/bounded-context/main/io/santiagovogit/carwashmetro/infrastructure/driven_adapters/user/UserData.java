@@ -45,37 +45,37 @@ public class UserData {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "userData")
-    private Set<EmployeeData> employees = new LinkedHashSet<>();
+    @OneToOne(mappedBy = "userData")
+    private EmployeeData employeesData;
 
     @OneToMany(mappedBy = "userData")
-    private Set<ReservationData> reservations = new LinkedHashSet<>();
+    private Set<ReservationData> reservationsData = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "userData")
-    private Set<VehicleData> vehicles = new LinkedHashSet<>();
+    private Set<VehicleData> vehiclesData = new LinkedHashSet<>();
 
-    public Set<VehicleData> getVehicles() {
-        return vehicles;
+    public Set<VehicleData> getVehiclesData() {
+        return vehiclesData;
     }
 
-    public void setVehicles(Set<VehicleData> vehicles) {
-        this.vehicles = vehicles;
+    public void setVehiclesData(Set<VehicleData> vehiclesData) {
+        this.vehiclesData = vehiclesData;
     }
 
-    public Set<ReservationData> getReservations() {
-        return reservations;
+    public Set<ReservationData> getReservationsData() {
+        return reservationsData;
     }
 
-    public void setReservations(Set<ReservationData> reservations) {
-        this.reservations = reservations;
+    public void setReservationsData(Set<ReservationData> reservationsData) {
+        this.reservationsData = reservationsData;
     }
 
-    public Set<EmployeeData> getEmployees() {
-        return employees;
+    public EmployeeData getEmployeesData() {
+        return employeesData;
     }
 
-    public void setEmployees(Set<EmployeeData> employees) {
-        this.employees = employees;
+    public void setEmployeesData(EmployeeData employeesData) {
+        this.employeesData = employeesData;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -157,5 +157,4 @@ public class UserData {
     public void setId(UUID id) {
         this.id = id;
     }
-
 }

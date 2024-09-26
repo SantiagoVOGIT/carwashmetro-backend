@@ -14,10 +14,6 @@ public class EmployeeData {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserData userData;
-
     @Column(name = "position", nullable = false, length = Integer.MAX_VALUE)
     private String position;
 
@@ -29,6 +25,10 @@ public class EmployeeData {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserData userData;
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -62,20 +62,20 @@ public class EmployeeData {
         this.position = position;
     }
 
-    public UserData getUserData() {
-        return userData;
-    }
-
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
-
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
 }

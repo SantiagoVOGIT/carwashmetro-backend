@@ -29,14 +29,14 @@ public class CellData {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "cellData")
-    private Set<ReservationData> reservations = new LinkedHashSet<>();
+    private Set<ReservationData> reservationsData = new LinkedHashSet<>();
 
-    public Set<ReservationData> getReservations() {
-        return reservations;
+    public Set<ReservationData> getReservationsData() {
+        return reservationsData;
     }
 
-    public void setReservations(Set<ReservationData> reservations) {
-        this.reservations = reservations;
+    public void setReservationsData(Set<ReservationData> reservationsData) {
+        this.reservationsData = reservationsData;
     }
 
     public LocalDateTime getCreatedAt() {
