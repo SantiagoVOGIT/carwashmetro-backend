@@ -7,7 +7,7 @@ import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
-import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.ResponseMapper;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.DTOMapper;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.vehicle.dto.CreateVehicleDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.vehicle.dto.VehicleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +36,21 @@ public class VehicleController {
                 request.getModel(),
                 VehicleType.fromValue(request.getVehicleType())
         );
-        Response response = ResponseMapper.toResponse(InfoType.SUCCESS_CREATED_VEHICLE.getMessage());
+        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_VEHICLE.getMessage());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{vehicleId}")
     public ResponseEntity<VehicleDTO> getVehicleById(@PathVariable UUID vehicleId) {
         Vehicle vehicle = vehicleUseCase.getVehicleById(new VehicleId(vehicleId));
-        VehicleDTO response = ResponseMapper.toResponse(vehicle);
+        VehicleDTO response = DTOMapper.toDTO(vehicle);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<VehicleDTO> getVehicleByUserId(@PathVariable UUID userId) {
         Vehicle vehicle = vehicleUseCase.getVehicleByUserId(new UserId(userId));
-        VehicleDTO response = ResponseMapper.toResponse(vehicle);
+        VehicleDTO response = DTOMapper.toDTO(vehicle);
         return ResponseEntity.ok(response);
     }
 
@@ -58,7 +58,7 @@ public class VehicleController {
     public ResponseEntity<List<VehicleDTO>> getAllVehicles() {
         List<Vehicle> vehicles = vehicleUseCase.getAllVehicles();
         List<VehicleDTO> response = vehicles.stream()
-                .map(ResponseMapper::toResponse)
+                .map(DTOMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(response);
     }
@@ -67,7 +67,7 @@ public class VehicleController {
     public ResponseEntity<List<VehicleDTO>> getAllVehiclesByUserId(@PathVariable UUID userId) {
         List<Vehicle> vehicles = vehicleUseCase.getAllVehiclesByUserId(new UserId(userId));
         List<VehicleDTO> response = vehicles.stream()
-                .map(ResponseMapper::toResponse)
+                .map(DTOMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(response);
     }

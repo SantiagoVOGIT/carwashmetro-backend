@@ -15,7 +15,7 @@ public class ReservationCode extends Identifier {
     }
 
     public ReservationCode(String value) {
-        super(UUID.fromString(value));
+        super();
         this.value = value;
     }
 

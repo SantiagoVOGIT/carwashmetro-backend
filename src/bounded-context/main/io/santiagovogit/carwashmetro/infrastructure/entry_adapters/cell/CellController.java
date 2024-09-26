@@ -10,7 +10,7 @@ import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell.dto.CellDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell.dto.CreateCellDTO;
-import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.ResponseMapper;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.DTOMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,14 +34,14 @@ public class CellController {
                 VehicleType.fromValue(request.getVehicleType()),
                 CellStatus.fromValue(request.getStatus())
         );
-        Response response = ResponseMapper.toResponse(InfoType.SUCCESS_CREATED_CELL.getMessage());
+        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_CELL.getMessage());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{cellId}")
     public ResponseEntity<CellDTO> getCellById(@PathVariable UUID cellId) {
         Cell cell = cellUseCase.getCellById(new CellId(cellId));
-        CellDTO response = ResponseMapper.toResponse(cell);
+        CellDTO response = DTOMapper.toDTO(cell);
         return ResponseEntity.ok(response);
     }
 
@@ -49,7 +49,7 @@ public class CellController {
     public ResponseEntity<List<CellDTO>> getAllCells() {
         List<Cell> cells = cellUseCase.getAllCells();
         List<CellDTO> response = cells.stream()
-                .map(ResponseMapper::toResponse)
+                .map(DTOMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(response);
     }

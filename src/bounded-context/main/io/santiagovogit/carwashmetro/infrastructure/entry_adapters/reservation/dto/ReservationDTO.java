@@ -8,7 +8,7 @@ public record ReservationDTO(
         UUID userId,
         UUID cellId,
         UUID vehicleId,
-        UUID reservationCode,
+        String reservationCode,
         String status,
         LocalDateTime startTime,
         LocalDateTime endTime,

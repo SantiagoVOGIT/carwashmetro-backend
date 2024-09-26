@@ -12,11 +12,11 @@ import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.reservation.d
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user.dto.UserDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.vehicle.dto.VehicleDTO;
 
-public class ResponseMapper {
+public class DTOMapper {
 
-    private ResponseMapper() {}
+    private DTOMapper() {}
 
-    public static CellDTO toResponse(Cell cell) {
+    public static CellDTO toDTO(Cell cell) {
         return new CellDTO(
                 cell.getId().getIdentifier(),
                 cell.getSpaceNumber().getValue(),
@@ -26,7 +26,7 @@ public class ResponseMapper {
         );
     }
 
-    public static EmployeeDTO toResponse(Employee employee) {
+    public static EmployeeDTO toDTO(Employee employee) {
         return new EmployeeDTO(
                 employee.getId().getIdentifier(),
                 employee.getUserId().getIdentifier(),
@@ -37,7 +37,7 @@ public class ResponseMapper {
         );
     }
 
-    public static UserDTO toResponse(User user) {
+    public static UserDTO toDTO(User user) {
         return new UserDTO(
                 user.getId().getIdentifier(),
                 user.getDniNumber(),
@@ -52,7 +52,7 @@ public class ResponseMapper {
         );
     }
 
-    public static VehicleDTO toResponse(Vehicle vehicle) {
+    public static VehicleDTO toDTO(Vehicle vehicle) {
         return new VehicleDTO(
                 vehicle.getId().getIdentifier(),
                 vehicle.getUserId().getIdentifier(),
@@ -63,13 +63,13 @@ public class ResponseMapper {
         );
     }
 
-    public static ReservationDTO toResponse(Reservation reservation) {
+    public static ReservationDTO toDTO(Reservation reservation) {
         return new ReservationDTO(
                 reservation.getId().getIdentifier(),
                 reservation.getUserId().getIdentifier(),
                 reservation.getCellId().getIdentifier(),
                 reservation.getVehicleId().getIdentifier(),
-                reservation.getReservationCode().getIdentifier(),
+                reservation.getReservationCode().getValue(),
                 reservation.getStatus().getValue(),
                 reservation.getStartTime(),
                 reservation.getEndTime(),
@@ -77,11 +77,11 @@ public class ResponseMapper {
         );
     }
 
-    public static Response toResponse(String message, String details) {
+    public static Response toDTO(String message, String details) {
         return new Response(message, details);
     }
 
-    public static Response toResponse(String message){
+    public static Response toDTO(String message){
         return new Response(message, null);
     }
 

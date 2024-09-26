@@ -8,7 +8,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
-import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.ResponseMapper;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.DTOMapper;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user.dto.CreateUserDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class UserController {
                 UserRole.fromValue(request.getRole()),
                 UserStatus.fromValue(request.getStatus())
         );
-        Response response = ResponseMapper.toResponse(InfoType.SUCCESS_CREATED_USER.getMessage());
+        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_USER.getMessage());
         return ResponseEntity.ok(response);
     }
 
@@ -46,7 +46,7 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<User> users = userUseCase.getAllUsers();
         List<UserDTO> response = users.stream()
-                .map(ResponseMapper::toResponse)
+                .map(DTOMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(response);
     }
