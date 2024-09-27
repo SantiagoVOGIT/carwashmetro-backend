@@ -59,4 +59,9 @@ public class VehicleRepositoryAdapter implements VehicleRepository {
                 .toList();
     }
 
+    @Override
+    public boolean existsById(VehicleId id) {
+        return vehicleJpaRepository.existsById(id.getIdentifier());
+    }
+
 }

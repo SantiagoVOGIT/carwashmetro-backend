@@ -1,5 +1,6 @@
 package io.santiagovogit.carwashmetro.application;
 
+import io.santiagovogit.carwashmetro.application.common.UserService;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.EmployeeFactory;
 import io.santiagovogit.carwashmetro.domain.employee.ports.EmployeeRepository;
@@ -19,23 +20,20 @@ import java.util.Optional;
 public class EmployeeUseCase {
 
     private final EmployeeRepository employeeRepository;
+    private final UserService userService;
 
-    public EmployeeUseCase(EmployeeRepository employeeRepository) {
+    public EmployeeUseCase(EmployeeRepository employeeRepository, UserService userService) {
         this.employeeRepository = employeeRepository;
+        this.userService        = userService;
     }
 
     public void createEmployee(UserId userId,
                                EmployeePosition position,
                                Salary salary,
                                EmployeeStatus status) {
-
-        Employee employee = EmployeeFactory.createEmployee(
-                userId,
-                position,
-                salary,
-                status
-        );
-        validateUniqueEmployee(userId);
+        userService.ensureUserExists(userId);
+        Employee employee = EmployeeFactory.createEmployee(userId, position, salary, status);
+        ensureUniqueEmployee(userId);
         employeeRepository.save(employee);
     }
 
@@ -57,7 +55,7 @@ public class EmployeeUseCase {
         return employees;
     }
 
-    private void validateUniqueEmployee(UserId userId) {
+    private void ensureUniqueEmployee(UserId userId) {
         Optional<Employee> employee = employeeRepository.findByUserId(userId);
         if (employee.isPresent()) {
             throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());

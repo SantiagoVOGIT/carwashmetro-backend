@@ -14,4 +14,5 @@ public interface VehicleRepository {
     Optional<Vehicle> findByLicensePlate(String licensePlate);
     List<Vehicle> findAllByUserId(UserId userId);
     List<Vehicle> findAll();
+    boolean existsById(VehicleId id);
 }

@@ -30,7 +30,7 @@ public class UserUseCase {
                            String phoneNumber,
                            String email,
                            UserRole role,
-                           UserStatus status){
+                           UserStatus status) {
 
         User user = UserFactory.createUser(
                 firstName,
@@ -42,7 +42,7 @@ public class UserUseCase {
                 role,
                 status
         );
-        validateUniqueUser(email);
+        ensureUniqueUser(email);
         userRepository.save(user);
     }
 
@@ -59,7 +59,7 @@ public class UserUseCase {
         return users;
     }
 
-    public void validateUniqueUser(String email){
+    public void ensureUniqueUser(String email){
         Optional<User> isExistingUser = userRepository.findByEmail(email);
         if (isExistingUser.isPresent()) {
             throw new DomainException(ErrorType.EMAIL_ALREADY_EXISTS.getMessage());

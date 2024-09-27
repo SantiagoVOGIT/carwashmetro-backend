@@ -1,8 +1,11 @@
 package io.santiagovogit.carwashmetro.application;
 
+import io.santiagovogit.carwashmetro.application.common.CellService;
+import io.santiagovogit.carwashmetro.application.common.UserService;
+import io.santiagovogit.carwashmetro.application.common.VehicleService;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
 import io.santiagovogit.carwashmetro.domain.reservation.ReservationFactory;
 import io.santiagovogit.carwashmetro.domain.reservation.ports.ReservationRepository;
@@ -19,12 +22,22 @@ import java.util.List;
 public class ReservationUseCase {
 
     private final ReservationRepository reservationRepository;
+    private final UserService userService;
+    private final CellService cellService;
+    private final VehicleService vehicleService;
 
-    public ReservationUseCase(ReservationRepository reservationRepository) {
+    public ReservationUseCase(ReservationRepository reservationRepository,
+                              UserService userService,
+                              CellService cellService,
+                              VehicleService vehicleService) {
         this.reservationRepository = reservationRepository;
+        this.userService           = userService;
+        this.cellService           = cellService;
+        this.vehicleService        = vehicleService;
     }
 
     public void createReservation(UserId userId, CellId cellId, VehicleId vehicleId) {
+        ensureCellState(cellId, userId, vehicleId);
         Reservation reservation = ReservationFactory.createReservartion(
                 userId,
                 cellId,
@@ -55,11 +68,18 @@ public class ReservationUseCase {
     }
 
     public List<Reservation> getAllReservationsByUserId(UserId userId) {
+        userService.ensureUserExists(userId);
         List<Reservation> reservations = reservationRepository.findAllByUserId(userId);
         if (reservations.isEmpty()){
-            throw new DomainException(ErrorType.USERS_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorType.RESERVATION_NOT_FOUND.getMessage());
         }
         return reservations;
+    }
+
+    private void ensureCellState(CellId cellId, UserId userId, VehicleId vehicleId) {
+        userService.ensureUserExists(userId);
+        cellService.ensureCellExists(cellId);
+        vehicleService.ensureVehicleExists(vehicleId);
     }
 
 }

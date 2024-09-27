@@ -44,4 +44,9 @@ public class UserRepositoryAdapter implements UserRepository {
                 .toList();
     }
 
+    @Override
+    public boolean existsById(UserId userId) {
+        return userJpaRepository.existsById(userId.getIdentifier());
+    }
+
 }

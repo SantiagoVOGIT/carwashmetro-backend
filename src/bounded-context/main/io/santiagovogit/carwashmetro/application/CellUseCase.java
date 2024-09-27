@@ -24,12 +24,8 @@ public class CellUseCase {
     }
 
     public void createCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus){
-        Cell cell = CellFactory.createCell(
-                spaceNumber,
-                vehicleType,
-                cellStatus
-        );
-        validateUniqueCell(spaceNumber);
+        Cell cell = CellFactory.createCell(spaceNumber, vehicleType, cellStatus);
+        ensureUniqueCell(spaceNumber);
         cellRepository.save(cell);
     }
 
@@ -46,7 +42,7 @@ public class CellUseCase {
         return cells;
     }
 
-    private void validateUniqueCell(SpaceNumber spaceNumber){
+    public void ensureUniqueCell(SpaceNumber spaceNumber){
         Optional<Cell> cell = cellRepository.findBySpaceNumber(spaceNumber);
         if (cell.isPresent()) {
             throw new DomainException(ErrorType.CELL_ALREADY_EXIST.getMessage());

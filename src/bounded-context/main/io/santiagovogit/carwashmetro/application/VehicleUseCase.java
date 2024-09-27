@@ -1,5 +1,6 @@
 package io.santiagovogit.carwashmetro.application;
 
+import io.santiagovogit.carwashmetro.application.common.UserService;
 import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
@@ -17,14 +18,17 @@ import java.util.Optional;
 public class VehicleUseCase {
 
     private final VehicleRepository vehicleRepository;
+    private final UserService userService;
 
-    public VehicleUseCase(VehicleRepository vehicleRepository) {
+    public VehicleUseCase(VehicleRepository vehicleRepository, UserService userService) {
         this.vehicleRepository = vehicleRepository;
+        this.userService       = userService;
     }
 
     public void createVehicle(UserId userId, String licensePlate, String model, VehicleType vehicleType) {
+        userService.ensureUserExists(userId);
         Vehicle vehicle = VehicleFactory.createVehicle(userId, licensePlate, model, vehicleType);
-        validateUniqueVehicle(licensePlate);
+        ensureUniqueVehicle(licensePlate);
         vehicleRepository.save(vehicle);
     }
 
@@ -47,6 +51,7 @@ public class VehicleUseCase {
     }
 
     public List<Vehicle> getAllVehiclesByUserId(UserId userId) {
+        userService.ensureUserExists(userId);
         List<Vehicle> vehicles = vehicleRepository.findAllByUserId(userId);
         if (vehicles.isEmpty()) {
             throw new DomainException(ErrorType.VEHICLES_NOT_FOUND.getMessage());
@@ -54,7 +59,7 @@ public class VehicleUseCase {
         return vehicles;
     }
 
-    public void validateUniqueVehicle(String licensePlate) {
+    public void ensureUniqueVehicle(String licensePlate) {
         Optional<Vehicle> vehicle = vehicleRepository.findByLicensePlate(licensePlate);
         if (vehicle.isPresent()) {
             throw new DomainException(ErrorType.VEHICLE_ALREADY_EXISTS.getMessage());

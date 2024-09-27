@@ -45,4 +45,9 @@ public class CellRepositoryAdapter implements CellRepository {
                 .toList();
     }
 
+    @Override
+    public boolean existsById(CellId cellId) {
+        return cellJpaRepository.existsById(cellId.getIdentifier());
+    }
+
 }

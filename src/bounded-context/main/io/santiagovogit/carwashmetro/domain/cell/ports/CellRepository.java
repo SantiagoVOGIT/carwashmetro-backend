@@ -12,4 +12,5 @@ public interface CellRepository {
     Optional<Cell> findById(CellId id);
     Optional<Cell> findBySpaceNumber(SpaceNumber spaceNumber);
     List<Cell> findAll();
+    boolean existsById(CellId id);
 }
