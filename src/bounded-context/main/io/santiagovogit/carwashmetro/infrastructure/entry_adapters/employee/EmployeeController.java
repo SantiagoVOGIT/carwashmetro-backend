@@ -31,10 +31,10 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<Response> createEmployee(@RequestBody CreateEmployeeDTO request) {
         employeeUseCase.createEmployee(
-                new UserId(request.getUserId()),
-                EmployeePosition.fromValue(request.getPosition()),
-                new Salary(request.getSalary()),
-                EmployeeStatus.fromValue(request.getStatus())
+                new UserId(request.userId()),
+                EmployeePosition.fromValue(request.position()),
+                new Salary(request.salary()),
+                EmployeeStatus.fromValue(request.status())
         );
         Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);

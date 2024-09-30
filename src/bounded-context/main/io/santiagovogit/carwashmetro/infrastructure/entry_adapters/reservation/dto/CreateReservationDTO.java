@@ -2,22 +2,8 @@ package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.reservation.
 
 import java.util.UUID;
 
-public class CreateReservationDTO {
-
-    private UUID userId;
-    private UUID cellId;
-    private UUID vehicleId;
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public UUID getCellId() {
-        return cellId;
-    }
-
-    public UUID getVehicleId() {
-        return vehicleId;
-    }
-
-}
+public record CreateReservationDTO(
+        UUID userId,
+        UUID cellId,
+        UUID vehicleId
+) { }

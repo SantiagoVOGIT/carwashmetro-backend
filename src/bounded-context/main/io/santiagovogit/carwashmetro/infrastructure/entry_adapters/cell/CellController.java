@@ -30,9 +30,9 @@ public class CellController {
     @PostMapping
     public ResponseEntity<Response> createCell(@RequestBody CreateCellDTO request) {
         cellUseCase.createCell(
-                SpaceNumber.fromValue(request.getSpaceNumber()),
-                VehicleType.fromValue(request.getVehicleType()),
-                CellStatus.fromValue(request.getStatus())
+                SpaceNumber.fromValue(request.spaceNumber()),
+                VehicleType.fromValue(request.vehicleType()),
+                CellStatus.fromValue(request.status())
         );
         Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_CELL.getMessage());
         return ResponseEntity.ok(response);

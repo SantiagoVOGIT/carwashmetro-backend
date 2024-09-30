@@ -30,13 +30,13 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Response> createUser(@RequestBody CreateUserDTO request) {
         userUseCase.createUser(
-                request.getFirstName(),
-                request.getLastName(),
-                request.getDniNumber(),
-                DniType.fromValue(request.getDniType()),
-                request.getPhoneNumber(), request.getEmail(),
-                UserRole.fromValue(request.getRole()),
-                UserStatus.fromValue(request.getStatus())
+                request.firstName(),
+                request.lastName(),
+                request.dniNumber(),
+                DniType.fromValue(request.dniType()),
+                request.phoneNumber(), request.email(),
+                UserRole.fromValue(request.role()),
+                UserStatus.fromValue(request.status())
         );
         Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_USER.getMessage());
         return ResponseEntity.ok(response);

@@ -30,9 +30,9 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<Response> createReservation(@RequestBody CreateReservationDTO request) {
         reservationUseCase.createReservation(
-                new UserId(request.getUserId()),
-                new CellId(request.getCellId()),
-                new VehicleId(request.getVehicleId())
+                new UserId(request.userId()),
+                new CellId(request.cellId()),
+                new VehicleId(request.vehicleId())
         );
         Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);

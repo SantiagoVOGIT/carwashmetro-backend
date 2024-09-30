@@ -31,10 +31,10 @@ public class VehicleController {
     @PostMapping
     public ResponseEntity<Response> createVehicle(@RequestBody CreateVehicleDTO request) {
         vehicleUseCase.createVehicle(
-                new UserId(request.getUserId()),
-                request.getLicensePlate(),
-                request.getModel(),
-                VehicleType.fromValue(request.getVehicleType())
+                new UserId(request.userId()),
+                request.licensePlate(),
+                request.model(),
+                VehicleType.fromValue(request.vehicleType())
         );
         Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_VEHICLE.getMessage());
         return ResponseEntity.ok(response);
