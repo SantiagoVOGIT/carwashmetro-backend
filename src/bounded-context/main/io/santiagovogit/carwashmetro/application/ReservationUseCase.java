@@ -30,8 +30,11 @@ public class ReservationUseCase {
     private final CellService cellService;
     private final VehicleService vehicleService;
 
-    public ReservationUseCase(ReservationRepository reservationRepository,   CellRepository cellRepository,
-                              UserService userService, CellService cellService, VehicleService vehicleService) {
+    public ReservationUseCase(ReservationRepository reservationRepository,
+                              CellRepository cellRepository,
+                              UserService userService,
+                              CellService cellService,
+                              VehicleService vehicleService) {
         this.reservationRepository = reservationRepository;
         this.cellRepository = cellRepository;
         this.userService = userService;
@@ -40,8 +43,7 @@ public class ReservationUseCase {
     }
 
     public void createReservation(UserId userId, CellId cellId, VehicleId vehicleId) {
-        ensurePreconditions(userId, cellId, vehicleId);
-        validateCellAvailability(cellId);
+        validateReservationCreation(userId, cellId, vehicleId);
         Reservation reservation = ReservationFactory.createReservartion(
                 userId,
                 cellId,
@@ -113,10 +115,11 @@ public class ReservationUseCase {
         );
     }
 
-    private void ensurePreconditions(UserId userId, CellId cellId, VehicleId vehicleId) {
+    private void validateReservationCreation(UserId userId, CellId cellId, VehicleId vehicleId) {
         userService.ensureUserExists(userId);
         cellService.ensureCellExists(cellId);
         vehicleService.ensureVehicleExists(vehicleId);
+        validateCellAvailability(cellId);
     }
 
     private void validateCellAvailability(CellId cellId) {
@@ -126,6 +129,16 @@ public class ReservationUseCase {
         Cell.checkAvailability(cellStatus);
     }
 
+    private void updateReservationStatus(ReservationId reservationId,
+                                         ReservationStatus reservationStatus,
+                                         CellStatus cellStatus) {
+        Reservation reservation = getReservationById(reservationId);
+        validateStatusChange(reservation);
+        updateReservation(reservation, reservationStatus);
+        updateCellStatus(reservation.getCellId(), cellStatus);
+        reservationRepository.save(reservation);
+    }
+
     private void updateCellStatus(CellId cellId, CellStatus status) {
         Cell cell = cellRepository.findById(cellId)
                 .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
@@ -133,34 +146,34 @@ public class ReservationUseCase {
         cellRepository.save(cell);
     }
 
-    private void updateReservationStatus(ReservationId reservationId,
-                                         ReservationStatus reservationStatus,
-                                         CellStatus cellStatus) {
-        Reservation reservation = getReservationById(reservationId);
-
+    private void validateStatusChange(Reservation reservation) {
         if (reservation.getStatus() == ReservationStatus.CANCELLED ||
                 reservation.getStatus() == ReservationStatus.REJECTED ||
                 reservation.getStatus() == ReservationStatus.COMPLETED) {
             throw new DomainException(ErrorType.INVALID_RESERVATION_STATUS_CHANGE.getMessage());
         }
+    }
 
-        reservation.setStatus(reservationStatus);
-        updateReservationTimes(reservation, reservationStatus);
-        updateCellStatus(reservation.getCellId(), cellStatus);
-        reservationRepository.save(reservation);
+    private void updateReservation(Reservation reservation, ReservationStatus status) {
+        reservation.setStatus(status);
+        updateReservationTimes(reservation, status);
     }
 
     private void updateReservationTimes(Reservation reservation, ReservationStatus status) {
         switch (status) {
-            case COMPLETED, REJECTED, CANCELLED:
+            case CANCELLED, COMPLETED, REJECTED:
                 reservation.setEndTime(LocalDateTime.now());
                 break;
             case CONFIRMED:
                 reservation.setStartTime(LocalDateTime.now());
                 break;
+            case PENDING:
             default:
+                reservation.setStartTime(null);
+                reservation.setEndTime(null);
                 break;
         }
     }
+
 
 }
