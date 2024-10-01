@@ -8,8 +8,8 @@ import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.isLicensePlateFormat;
-import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.isModelFormat;
+import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.isLicensePlateFormat;
+import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.isModelFormat;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 

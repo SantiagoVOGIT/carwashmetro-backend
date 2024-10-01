@@ -12,7 +12,7 @@ public class Cell {
     private final CellId id;
     private final SpaceNumber spaceNumber;
     private final VehicleType vehicleType;
-    private final CellStatus status;
+    private CellStatus status;
     private final LocalDateTime createdAt;
 
     public Cell(CellId id, SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status, LocalDateTime createdAt) {
@@ -41,6 +41,11 @@ public class Cell {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public Cell setStatus(CellStatus status) {
+        this.status = status;
+        return this;
     }
 
 }

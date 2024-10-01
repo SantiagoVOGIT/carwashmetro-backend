@@ -63,7 +63,8 @@ public enum ErrorType {
     INVALID_RESERVATION_STATUS_CHANGE("El cambio de estado de la reserva no es válido"),
 
     INVALID_NAME_FORMAT("El formato del nombre o apellido es inválido"),
-    VEHICLE_INCOMPATIBLE_WITH_CELL("El vehículo no es compatible con la celda");
+    VEHICLE_INCOMPATIBLE_WITH_CELL("El vehículo no es compatible con la celda"),
+    INVALID_ID_FORMAT("Formato de id inválido");
 
     private final String message;
 

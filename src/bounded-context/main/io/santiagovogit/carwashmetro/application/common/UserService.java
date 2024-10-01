@@ -6,7 +6,8 @@ import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
 
-import static org.springframework.util.ObjectUtils.isEmpty;
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
+
 
 @Service
 public class UserService {
@@ -18,12 +19,13 @@ public class UserService {
     }
 
     public void ensureUserIdPresent(UserId userId) {
-        if (isEmpty(userId)) {
+        if (isEmpty(userId.getValue())) {
             throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
         }
     }
 
     public void ensureUserExists(UserId userId) {
+        ensureUserIdPresent(userId);
         if (!userRepository.existsById(userId)) {
             throw new DomainException(ErrorType.USER_NOT_FOUND.getMessage());
         }

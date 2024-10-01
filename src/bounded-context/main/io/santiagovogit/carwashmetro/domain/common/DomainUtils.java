@@ -2,9 +2,9 @@ package io.santiagovogit.carwashmetro.domain.common;
 
 import java.util.regex.Pattern;
 
-public final class StringDomainUtils {
+public final class DomainUtils {
 
-    private StringDomainUtils(){}
+    private DomainUtils(){}
 
     private static final Pattern DNI_NUMBER_PATTERN = Pattern.compile("^\\d{5,10}$");
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]{3,40}$");
@@ -14,9 +14,14 @@ public final class StringDomainUtils {
             "{3}\\d{2}[A-Z]$|^\\d{3}[A-Z]{3}$|^[A-Z]\\d{5}$|^[A-Z]{2}\\d{4}$|^[A-Z]{2}\\d{5}$|^[A-Z]{2}\\d{6}$");
     private static final Pattern MODEL_PATTERN = Pattern.compile("^[A-Za-z0-9\\s-]{1,50}$");
     private static final Pattern SALARY_PATTERN = Pattern.compile("^\\d{1,8}$");
+    private static final Pattern UUID_PATTERN = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 
     public static boolean isDniNumberFormat(String str) {
         return DNI_NUMBER_PATTERN.matcher(str).matches();
+    }
+
+    public static boolean isUUIDFormat(String str) {
+        return UUID_PATTERN.matcher(str).matches();
     }
 
     public static boolean isNameFormat(String str) {

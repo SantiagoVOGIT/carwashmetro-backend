@@ -3,7 +3,10 @@ package io.santiagovogit.carwashmetro.application;
 import io.santiagovogit.carwashmetro.application.common.CellService;
 import io.santiagovogit.carwashmetro.application.common.UserService;
 import io.santiagovogit.carwashmetro.application.common.VehicleService;
+import io.santiagovogit.carwashmetro.domain.cell.Cell;
+import io.santiagovogit.carwashmetro.domain.cell.ports.CellRepository;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
+import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
@@ -22,15 +25,17 @@ import java.util.List;
 public class ReservationUseCase {
 
     private final ReservationRepository reservationRepository;
+    private final CellRepository cellRepository;
     private final UserService userService;
     private final CellService cellService;
     private final VehicleService vehicleService;
 
-    public ReservationUseCase(ReservationRepository reservationRepository,
+    public ReservationUseCase(ReservationRepository reservationRepository, CellRepository cellRepository,
                               UserService userService,
                               CellService cellService,
                               VehicleService vehicleService) {
         this.reservationRepository = reservationRepository;
+        this.cellRepository        = cellRepository;
         this.userService           = userService;
         this.cellService           = cellService;
         this.vehicleService        = vehicleService;
@@ -39,13 +44,14 @@ public class ReservationUseCase {
     public void createReservation(UserId userId, CellId cellId, VehicleId vehicleId) {
         ensureCellState(cellId, userId, vehicleId);
         Reservation reservation = ReservationFactory.createReservartion(
-                userId,
-                cellId,
-                vehicleId,
+                userId, cellId, vehicleId,
                 ReservationStatus.PENDING,
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
+        Cell cell = cellRepository.findById(cellId).get();
+        cell.setStatus(CellStatus.RESERVED);
+        cellRepository.save(cell);
         reservationRepository.save(reservation);
     }
 

@@ -9,7 +9,7 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
 import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.*;
+import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.*;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
 

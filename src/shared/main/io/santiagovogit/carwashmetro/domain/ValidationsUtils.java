@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.domain;
 
-public class ValidationsUtils {
+public final class ValidationsUtils {
 
     private ValidationsUtils() {}
 

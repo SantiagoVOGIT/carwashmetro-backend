@@ -5,7 +5,7 @@ import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
-import static io.santiagovogit.carwashmetro.domain.common.StringDomainUtils.isSalaryFormat;
+import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.isSalaryFormat;
 
 public class Salary {
 
