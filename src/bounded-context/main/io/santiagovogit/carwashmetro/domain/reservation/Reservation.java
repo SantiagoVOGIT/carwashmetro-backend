@@ -16,9 +16,9 @@ public class Reservation {
     private final CellId cellId;
     private final VehicleId vehicleId;
     private final ReservationCode reservationCode;
-    private final ReservationStatus status;
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
+    private ReservationStatus status;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private final LocalDateTime createdAt;
 
     public Reservation(ReservationId id,
@@ -75,6 +75,21 @@ public class Reservation {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public Reservation setStatus(ReservationStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public Reservation setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+
+    public Reservation setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+        return this;
     }
 
 }

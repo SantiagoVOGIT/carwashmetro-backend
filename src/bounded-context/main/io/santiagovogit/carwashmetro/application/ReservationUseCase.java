@@ -30,28 +30,27 @@ public class ReservationUseCase {
     private final CellService cellService;
     private final VehicleService vehicleService;
 
-    public ReservationUseCase(ReservationRepository reservationRepository, CellRepository cellRepository,
-                              UserService userService,
-                              CellService cellService,
-                              VehicleService vehicleService) {
+    public ReservationUseCase(ReservationRepository reservationRepository,   CellRepository cellRepository,
+                              UserService userService, CellService cellService, VehicleService vehicleService) {
         this.reservationRepository = reservationRepository;
-        this.cellRepository        = cellRepository;
-        this.userService           = userService;
-        this.cellService           = cellService;
-        this.vehicleService        = vehicleService;
+        this.cellRepository = cellRepository;
+        this.userService = userService;
+        this.cellService = cellService;
+        this.vehicleService = vehicleService;
     }
 
     public void createReservation(UserId userId, CellId cellId, VehicleId vehicleId) {
-        ensureCellState(cellId, userId, vehicleId);
+        ensurePreconditions(userId, cellId, vehicleId);
+        validateCellAvailability(cellId);
         Reservation reservation = ReservationFactory.createReservartion(
-                userId, cellId, vehicleId,
+                userId,
+                cellId,
+                vehicleId,
                 ReservationStatus.PENDING,
-                LocalDateTime.now(),
-                LocalDateTime.now()
+                null,
+                null
         );
-        Cell cell = cellRepository.findById(cellId).get();
-        cell.setStatus(CellStatus.RESERVED);
-        cellRepository.save(cell);
+        updateCellStatus(cellId, CellStatus.RESERVED);
         reservationRepository.save(reservation);
     }
 
@@ -76,16 +75,92 @@ public class ReservationUseCase {
     public List<Reservation> getAllReservationsByUserId(UserId userId) {
         userService.ensureUserExists(userId);
         List<Reservation> reservations = reservationRepository.findAllByUserId(userId);
-        if (reservations.isEmpty()){
+        if (reservations.isEmpty()) {
             throw new DomainException(ErrorType.RESERVATION_NOT_FOUND.getMessage());
         }
         return reservations;
     }
 
-    private void ensureCellState(CellId cellId, UserId userId, VehicleId vehicleId) {
+    public void completeReservation(ReservationId reservationId) {
+        updateReservationStatus(
+                reservationId,
+                ReservationStatus.COMPLETED,
+                CellStatus.AVAILABLE
+        );
+    }
+
+    public void confirmReservation(ReservationId reservationId) {
+        updateReservationStatus(
+                reservationId,
+                ReservationStatus.CONFIRMED,
+                CellStatus.OCCUPIED
+        );
+    }
+
+    public void rejectReservation(ReservationId reservationId) {
+        updateReservationStatus(
+                reservationId,
+                ReservationStatus.REJECTED,
+                CellStatus.AVAILABLE
+        );
+    }
+
+    public void cancelReservation(ReservationId reservationId) {
+        updateReservationStatus(
+                reservationId,
+                ReservationStatus.CANCELLED,
+                CellStatus.AVAILABLE
+        );
+    }
+
+    private void ensurePreconditions(UserId userId, CellId cellId, VehicleId vehicleId) {
         userService.ensureUserExists(userId);
         cellService.ensureCellExists(cellId);
         vehicleService.ensureVehicleExists(vehicleId);
+    }
+
+    private void validateCellAvailability(CellId cellId) {
+        CellStatus cellStatus = cellRepository.findById(cellId)
+                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()))
+                .getStatus();
+        Cell.checkAvailability(cellStatus);
+    }
+
+    private void updateCellStatus(CellId cellId, CellStatus status) {
+        Cell cell = cellRepository.findById(cellId)
+                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
+        cell.setStatus(status);
+        cellRepository.save(cell);
+    }
+
+    private void updateReservationStatus(ReservationId reservationId,
+                                         ReservationStatus reservationStatus,
+                                         CellStatus cellStatus) {
+        Reservation reservation = getReservationById(reservationId);
+
+        if (reservation.getStatus() == ReservationStatus.CANCELLED ||
+                reservation.getStatus() == ReservationStatus.REJECTED ||
+                reservation.getStatus() == ReservationStatus.COMPLETED) {
+            throw new DomainException(ErrorType.INVALID_RESERVATION_STATUS_CHANGE.getMessage());
+        }
+
+        reservation.setStatus(reservationStatus);
+        updateReservationTimes(reservation, reservationStatus);
+        updateCellStatus(reservation.getCellId(), cellStatus);
+        reservationRepository.save(reservation);
+    }
+
+    private void updateReservationTimes(Reservation reservation, ReservationStatus status) {
+        switch (status) {
+            case COMPLETED, REJECTED, CANCELLED:
+                reservation.setEndTime(LocalDateTime.now());
+                break;
+            case CONFIRMED:
+                reservation.setStartTime(LocalDateTime.now());
+                break;
+            default:
+                break;
+        }
     }
 
 }

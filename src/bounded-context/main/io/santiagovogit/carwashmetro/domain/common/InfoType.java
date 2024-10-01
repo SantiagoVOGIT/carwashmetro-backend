@@ -6,7 +6,11 @@ public enum InfoType {
     SUCCESS_CREATED_EMPLOYEE("Empleado creado exitosamente"),
     SUCCESS_CREATED_USER("Usuario creado exitosamente"),
     SUCCESS_CREATED_VEHICLE("Vehìculo creado exitosamente"),
-    SUCCESS_CREATED_RESERVATION("Reservada creada exitosamente");
+    SUCCESS_CREATED_RESERVATION("Reservada creada exitosamente"),
+    SUCCESS_COMPLETED_RESERVATION("Reservada completada extiosamente"),
+    SUCCESS_CONFIRMED_RESERVATION("Confirmada"),
+    SUCCESS_REJECTED_RESERVATION("Rechazada"),
+    SUCCES_CANCELED_RESERVATION("");
 
     private final String message;
 

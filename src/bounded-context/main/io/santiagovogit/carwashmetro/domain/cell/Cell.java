@@ -3,6 +3,8 @@ package io.santiagovogit.carwashmetro.domain.cell;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
+import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 
 import java.time.LocalDateTime;
@@ -46,6 +48,12 @@ public class Cell {
     public Cell setStatus(CellStatus status) {
         this.status = status;
         return this;
+    }
+
+    public static void checkAvailability(CellStatus cellStatus) {
+        if (cellStatus != CellStatus.AVAILABLE) {
+            throw new DomainException(ErrorType.INVALID_RESERVATION_CASE.getMessage());
+        }
     }
 
 }
