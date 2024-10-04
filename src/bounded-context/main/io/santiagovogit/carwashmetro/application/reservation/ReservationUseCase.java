@@ -1,21 +1,18 @@
-package io.santiagovogit.carwashmetro.application;
+package io.santiagovogit.carwashmetro.application.reservation;
 
-import io.santiagovogit.carwashmetro.application.common.CellService;
-import io.santiagovogit.carwashmetro.application.common.UserService;
-import io.santiagovogit.carwashmetro.application.common.VehicleService;
-import io.santiagovogit.carwashmetro.domain.cell.Cell;
-import io.santiagovogit.carwashmetro.domain.cell.ports.CellRepository;
-import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
-import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
-import io.santiagovogit.carwashmetro.domain.reservation.ReservationFactory;
-import io.santiagovogit.carwashmetro.domain.reservation.ports.ReservationRepository;
-import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
-import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationStatus;
-import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
-import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
+import io.santiagovogit.carwashmetro.application.cell.CellService;
+import io.santiagovogit.carwashmetro.application.user.UserService;
+import io.santiagovogit.carwashmetro.application.vehicle.VehicleService;
+import io.santiagovogit.carwashmetro.domain.cell.*;
+import io.santiagovogit.carwashmetro.domain.cell.ports.*;
+import io.santiagovogit.carwashmetro.domain.cell.value_objects.*;
+import io.santiagovogit.carwashmetro.domain.common.*;
+import io.santiagovogit.carwashmetro.domain.error.*;
+import io.santiagovogit.carwashmetro.domain.reservation.*;
+import io.santiagovogit.carwashmetro.domain.reservation.ports.*;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.*;
+import io.santiagovogit.carwashmetro.domain.user.value_objects.*;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -84,8 +81,7 @@ public class ReservationUseCase {
     }
 
     public void completeReservation(ReservationId reservationId) {
-        updateReservationStatus(
-                reservationId,
+        updateReservationStatus(reservationId,
                 ReservationStatus.COMPLETED,
                 CellStatus.AVAILABLE
         );
@@ -139,13 +135,6 @@ public class ReservationUseCase {
         reservationRepository.save(reservation);
     }
 
-    private void updateCellStatus(CellId cellId, CellStatus status) {
-        Cell cell = cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
-        cell.setStatus(status);
-        cellRepository.save(cell);
-    }
-
     private void validateStatusChange(Reservation reservation) {
         if (reservation.getStatus() == ReservationStatus.CANCELLED ||
                 reservation.getStatus() == ReservationStatus.REJECTED ||
@@ -157,6 +146,13 @@ public class ReservationUseCase {
     private void updateReservation(Reservation reservation, ReservationStatus status) {
         reservation.setStatus(status);
         updateReservationTimes(reservation, status);
+    }
+
+    private void updateCellStatus(CellId cellId, CellStatus status) {
+        Cell cell = cellRepository.findById(cellId)
+                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
+        cell.setStatus(status);
+        cellRepository.save(cell);
     }
 
     private void updateReservationTimes(Reservation reservation, ReservationStatus status) {
@@ -174,6 +170,5 @@ public class ReservationUseCase {
                 break;
         }
     }
-
 
 }

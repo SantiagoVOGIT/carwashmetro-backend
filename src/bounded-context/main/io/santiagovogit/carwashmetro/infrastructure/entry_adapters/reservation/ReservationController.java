@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.reservation;
 
-import io.santiagovogit.carwashmetro.application.ReservationUseCase;
+import io.santiagovogit.carwashmetro.application.reservation.ReservationUseCase;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.common.InfoType;
 import io.santiagovogit.carwashmetro.domain.reservation.Reservation;

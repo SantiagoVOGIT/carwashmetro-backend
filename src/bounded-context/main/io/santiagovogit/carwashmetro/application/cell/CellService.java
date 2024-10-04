@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.application.common;
+package io.santiagovogit.carwashmetro.application.cell;
 
 import io.santiagovogit.carwashmetro.domain.cell.ports.CellRepository;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;

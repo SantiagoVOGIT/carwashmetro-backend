@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public final class DomainUtils {
 
-    private DomainUtils(){}
+    private DomainUtils() {}
 
     private static final Pattern DNI_NUMBER_PATTERN = Pattern.compile("^\\d{5,10}$");
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]{3,40}$");
@@ -20,7 +20,7 @@ public final class DomainUtils {
         return DNI_NUMBER_PATTERN.matcher(str).matches();
     }
 
-    public static boolean isUUIDFormat(String str) {
+    public static boolean isIdFormat(String str) {
         return UUID_PATTERN.matcher(str).matches();
     }
 

@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user;
 
-import io.santiagovogit.carwashmetro.application.UserUseCase;
+import io.santiagovogit.carwashmetro.application.user.UserUseCase;
 import io.santiagovogit.carwashmetro.domain.common.InfoType;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;

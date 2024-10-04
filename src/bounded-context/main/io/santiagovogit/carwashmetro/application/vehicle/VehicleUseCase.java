@@ -1,6 +1,6 @@
-package io.santiagovogit.carwashmetro.application;
+package io.santiagovogit.carwashmetro.application.vehicle;
 
-import io.santiagovogit.carwashmetro.application.common.UserService;
+import io.santiagovogit.carwashmetro.application.user.UserService;
 import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;

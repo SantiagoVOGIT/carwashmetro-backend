@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee;
 
-import io.santiagovogit.carwashmetro.application.EmployeeUseCase;
+import io.santiagovogit.carwashmetro.application.employee.EmployeeUseCase;
 import io.santiagovogit.carwashmetro.domain.common.InfoType;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
@@ -12,6 +12,7 @@ import io.santiagovogit.carwashmetro.infrastructure.Response;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.common.DTOMapper;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.CreateEmployeeDTO;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.EmployeeDTO;
+import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee.dto.UpdateEmployeeDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +61,26 @@ public class EmployeeController {
         List<EmployeeDTO> response = employees.stream()
                 .map(DTOMapper::toDTO)
                 .toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public ResponseEntity<Response> deleteEmployeeById(@PathVariable UUID employeeId) {
+        employeeUseCase.deleteEmployeeById(new EmployeeId(employeeId));
+        Response response = DTOMapper.toDTO(InfoType.SUCCESS_DELETED_EMPLOYEE.getMessage());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Response> updateEmployee(@PathVariable UUID employeeId,
+                                                   @RequestBody UpdateEmployeeDTO request) {
+        employeeUseCase.updateEmployee(
+                new EmployeeId(employeeId),
+                EmployeePosition.fromValue(request.position()),
+                new Salary(request.salary()),
+                EmployeeStatus.fromValue(request.status())
+        );
+        Response response = DTOMapper.toDTO(InfoType.SUCCESS_UPDATED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);
     }
 

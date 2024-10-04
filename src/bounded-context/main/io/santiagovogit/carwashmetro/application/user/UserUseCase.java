@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.application;
+package io.santiagovogit.carwashmetro.application.user;
 
 import io.santiagovogit.carwashmetro.domain.common.ErrorType;
 import io.santiagovogit.carwashmetro.domain.error.DomainException;

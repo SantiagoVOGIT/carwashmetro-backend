@@ -10,7 +10,10 @@ public enum InfoType {
     SUCCESS_COMPLETED_RESERVATION("Reservada completada extiosamente"),
     SUCCESS_CONFIRMED_RESERVATION("Confirmada"),
     SUCCESS_REJECTED_RESERVATION("Rechazada"),
-    SUCCES_CANCELED_RESERVATION("");
+    SUCCES_CANCELED_RESERVATION("Cancelada"),
+    SUCCESS_DELETED_EMPLOYEE("eMPLEAado eliminado exitosamente"),
+    SUCCESS_UPDATED_EMPLOYEE("Empleado modificado exitosamente");
+
 
     private final String message;
 

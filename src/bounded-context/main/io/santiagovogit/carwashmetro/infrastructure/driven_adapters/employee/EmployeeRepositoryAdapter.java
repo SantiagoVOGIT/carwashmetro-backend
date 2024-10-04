@@ -45,4 +45,14 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
                 .toList();
     }
 
+    @Override
+    public void deleteById(EmployeeId employeeId) {
+        employeeJpaRepository.deleteById(employeeId.getIdentifier());
+    }
+
+    @Override
+    public boolean existsById(EmployeeId employeeId) {
+        return employeeJpaRepository.existsById(employeeId.getIdentifier());
+    }
+
 }

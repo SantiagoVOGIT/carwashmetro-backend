@@ -12,4 +12,6 @@ public interface EmployeeRepository {
     Optional<Employee> findById(EmployeeId employeeId);
     Optional<Employee> findByUserId(UserId userId);
     List<Employee> findAll();
+    void deleteById(EmployeeId employeeId);
+    boolean existsById(EmployeeId employeeId);
 }

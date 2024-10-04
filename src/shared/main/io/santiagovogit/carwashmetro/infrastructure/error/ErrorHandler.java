@@ -16,14 +16,14 @@ public class ErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception exc) {
-        return handleException(exc, HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected exception occurred");
-    }
-
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<ErrorResponse> handleDomainException(DomainException exc) {
         return handleException(exc, HttpStatus.BAD_REQUEST, "Domain exception occurred");
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception exc) {
+        return handleException(exc, HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected exception occurred");
     }
 
     private ResponseEntity<ErrorResponse> handleException(Exception exc, HttpStatus status, String logMessage) {

@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.application;
+package io.santiagovogit.carwashmetro.application.cell;
 
 import io.santiagovogit.carwashmetro.domain.cell.Cell;
 import io.santiagovogit.carwashmetro.domain.cell.CellFactory;

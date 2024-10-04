@@ -1,6 +1,6 @@
-package io.santiagovogit.carwashmetro.application;
+package io.santiagovogit.carwashmetro.application.employee;
 
-import io.santiagovogit.carwashmetro.application.common.UserService;
+import io.santiagovogit.carwashmetro.application.user.UserService;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.EmployeeFactory;
 import io.santiagovogit.carwashmetro.domain.employee.ports.EmployeeRepository;
@@ -19,10 +19,12 @@ import java.util.Optional;
 @Service
 public class EmployeeUseCase {
 
+    private final EmployeeService employeeService;
     private final EmployeeRepository employeeRepository;
     private final UserService userService;
 
-    public EmployeeUseCase(EmployeeRepository employeeRepository, UserService userService) {
+    public EmployeeUseCase(EmployeeService employeeService, EmployeeRepository employeeRepository, UserService userService) {
+        this.employeeService    = employeeService;
         this.employeeRepository = employeeRepository;
         this.userService        = userService;
     }
@@ -53,6 +55,31 @@ public class EmployeeUseCase {
             throw new DomainException(ErrorType.EMPLOYEES_NOT_FOUND.getMessage());
         }
         return employees;
+    }
+
+    public void updateEmployee(EmployeeId employeeId,
+                               EmployeePosition newPosition,
+                               Salary newSalary,
+                               EmployeeStatus newStatus) {
+
+        employeeService.ensureEmployeeIdPresent(employeeId);
+        Employee existingEmployee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new DomainException(ErrorType.EMPLOYEE_NOT_FOUND.getMessage()));
+
+        Employee updatedEmployee = new Employee(
+                existingEmployee.getId(),
+                existingEmployee.getUserId(),
+                newPosition != null ? newPosition : existingEmployee.getPosition(),
+                newSalary != null ? newSalary : existingEmployee.getSalary(),
+                newStatus != null ? newStatus : existingEmployee.getStatus(),
+                existingEmployee.getCreatedAt()
+        );
+        employeeRepository.save(updatedEmployee);
+    }
+
+    public void deleteEmployeeById(EmployeeId employeeId) {
+        employeeService.ensureEmployeeExists(employeeId);
+        employeeRepository.deleteById(employeeId);
     }
 
     private void ensureUniqueEmployee(UserId userId) {
