@@ -29,7 +29,7 @@ import io.santiagovogit.carwashmetro.infrastructure.driven_adapters.vehicle.Vehi
 
 public class DataMapper {
 
-    private DataMapper(){}
+    private DataMapper() {}
 
     public static Cell toDomain(CellData cellData) {
         return new Cell(

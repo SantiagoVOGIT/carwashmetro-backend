@@ -49,4 +49,9 @@ public class ReservationCode extends Identifier {
         return value;
     }
 
+    @Override
+    public void validateState(UUID value) {
+
+    }
+
 }

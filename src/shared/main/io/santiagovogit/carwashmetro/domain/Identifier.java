@@ -3,13 +3,12 @@ package io.santiagovogit.carwashmetro.domain;
 import java.io.Serializable;
 import java.util.UUID;
 
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
-
 public abstract class Identifier implements Serializable {
 
     private final UUID value;
 
     protected Identifier(UUID value) {
+        validateState(value);
         this.value = value;
     }
 
@@ -22,11 +21,10 @@ public abstract class Identifier implements Serializable {
     }
 
     public String getValue() {
-        if (isNull(value)){
-            return null;
-        }
         return value.toString();
     }
+
+    public abstract void validateState(UUID value);
 
     @Override
     public boolean equals(Object o) {

@@ -18,9 +18,7 @@ public class EmployeeService {
     }
 
     public void ensureEmployeeIdPresent(EmployeeId employeeId) {
-        if (isEmpty(employeeId.getValue())) {
-            throw new DomainException(ErrorType.EMPLOYEE_ID_EMPTY.getMessage());
-        }
+
     }
 
     public void ensureEmployeeExists(EmployeeId employeeId) {

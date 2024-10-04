@@ -48,9 +48,6 @@ public class ReservationFactory {
         if (isEmpty(userId.getValue())) {
             throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
         }
-        if (isEmpty(cellId.getValue())) {
-            throw new DomainException(ErrorType.CELL_ID_EMPTY.getMessage());
-        }
         if (isEmpty(vehicleId.getValue())) {
             throw new DomainException(ErrorType.VEHICLE_ID_EMPTY.getMessage());
         }

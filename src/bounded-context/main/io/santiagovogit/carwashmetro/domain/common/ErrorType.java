@@ -65,7 +65,9 @@ public enum ErrorType {
     INVALID_NAME_FORMAT("El formato del nombre o apellido es inválido"),
     VEHICLE_INCOMPATIBLE_WITH_CELL("El vehículo no es compatible con la celda"),
     INVALID_ID_FORMAT("Formato de id inválido"),
-    INVALID_RESERVATION_CASE("No se puede reservar ahora mismo"), EMPLOYEE_ID_EMPTY("ID VACIO");
+    INVALID_RESERVATION_CASE("No se puede reservar ahora mismo"),
+    EMPLOYEE_ID_EMPTY("ID VACIO"),
+    RESERVATION_ID_EMPTY("");
 
     private final String message;
 
