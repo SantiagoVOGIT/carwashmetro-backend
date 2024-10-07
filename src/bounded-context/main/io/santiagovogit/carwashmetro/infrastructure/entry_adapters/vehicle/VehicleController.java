@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.vehicle;
 
 import io.santiagovogit.carwashmetro.application.vehicle.VehicleUseCase;
-import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.common.messages.InfoMsg;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
@@ -36,7 +36,7 @@ public class VehicleController {
                 request.model(),
                 VehicleType.fromValue(request.vehicleType())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_VEHICLE.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CREATED_VEHICLE.getMessage());
         return ResponseEntity.ok(response);
     }
 

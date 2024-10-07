@@ -1,6 +1,6 @@
 package io.santiagovogit.carwashmetro.infrastructure.error;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

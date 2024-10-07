@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.user;
 
 import io.santiagovogit.carwashmetro.application.user.UserUseCase;
-import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.common.messages.InfoMsg;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
@@ -38,7 +38,7 @@ public class UserController {
                 UserRole.fromValue(request.role()),
                 UserStatus.fromValue(request.status())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_USER.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CREATED_USER.getMessage());
         return ResponseEntity.ok(response);
     }
 

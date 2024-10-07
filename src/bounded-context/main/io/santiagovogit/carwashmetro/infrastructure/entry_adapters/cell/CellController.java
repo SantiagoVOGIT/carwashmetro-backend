@@ -5,7 +5,7 @@ import io.santiagovogit.carwashmetro.domain.cell.Cell;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
-import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.common.messages.InfoMsg;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import io.santiagovogit.carwashmetro.infrastructure.Response;
 import io.santiagovogit.carwashmetro.infrastructure.entry_adapters.cell.dto.CellDTO;
@@ -34,7 +34,7 @@ public class CellController {
                 VehicleType.fromValue(request.vehicleType()),
                 CellStatus.fromValue(request.status())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_CELL.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CREATED_CELL.getMessage());
         return ResponseEntity.ok(response);
     }
 

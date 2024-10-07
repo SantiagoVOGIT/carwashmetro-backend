@@ -1,4 +1,4 @@
-package io.santiagovogit.carwashmetro.domain.error;
+package io.santiagovogit.carwashmetro.domain;
 
 public class DomainException extends RuntimeException {
 

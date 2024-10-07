@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.DniType;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserRole;
@@ -52,43 +52,43 @@ public class UserFactory {
                                      UserStatus status) {
 
         if (isNull(dniType)) {
-            throw new DomainException(ErrorType.DNI_TYPE_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.DNI_TYPE_EMPTY.getMessage());
         }
         if (isNull(role)) {
-            throw new DomainException(ErrorType.USER_ROLE_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_ROLE_EMPTY.getMessage());
         }
         if (isNull(status)) {
-            throw new DomainException(ErrorType.USER_STATUS_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_STATUS_EMPTY.getMessage());
         }
         if (isEmpty(firstName)) {
-            throw new DomainException(ErrorType.USER_FIRSTNAME_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_FIRSTNAME_EMPTY.getMessage());
         }
         if (!isNameFormat(firstName)) {
-            throw new DomainException(ErrorType.INVALID_NAME_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_NAME_FORMAT.getMessage());
         }
         if (isEmpty(lastName)) {
-            throw new DomainException(ErrorType.USER_LASTNAME_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_LASTNAME_EMPTY.getMessage());
         }
         if (!isLastnameFormat(lastName)) {
-            throw new DomainException(ErrorType.INVALID_NAME_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_NAME_FORMAT.getMessage());
         }
         if (isEmpty(dniNumber)) {
-            throw new DomainException(ErrorType.DNI_NUMBER_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.DNI_NUMBER_EMPTY.getMessage());
         }
         if (!isDniNumberFormat(dniNumber)) {
-            throw new DomainException(ErrorType.INVALID_DNI_NUMBER_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_DNI_NUMBER_FORMAT.getMessage());
         }
         if (isEmpty(phoneNumber)) {
-            throw new DomainException(ErrorType.PHONE_NUMBER_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.PHONE_NUMBER_EMPTY.getMessage());
         }
         if (!isPhoneNumberFormat(phoneNumber)) {
-            throw new DomainException(ErrorType.INVALID_PHONE_NUMBER_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_PHONE_NUMBER_FORMAT.getMessage());
         }
         if (isEmpty(email)) {
-            throw new DomainException(ErrorType.EMAIL_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.EMAIL_EMPTY.getMessage());
         }
         if (!isEmailFormat(email)) {
-            throw new DomainException(ErrorType.INVALID_EMAIL_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_EMAIL_FORMAT.getMessage());
         }
     }
 

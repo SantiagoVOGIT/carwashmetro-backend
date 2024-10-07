@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.application.user;
 
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.User;
 import io.santiagovogit.carwashmetro.domain.user.UserFactory;
 import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
@@ -48,13 +48,13 @@ public class UserUseCase {
 
     public User getUserById(UserId userId){
         return userRepository.findById(userId)
-                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage()));
     }
 
     public List<User> getAllUsers(){
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
-            throw new DomainException(ErrorType.USERS_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.USERS_NOT_FOUND.getMessage());
         }
         return users;
     }
@@ -62,7 +62,7 @@ public class UserUseCase {
     public void ensureUniqueUser(String email){
         Optional<User> isExistingUser = userRepository.findByEmail(email);
         if (isExistingUser.isPresent()) {
-            throw new DomainException(ErrorType.EMAIL_ALREADY_EXISTS.getMessage());
+            throw new DomainException(ErrorMsg.EMAIL_ALREADY_EXISTS.getMessage());
         }
     }
 

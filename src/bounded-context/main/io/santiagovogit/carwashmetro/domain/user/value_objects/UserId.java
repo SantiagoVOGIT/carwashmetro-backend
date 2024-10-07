@@ -2,8 +2,8 @@ package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
 
 import io.santiagovogit.carwashmetro.domain.Identifier;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 
 import java.util.UUID;
 
@@ -23,10 +23,10 @@ public final class UserId extends Identifier {
     @Override
     public void validateState(UUID value) {
         if (isNull(value)){
-            throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_ID_EMPTY.getMessage());
         }
         if (!isIdFormat(value.toString())) {
-            throw new DomainException(ErrorType.INVALID_ID_FORMAT.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_ID_FORMAT.getMessage());
         }
     }
 

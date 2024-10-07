@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.application.user;
 
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.ports.UserRepository;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,14 @@ public class UserService {
 
     public void ensureUserIdPresent(UserId userId) {
         if (isEmpty(userId.getValue())) {
-            throw new DomainException(ErrorType.USER_ID_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.USER_ID_EMPTY.getMessage());
         }
     }
 
     public void ensureUserExists(UserId userId) {
         ensureUserIdPresent(userId);
         if (!userRepository.existsById(userId)) {
-            throw new DomainException(ErrorType.USER_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.user.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -31,7 +31,7 @@ public enum UserStatus {
                 return status;
             }
         }
-        throw new DomainException(ErrorType.INVALID_USER_STATUS.getMessage());
+        throw new DomainException(ErrorMsg.INVALID_USER_STATUS.getMessage());
     }
 
 }

@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.application.vehicle;
 
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import io.santiagovogit.carwashmetro.domain.vehicle.ports.VehicleRepository;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,14 @@ public class VehicleService {
 
     public void ensureVehicleIdPresent(VehicleId vehicleId) {
         if (isEmpty(vehicleId.getValue())) {
-            throw new DomainException(ErrorType.VEHICLE_ID_EMPTY.getMessage());
+            throw new DomainException(ErrorMsg.VEHICLE_ID_EMPTY.getMessage());
         }
     }
 
     public void ensureVehicleExists(VehicleId vehicleId) {
         ensureVehicleIdPresent(vehicleId);
         if (!vehicleRepository.existsById(vehicleId)) {
-            throw new DomainException(ErrorType.VEHICLE_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.VEHICLE_NOT_FOUND.getMessage());
         }
     }
 

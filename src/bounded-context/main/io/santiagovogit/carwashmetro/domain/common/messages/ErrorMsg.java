@@ -1,7 +1,6 @@
+package io.santiagovogit.carwashmetro.domain.common.messages;
 
-package io.santiagovogit.carwashmetro.domain.common;
-
-public enum ErrorType {
+public enum ErrorMsg {
 
     USER_ID_EMPTY("El ID de usuario es requerido"),
     USER_FIRSTNAME_EMPTY("El nombre es requerido"),
@@ -64,18 +63,19 @@ public enum ErrorType {
 
     INVALID_NAME_FORMAT("El formato del nombre o apellido es inválido"),
     VEHICLE_INCOMPATIBLE_WITH_CELL("El vehículo no es compatible con la celda"),
-    INVALID_ID_FORMAT("Formato de id inválido"),
+    INVALID_ID_FORMAT("Formato de ID inválido"),
     INVALID_RESERVATION_CASE("No se puede reservar ahora mismo"),
-    EMPLOYEE_ID_EMPTY("ID VACIO"),
-    RESERVATION_ID_EMPTY("");
+    EMPLOYEE_ID_EMPTY("El ID del empleado es requerido"),
+    RESERVATION_ID_EMPTY("El ID de la reserva es requerido");
 
     private final String message;
 
-    ErrorType(String message) {
+    ErrorMsg(String message) {
         this.message = message;
     }
 
     public String getMessage() {
         return message;
     }
+
 }

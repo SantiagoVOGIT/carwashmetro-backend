@@ -6,8 +6,8 @@ import io.santiagovogit.carwashmetro.domain.cell.ports.CellRepository;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.SpaceNumber;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleType;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +31,13 @@ public class CellUseCase {
 
     public Cell getCellById(CellId cellId){
         return cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()));
     }
 
     public List<Cell> getAllCells(){
         List<Cell> cells = cellRepository.findAll();
         if (cells.isEmpty()) {
-            throw new DomainException(ErrorType.CELLS_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.CELLS_NOT_FOUND.getMessage());
         }
         return cells;
     }
@@ -45,7 +45,7 @@ public class CellUseCase {
     public void ensureUniqueCell(SpaceNumber spaceNumber){
         Optional<Cell> cell = cellRepository.findBySpaceNumber(spaceNumber);
         if (cell.isPresent()) {
-            throw new DomainException(ErrorType.CELL_ALREADY_EXIST.getMessage());
+            throw new DomainException(ErrorMsg.CELL_ALREADY_EXIST.getMessage());
         }
     }
 

@@ -8,8 +8,8 @@ import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeStatus;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.Salary;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import org.springframework.stereotype.Service;
 
@@ -41,18 +41,18 @@ public class EmployeeUseCase {
 
     public Employee getEmployeeById(EmployeeId employeeId){
         return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new DomainException(ErrorType.EMPLOYEE_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.EMPLOYEE_NOT_FOUND.getMessage()));
     }
 
     public Employee getEmployeeByUserId(UserId userId){
         return employeeRepository.findByUserId(userId)
-                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage()));
     }
 
     public List<Employee> getAllEmployees(){
         List<Employee> employees = employeeRepository.findAll();
         if (employees.isEmpty()) {
-            throw new DomainException(ErrorType.EMPLOYEES_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.EMPLOYEES_NOT_FOUND.getMessage());
         }
         return employees;
     }
@@ -64,7 +64,7 @@ public class EmployeeUseCase {
 
         employeeService.ensureEmployeeIdPresent(employeeId);
         Employee existingEmployee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new DomainException(ErrorType.EMPLOYEE_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.EMPLOYEE_NOT_FOUND.getMessage()));
 
         Employee updatedEmployee = new Employee(
                 existingEmployee.getId(),
@@ -85,7 +85,7 @@ public class EmployeeUseCase {
     private void ensureUniqueEmployee(UserId userId) {
         Optional<Employee> employee = employeeRepository.findByUserId(userId);
         if (employee.isPresent()) {
-            throw new DomainException(ErrorType.EMPLOYEE_ALREADY_EXIST.getMessage());
+            throw new DomainException(ErrorMsg.EMPLOYEE_ALREADY_EXIST.getMessage());
         }
     }
 

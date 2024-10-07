@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.employee;
 
 import io.santiagovogit.carwashmetro.application.employee.EmployeeUseCase;
-import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.common.messages.InfoMsg;
 import io.santiagovogit.carwashmetro.domain.employee.Employee;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeeId;
 import io.santiagovogit.carwashmetro.domain.employee.value_objects.EmployeePosition;
@@ -37,7 +37,7 @@ public class EmployeeController {
                 new Salary(request.salary()),
                 EmployeeStatus.fromValue(request.status())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_EMPLOYEE.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CREATED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);
     }
 
@@ -67,7 +67,7 @@ public class EmployeeController {
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<Response> deleteEmployeeById(@PathVariable UUID employeeId) {
         employeeUseCase.deleteEmployeeById(new EmployeeId(employeeId));
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_DELETED_EMPLOYEE.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_DELETED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);
     }
 
@@ -80,7 +80,7 @@ public class EmployeeController {
                 new Salary(request.salary()),
                 EmployeeStatus.fromValue(request.status())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_UPDATED_EMPLOYEE.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_UPDATED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);
     }
 

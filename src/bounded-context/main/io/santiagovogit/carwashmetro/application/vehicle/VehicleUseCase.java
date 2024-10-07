@@ -1,8 +1,8 @@
 package io.santiagovogit.carwashmetro.application.vehicle;
 
 import io.santiagovogit.carwashmetro.application.user.UserService;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
 import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
 import io.santiagovogit.carwashmetro.domain.vehicle.VehicleFactory;
@@ -34,18 +34,18 @@ public class VehicleUseCase {
 
     public Vehicle getVehicleById(VehicleId vehicleId) {
         return vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new DomainException(ErrorType.VEHICLE_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.VEHICLE_NOT_FOUND.getMessage()));
     }
 
     public Vehicle getVehicleByUserId(UserId userId) {
         return vehicleRepository.findByUserId(userId)
-                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage()));
     }
 
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicles = vehicleRepository.findAll();
         if (vehicles.isEmpty()) {
-            throw new DomainException(ErrorType.VEHICLES_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.VEHICLES_NOT_FOUND.getMessage());
         }
         return vehicles;
     }
@@ -54,7 +54,7 @@ public class VehicleUseCase {
         userService.ensureUserExists(userId);
         List<Vehicle> vehicles = vehicleRepository.findAllByUserId(userId);
         if (vehicles.isEmpty()) {
-            throw new DomainException(ErrorType.VEHICLES_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.VEHICLES_NOT_FOUND.getMessage());
         }
         return vehicles;
     }
@@ -62,7 +62,7 @@ public class VehicleUseCase {
     public void ensureUniqueVehicle(String licensePlate) {
         Optional<Vehicle> vehicle = vehicleRepository.findByLicensePlate(licensePlate);
         if (vehicle.isPresent()) {
-            throw new DomainException(ErrorType.VEHICLE_ALREADY_EXISTS.getMessage());
+            throw new DomainException(ErrorMsg.VEHICLE_ALREADY_EXISTS.getMessage());
         }
     }
 

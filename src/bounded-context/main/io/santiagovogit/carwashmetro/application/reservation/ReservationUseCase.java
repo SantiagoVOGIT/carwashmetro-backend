@@ -3,11 +3,11 @@ package io.santiagovogit.carwashmetro.application.reservation;
 import io.santiagovogit.carwashmetro.application.cell.CellService;
 import io.santiagovogit.carwashmetro.application.user.UserService;
 import io.santiagovogit.carwashmetro.application.vehicle.VehicleService;
+import io.santiagovogit.carwashmetro.domain.DomainException;
 import io.santiagovogit.carwashmetro.domain.cell.*;
 import io.santiagovogit.carwashmetro.domain.cell.ports.*;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.*;
-import io.santiagovogit.carwashmetro.domain.common.*;
-import io.santiagovogit.carwashmetro.domain.error.*;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 import io.santiagovogit.carwashmetro.domain.reservation.*;
 import io.santiagovogit.carwashmetro.domain.reservation.ports.*;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.*;
@@ -55,18 +55,18 @@ public class ReservationUseCase {
 
     public Reservation getReservationById(ReservationId reservationId) {
         return reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new DomainException(ErrorType.RESERVATION_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.RESERVATION_NOT_FOUND.getMessage()));
     }
 
     public Reservation getReservationByUserId(UserId userId) {
         return reservationRepository.findByUserId(userId)
-                .orElseThrow(() -> new DomainException(ErrorType.USER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage()));
     }
 
     public List<Reservation> getAllReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
         if (reservations.isEmpty()) {
-            throw new DomainException(ErrorType.RESERVATIONS_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.RESERVATIONS_NOT_FOUND.getMessage());
         }
         return reservations;
     }
@@ -75,7 +75,7 @@ public class ReservationUseCase {
         userService.ensureUserExists(userId);
         List<Reservation> reservations = reservationRepository.findAllByUserId(userId);
         if (reservations.isEmpty()) {
-            throw new DomainException(ErrorType.RESERVATION_NOT_FOUND.getMessage());
+            throw new DomainException(ErrorMsg.RESERVATION_NOT_FOUND.getMessage());
         }
         return reservations;
     }
@@ -120,7 +120,7 @@ public class ReservationUseCase {
 
     private void validateCellAvailability(CellId cellId) {
         CellStatus cellStatus = cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()))
+                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()))
                 .getStatus();
         Cell.checkAvailability(cellStatus);
     }
@@ -139,7 +139,7 @@ public class ReservationUseCase {
         if (reservation.getStatus() == ReservationStatus.CANCELLED ||
                 reservation.getStatus() == ReservationStatus.REJECTED ||
                 reservation.getStatus() == ReservationStatus.COMPLETED) {
-            throw new DomainException(ErrorType.INVALID_RESERVATION_STATUS_CHANGE.getMessage());
+            throw new DomainException(ErrorMsg.INVALID_RESERVATION_STATUS_CHANGE.getMessage());
         }
     }
 
@@ -150,7 +150,7 @@ public class ReservationUseCase {
 
     private void updateCellStatus(CellId cellId, CellStatus status) {
         Cell cell = cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorType.CELL_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()));
         cell.setStatus(status);
         cellRepository.save(cell);
     }

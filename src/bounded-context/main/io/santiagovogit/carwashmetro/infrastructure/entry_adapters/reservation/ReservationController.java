@@ -2,7 +2,7 @@ package io.santiagovogit.carwashmetro.infrastructure.entry_adapters.reservation;
 
 import io.santiagovogit.carwashmetro.application.reservation.ReservationUseCase;
 import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
-import io.santiagovogit.carwashmetro.domain.common.InfoType;
+import io.santiagovogit.carwashmetro.domain.common.messages.InfoMsg;
 import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
 import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
 import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
@@ -34,7 +34,7 @@ public class ReservationController {
                 new CellId(request.cellId()),
                 new VehicleId(request.vehicleId())
         );
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CREATED_RESERVATION.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CREATED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);
     }
 
@@ -74,28 +74,28 @@ public class ReservationController {
     @PatchMapping("/{reservationId}/complete")
     public ResponseEntity<Response> completeReservation(@PathVariable UUID reservationId) {
         reservationUseCase.completeReservation(new ReservationId(reservationId));
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_COMPLETED_RESERVATION.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_COMPLETED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{reservationId}/confirm")
     public ResponseEntity<Response> confirmReservation(@PathVariable UUID reservationId) {
         reservationUseCase.confirmReservation(new ReservationId(reservationId));
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_CONFIRMED_RESERVATION.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_CONFIRMED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{reservationId}/reject")
     public ResponseEntity<Response> rejectReservation(@PathVariable UUID reservationId) {
         reservationUseCase.rejectReservation(new ReservationId(reservationId));
-        Response response = DTOMapper.toDTO(InfoType.SUCCESS_REJECTED_RESERVATION.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_REJECTED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{reservationId}/cancel")
     public ResponseEntity<Response> cancelReservation(@PathVariable UUID reservationId) {
         reservationUseCase.cancelReservation(new ReservationId(reservationId));
-        Response response = DTOMapper.toDTO(InfoType.SUCCES_CANCELED_RESERVATION.getMessage());
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCES_CANCELED_RESERVATION.getMessage());
         return ResponseEntity.ok(response);
     }
 

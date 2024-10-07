@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.employee.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -34,7 +34,7 @@ public enum EmployeeStatus {
                 return status;
             }
         }
-        throw new DomainException(ErrorType.INVALID_EMPLOYEE_STATUS.getMessage());
+        throw new DomainException(ErrorMsg.INVALID_EMPLOYEE_STATUS.getMessage());
     }
 
 }

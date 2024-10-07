@@ -1,7 +1,7 @@
 package io.santiagovogit.carwashmetro.domain.reservation.value_objects;
 
-import io.santiagovogit.carwashmetro.domain.error.DomainException;
-import io.santiagovogit.carwashmetro.domain.common.ErrorType;
+import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
 
@@ -33,7 +33,7 @@ public enum ReservationStatus {
                 return status;
             }
         }
-        throw new DomainException(ErrorType.INVALID_RESERVATION_STATUS.getMessage());
+        throw new DomainException(ErrorMsg.INVALID_RESERVATION_STATUS.getMessage());
     }
 
 }

@@ -1,6 +1,6 @@
-package io.santiagovogit.carwashmetro.domain.common;
+package io.santiagovogit.carwashmetro.domain.common.messages;
 
-public enum InfoType {
+public enum InfoMsg {
 
     SUCCESS_CREATED_CELL("Celda creada exitosamente"),
     SUCCESS_CREATED_EMPLOYEE("Empleado creado exitosamente"),
@@ -8,16 +8,15 @@ public enum InfoType {
     SUCCESS_CREATED_VEHICLE("Vehìculo creado exitosamente"),
     SUCCESS_CREATED_RESERVATION("Reservada creada exitosamente"),
     SUCCESS_COMPLETED_RESERVATION("Reservada completada extiosamente"),
-    SUCCESS_CONFIRMED_RESERVATION("Confirmada"),
-    SUCCESS_REJECTED_RESERVATION("Rechazada"),
-    SUCCES_CANCELED_RESERVATION("Cancelada"),
-    SUCCESS_DELETED_EMPLOYEE("eMPLEAado eliminado exitosamente"),
+    SUCCESS_CONFIRMED_RESERVATION("Reservada confirmada exitosamente"),
+    SUCCESS_REJECTED_RESERVATION("Reserva rechazada exitosamente"),
+    SUCCES_CANCELED_RESERVATION("Reserva cancelada exitosamente"),
+    SUCCESS_DELETED_EMPLOYEE("Empleado eliminado exitosamente"),
     SUCCESS_UPDATED_EMPLOYEE("Empleado modificado exitosamente");
-
 
     private final String message;
 
-    InfoType(String message) {
+    InfoMsg(String message) {
         this.message = message;
     }
 
