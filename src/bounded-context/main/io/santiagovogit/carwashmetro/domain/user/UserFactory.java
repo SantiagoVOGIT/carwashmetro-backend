@@ -9,9 +9,8 @@ import io.santiagovogit.carwashmetro.domain.user.value_objects.UserStatus;
 
 import java.time.LocalDateTime;
 
-import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.*;
 import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
-import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isNull;
+import static io.santiagovogit.carwashmetro.domain.common.DomainUtils.*;
 
 public class UserFactory {
 
@@ -26,7 +25,7 @@ public class UserFactory {
                                   UserRole role,
                                   UserStatus status) {
 
-        validateUser(firstName, lastName, dniNumber, dniType, phoneNumber, email, role, status);
+        validateUser(firstName, lastName, dniNumber, phoneNumber, email);
 
         return new User(
                 new UserId(),
@@ -45,21 +44,9 @@ public class UserFactory {
     private static void validateUser(String firstName,
                                      String lastName,
                                      String dniNumber,
-                                     DniType dniType,
                                      String phoneNumber,
-                                     String email,
-                                     UserRole role,
-                                     UserStatus status) {
+                                     String email) {
 
-        if (isNull(dniType)) {
-            throw new DomainException(ErrorMsg.DNI_TYPE_EMPTY.getMessage());
-        }
-        if (isNull(role)) {
-            throw new DomainException(ErrorMsg.USER_ROLE_EMPTY.getMessage());
-        }
-        if (isNull(status)) {
-            throw new DomainException(ErrorMsg.USER_STATUS_EMPTY.getMessage());
-        }
         if (isEmpty(firstName)) {
             throw new DomainException(ErrorMsg.USER_FIRSTNAME_EMPTY.getMessage());
         }

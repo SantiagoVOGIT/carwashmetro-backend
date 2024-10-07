@@ -26,9 +26,8 @@ public enum EmployeeStatus {
 
     public static EmployeeStatus fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.EMPLOYEE_STATUS_EMPTY.getMessage());
         }
-
         for (EmployeeStatus status : EmployeeStatus.values()) {
             if (status.getValue().equals(value)) {
                 return status;

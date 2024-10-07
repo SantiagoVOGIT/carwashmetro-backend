@@ -24,7 +24,7 @@ public enum DniType {
 
     public static DniType fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.DNI_TYPE_EMPTY.getMessage());
         }
 
         for (DniType status : DniType.values()) {

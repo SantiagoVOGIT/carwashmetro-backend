@@ -22,7 +22,7 @@ public enum UserRole {
 
     public static UserRole fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.USER_ROLE_EMPTY.getMessage());
         }
 
         for (UserRole status : UserRole.values()) {

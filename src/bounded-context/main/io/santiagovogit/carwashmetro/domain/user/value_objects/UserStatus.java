@@ -23,9 +23,8 @@ public enum UserStatus {
 
     public static UserStatus fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.USER_STATUS_EMPTY.getMessage());
         }
-
         for (UserStatus status : UserStatus.values()) {
             if (status.getValue().equals(value)) {
                 return status;

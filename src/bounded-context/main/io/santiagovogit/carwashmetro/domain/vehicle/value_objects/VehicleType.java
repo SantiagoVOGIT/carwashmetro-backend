@@ -22,7 +22,7 @@ public enum VehicleType {
 
     public static VehicleType fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.VEHICLE_TYPE_EMPTY.getMessage());
         }
 
         for (VehicleType status : VehicleType.values()) {

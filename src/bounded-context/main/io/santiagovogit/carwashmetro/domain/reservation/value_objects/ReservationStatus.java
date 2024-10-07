@@ -25,9 +25,8 @@ public enum ReservationStatus {
 
     public static ReservationStatus fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.RESERVATION_STATUS_EMPTY.getMessage());
         }
-
         for (ReservationStatus status : ReservationStatus.values()) {
             if (status.getValue().equals(value)) {
                 return status;

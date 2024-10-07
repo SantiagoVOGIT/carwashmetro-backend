@@ -17,7 +17,7 @@ public class CellFactory {
     private CellFactory() {}
 
     public static Cell createCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status) {
-        validateCell(spaceNumber, vehicleType, status);
+        validateCell(vehicleType);
         return new Cell(
                 new CellId(),
                 spaceNumber,
@@ -27,15 +27,9 @@ public class CellFactory {
         );
     }
 
-    private static void validateCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus status) {
-        if (isNull(spaceNumber)) {
-            throw new DomainException(ErrorMsg.SPACE_NUMBER_EMPTY.getMessage());
-        }
+    private static void validateCell(VehicleType vehicleType) {
         if (isNull(vehicleType)) {
             throw new DomainException(ErrorMsg.VEHICLE_TYPE_EMPTY.getMessage());
-        }
-        if (isNull(status)) {
-            throw new DomainException(ErrorMsg.CELL_STATUS_EMPTY.getMessage());
         }
     }
 

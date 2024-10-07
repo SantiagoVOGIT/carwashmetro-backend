@@ -31,9 +31,8 @@ public enum SpaceNumber {
 
     public static SpaceNumber fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.SPACE_NUMBER_EMPTY.getMessage());
         }
-
         for (SpaceNumber status : SpaceNumber.values()) {
             if (status.getValue().equals(value)) {
                 return status;

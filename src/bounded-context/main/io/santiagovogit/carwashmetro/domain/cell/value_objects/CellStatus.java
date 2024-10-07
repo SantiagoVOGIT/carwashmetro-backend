@@ -25,9 +25,8 @@ public enum CellStatus {
 
     public static CellStatus fromValue(String value) {
         if (isEmpty(value)) {
-            return null;
+            throw new DomainException(ErrorMsg.CELL_STATUS_EMPTY.getMessage());
         }
-
         for (CellStatus status : CellStatus.values()) {
             if (status.getValue().equals(value)) {
                 return status;
