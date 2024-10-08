@@ -66,7 +66,8 @@ public enum ErrorMsg {
     INVALID_ID_FORMAT("Formato de ID inválido"),
     INVALID_RESERVATION_CASE("No se puede reservar ahora mismo"),
     EMPLOYEE_ID_EMPTY("El ID del empleado es requerido"),
-    RESERVATION_ID_EMPTY("El ID de la reserva es requerido");
+    RESERVATION_ID_EMPTY("El ID de la reserva es requerido"),
+    USER_NOT_ACTIVE("El usuario se encuentra inactivo o suspendido");
 
     private final String message;
 

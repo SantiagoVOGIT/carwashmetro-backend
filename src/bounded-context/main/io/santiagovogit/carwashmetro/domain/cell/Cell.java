@@ -50,9 +50,15 @@ public class Cell {
         return this;
     }
 
-    public static void checkAvailability(CellStatus cellStatus) {
-        if (cellStatus != CellStatus.AVAILABLE) {
+    public void checkAvailability() {
+        if (status != CellStatus.AVAILABLE) {
             throw new DomainException(ErrorMsg.INVALID_RESERVATION_CASE.getMessage());
+        }
+    }
+
+    public void checkVehicleCompatibility(VehicleType vehicleType) {
+        if (vehicleType != this.vehicleType) {
+            throw new DomainException(ErrorMsg.VEHICLE_INCOMPATIBLE_WITH_CELL.getMessage());
         }
     }
 

@@ -18,9 +18,11 @@ import java.util.Optional;
 public class UserUseCase {
 
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserUseCase(UserRepository userRepository) {
+    public UserUseCase(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService    = userService;
     }
 
     public void createUser(String firstName,
@@ -46,9 +48,39 @@ public class UserUseCase {
         userRepository.save(user);
     }
 
+    public void updateUser(UserId userId,
+                           String firstName,
+                           String lastName,
+                           String dniNumber,
+                           DniType dniType,
+                           String phoneNumber,
+                           String email,
+                           UserRole role,
+                           UserStatus status) {
+
+        userService.ensureUserExists(userId);
+        User existingUser = userService.getUserByIdOrThrow(userId);
+
+        userService.ensureActiveUser(existingUser.getStatus());
+        UserService.ensureValidUserDetails(firstName, lastName, dniNumber, phoneNumber, email);
+
+        User updatedUser = new User(
+                existingUser.getId(),
+                dniNumber != null ? dniNumber : existingUser.getDniNumber(),
+                dniType != null ? dniType : existingUser.getDniType(),
+                firstName != null ? firstName : existingUser.getFirstName(),
+                lastName != null ? lastName : existingUser.getLastName(),
+                phoneNumber != null ? phoneNumber : existingUser.getPhoneNumber(),
+                email != null ? email : existingUser.getEmail(),
+                role != null ? role : existingUser.getRole(),
+                status != null ? status : existingUser.getStatus(),
+                existingUser.getCreatedAt()
+        );
+        userRepository.save(updatedUser);
+    }
+
     public User getUserById(UserId userId){
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.USER_NOT_FOUND.getMessage()));
+        return userService.getUserByIdOrThrow(userId);
     }
 
     public List<User> getAllUsers(){

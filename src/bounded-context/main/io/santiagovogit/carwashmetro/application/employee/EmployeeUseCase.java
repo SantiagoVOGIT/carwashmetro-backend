@@ -39,9 +39,27 @@ public class EmployeeUseCase {
         employeeRepository.save(employee);
     }
 
+    public void updateEmployee(EmployeeId employeeId,
+                               EmployeePosition newPosition,
+                               Salary newSalary,
+                               EmployeeStatus newStatus) {
+
+        employeeService.ensureEmployeeExists(employeeId);
+        Employee existingEmployee = employeeService.getEmployeeByIdOrThrow(employeeId);
+
+        Employee updatedEmployee = new Employee(
+                existingEmployee.getId(),
+                existingEmployee.getUserId(),
+                newPosition != null ? newPosition : existingEmployee.getPosition(),
+                newSalary != null ? newSalary : existingEmployee.getSalary(),
+                newStatus != null ? newStatus : existingEmployee.getStatus(),
+                existingEmployee.getCreatedAt()
+        );
+        employeeRepository.save(updatedEmployee);
+    }
+
     public Employee getEmployeeById(EmployeeId employeeId){
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.EMPLOYEE_NOT_FOUND.getMessage()));
+        return employeeService.getEmployeeByIdOrThrow(employeeId);
     }
 
     public Employee getEmployeeByUserId(UserId userId){
@@ -55,26 +73,6 @@ public class EmployeeUseCase {
             throw new DomainException(ErrorMsg.EMPLOYEES_NOT_FOUND.getMessage());
         }
         return employees;
-    }
-
-    public void updateEmployee(EmployeeId employeeId,
-                               EmployeePosition newPosition,
-                               Salary newSalary,
-                               EmployeeStatus newStatus) {
-
-        employeeService.ensureEmployeeIdPresent(employeeId);
-        Employee existingEmployee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.EMPLOYEE_NOT_FOUND.getMessage()));
-
-        Employee updatedEmployee = new Employee(
-                existingEmployee.getId(),
-                existingEmployee.getUserId(),
-                newPosition != null ? newPosition : existingEmployee.getPosition(),
-                newSalary != null ? newSalary : existingEmployee.getSalary(),
-                newStatus != null ? newStatus : existingEmployee.getStatus(),
-                existingEmployee.getCreatedAt()
-        );
-        employeeRepository.save(updatedEmployee);
     }
 
     public void deleteEmployeeById(EmployeeId employeeId) {

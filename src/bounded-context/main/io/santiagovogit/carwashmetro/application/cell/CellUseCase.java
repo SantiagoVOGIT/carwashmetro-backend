@@ -18,9 +18,11 @@ import java.util.Optional;
 public class CellUseCase {
 
     private final CellRepository cellRepository;
+    private final CellService cellService;
 
-    public CellUseCase(CellRepository cellRepository){
+    public CellUseCase(CellRepository cellRepository, CellService cellService){
         this.cellRepository = cellRepository;
+        this.cellService    = cellService;
     }
 
     public void createCell(SpaceNumber spaceNumber, VehicleType vehicleType, CellStatus cellStatus){
@@ -30,8 +32,7 @@ public class CellUseCase {
     }
 
     public Cell getCellById(CellId cellId){
-        return cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()));
+        return cellService.getCellByIdOrThrow(cellId);
     }
 
     public List<Cell> getAllCells(){

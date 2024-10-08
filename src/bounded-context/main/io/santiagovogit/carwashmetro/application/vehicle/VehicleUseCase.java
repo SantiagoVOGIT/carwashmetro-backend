@@ -18,10 +18,12 @@ import java.util.Optional;
 public class VehicleUseCase {
 
     private final VehicleRepository vehicleRepository;
+    private final VehicleService vehicleService;
     private final UserService userService;
 
-    public VehicleUseCase(VehicleRepository vehicleRepository, UserService userService) {
+    public VehicleUseCase(VehicleRepository vehicleRepository, VehicleService vehicleService, UserService userService) {
         this.vehicleRepository = vehicleRepository;
+        this.vehicleService    = vehicleService;
         this.userService       = userService;
     }
 
@@ -33,8 +35,7 @@ public class VehicleUseCase {
     }
 
     public Vehicle getVehicleById(VehicleId vehicleId) {
-        return vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.VEHICLE_NOT_FOUND.getMessage()));
+        return vehicleService.getVehicleByIdOrThrow(vehicleId);
     }
 
     public Vehicle getVehicleByUserId(UserId userId) {

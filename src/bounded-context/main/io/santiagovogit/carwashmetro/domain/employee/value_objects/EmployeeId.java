@@ -21,7 +21,7 @@ public final class EmployeeId extends Identifier {
 
     @Override
     public void validateState(UUID value) {
-        if (isNull(getValue())) {
+        if (isNull(value)) {
             throw new DomainException(ErrorMsg.EMPLOYEE_ID_EMPTY.getMessage());
         }
         if (!isIdFormat(value.toString())) {

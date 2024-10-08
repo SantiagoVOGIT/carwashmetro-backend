@@ -4,15 +4,18 @@ import io.santiagovogit.carwashmetro.application.cell.CellService;
 import io.santiagovogit.carwashmetro.application.user.UserService;
 import io.santiagovogit.carwashmetro.application.vehicle.VehicleService;
 import io.santiagovogit.carwashmetro.domain.DomainException;
-import io.santiagovogit.carwashmetro.domain.cell.*;
-import io.santiagovogit.carwashmetro.domain.cell.ports.*;
-import io.santiagovogit.carwashmetro.domain.cell.value_objects.*;
+import io.santiagovogit.carwashmetro.domain.cell.Cell;
+import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellId;
+import io.santiagovogit.carwashmetro.domain.cell.value_objects.CellStatus;
 import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
-import io.santiagovogit.carwashmetro.domain.reservation.*;
-import io.santiagovogit.carwashmetro.domain.reservation.ports.*;
-import io.santiagovogit.carwashmetro.domain.reservation.value_objects.*;
-import io.santiagovogit.carwashmetro.domain.user.value_objects.*;
-import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.*;
+import io.santiagovogit.carwashmetro.domain.reservation.Reservation;
+import io.santiagovogit.carwashmetro.domain.reservation.ReservationFactory;
+import io.santiagovogit.carwashmetro.domain.reservation.ports.ReservationRepository;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationId;
+import io.santiagovogit.carwashmetro.domain.reservation.value_objects.ReservationStatus;
+import io.santiagovogit.carwashmetro.domain.user.value_objects.UserId;
+import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
+import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,21 +25,21 @@ import java.util.List;
 public class ReservationUseCase {
 
     private final ReservationRepository reservationRepository;
-    private final CellRepository cellRepository;
+    private final ReservationService reservationService;
     private final UserService userService;
     private final CellService cellService;
     private final VehicleService vehicleService;
 
     public ReservationUseCase(ReservationRepository reservationRepository,
-                              CellRepository cellRepository,
+                              ReservationService reservationService,
                               UserService userService,
                               CellService cellService,
                               VehicleService vehicleService) {
         this.reservationRepository = reservationRepository;
-        this.cellRepository = cellRepository;
-        this.userService = userService;
-        this.cellService = cellService;
-        this.vehicleService = vehicleService;
+        this.reservationService    = reservationService;
+        this.userService           = userService;
+        this.cellService           = cellService;
+        this.vehicleService        = vehicleService;
     }
 
     public void createReservation(UserId userId, CellId cellId, VehicleId vehicleId) {
@@ -49,13 +52,12 @@ public class ReservationUseCase {
                 null,
                 null
         );
-        updateCellStatus(cellId, CellStatus.RESERVED);
+        cellService.updateCellStatus(cellId, CellStatus.RESERVED);
         reservationRepository.save(reservation);
     }
 
     public Reservation getReservationById(ReservationId reservationId) {
-        return reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.RESERVATION_NOT_FOUND.getMessage()));
+        return reservationService.getReservationByIdOrThrow(reservationId);
     }
 
     public Reservation getReservationByUserId(UserId userId) {
@@ -115,23 +117,22 @@ public class ReservationUseCase {
         userService.ensureUserExists(userId);
         cellService.ensureCellExists(cellId);
         vehicleService.ensureVehicleExists(vehicleId);
-        validateCellAvailability(cellId);
-    }
 
-    private void validateCellAvailability(CellId cellId) {
-        CellStatus cellStatus = cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()))
-                .getStatus();
-        Cell.checkAvailability(cellStatus);
+        Cell cell = cellService.getCellByIdOrThrow(cellId);
+        Vehicle vehicle = vehicleService.getVehicleByIdOrThrow(vehicleId);
+
+        cell.checkAvailability();
+        cell.checkVehicleCompatibility(vehicle.getVehicleType());
     }
 
     private void updateReservationStatus(ReservationId reservationId,
                                          ReservationStatus reservationStatus,
                                          CellStatus cellStatus) {
-        Reservation reservation = getReservationById(reservationId);
+
+        Reservation reservation = reservationService.getReservationByIdOrThrow(reservationId);
         validateStatusChange(reservation);
         updateReservation(reservation, reservationStatus);
-        updateCellStatus(reservation.getCellId(), cellStatus);
+        cellService.updateCellStatus(reservation.getCellId(), cellStatus);
         reservationRepository.save(reservation);
     }
 
@@ -146,13 +147,6 @@ public class ReservationUseCase {
     private void updateReservation(Reservation reservation, ReservationStatus status) {
         reservation.setStatus(status);
         updateReservationTimes(reservation, status);
-    }
-
-    private void updateCellStatus(CellId cellId, CellStatus status) {
-        Cell cell = cellRepository.findById(cellId)
-                .orElseThrow(() -> new DomainException(ErrorMsg.CELL_NOT_FOUND.getMessage()));
-        cell.setStatus(status);
-        cellRepository.save(cell);
     }
 
     private void updateReservationTimes(Reservation reservation, ReservationStatus status) {

@@ -2,6 +2,7 @@ package io.santiagovogit.carwashmetro.application.vehicle;
 
 import io.santiagovogit.carwashmetro.domain.common.messages.ErrorMsg;
 import io.santiagovogit.carwashmetro.domain.DomainException;
+import io.santiagovogit.carwashmetro.domain.vehicle.Vehicle;
 import io.santiagovogit.carwashmetro.domain.vehicle.ports.VehicleRepository;
 import io.santiagovogit.carwashmetro.domain.vehicle.value_objects.VehicleId;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class VehicleService {
 
     public VehicleService(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
+    }
+
+    public Vehicle getVehicleByIdOrThrow(VehicleId vehicleId) {
+        return vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new DomainException(ErrorMsg.VEHICLE_NOT_FOUND.getMessage()));
     }
 
     public void ensureVehicleIdPresent(VehicleId vehicleId) {

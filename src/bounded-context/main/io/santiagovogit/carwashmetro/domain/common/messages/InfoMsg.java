@@ -12,7 +12,8 @@ public enum InfoMsg {
     SUCCESS_REJECTED_RESERVATION("Reserva rechazada exitosamente"),
     SUCCES_CANCELED_RESERVATION("Reserva cancelada exitosamente"),
     SUCCESS_DELETED_EMPLOYEE("Empleado eliminado exitosamente"),
-    SUCCESS_UPDATED_EMPLOYEE("Empleado modificado exitosamente");
+    SUCCESS_UPDATED_EMPLOYEE("Empleado modificado exitosamente"),
+    SUCCESS_UPDATE_USER("Usuario modificado exitosamente");
 
     private final String message;
 

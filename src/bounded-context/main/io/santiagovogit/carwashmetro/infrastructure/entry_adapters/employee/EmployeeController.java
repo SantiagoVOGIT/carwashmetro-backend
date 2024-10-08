@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static io.santiagovogit.carwashmetro.domain.ValidationsUtils.isEmpty;
+
 @RestController
 @RequestMapping("/v1/employees")
 public class EmployeeController {
@@ -41,8 +43,21 @@ public class EmployeeController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Response> updateEmployee(@PathVariable UUID employeeId,
+                                                   @RequestBody UpdateEmployeeDTO request) {
+        employeeUseCase.updateEmployee(
+                new EmployeeId(employeeId),
+                !isEmpty(request.position()) ? EmployeePosition.fromValue(request.position()) : null,
+                request.salary() != 0 ? new Salary(request.salary()) : null,
+                !isEmpty(request.position()) ?  EmployeeStatus.fromValue(request.status()) : null
+        );
+        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_UPDATED_EMPLOYEE.getMessage());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDTO> getEmployeeByid(@PathVariable UUID employeeId){
+    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable UUID employeeId){
         Employee employee = employeeUseCase.getEmployeeById(new EmployeeId(employeeId));
         EmployeeDTO response = DTOMapper.toDTO(employee);
         return ResponseEntity.ok(response);
@@ -68,19 +83,6 @@ public class EmployeeController {
     public ResponseEntity<Response> deleteEmployeeById(@PathVariable UUID employeeId) {
         employeeUseCase.deleteEmployeeById(new EmployeeId(employeeId));
         Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_DELETED_EMPLOYEE.getMessage());
-        return ResponseEntity.ok(response);
-    }
-
-    @PutMapping("/{employeeId}")
-    public ResponseEntity<Response> updateEmployee(@PathVariable UUID employeeId,
-                                                   @RequestBody UpdateEmployeeDTO request) {
-        employeeUseCase.updateEmployee(
-                new EmployeeId(employeeId),
-                EmployeePosition.fromValue(request.position()),
-                new Salary(request.salary()),
-                EmployeeStatus.fromValue(request.status())
-        );
-        Response response = DTOMapper.toDTO(InfoMsg.SUCCESS_UPDATED_EMPLOYEE.getMessage());
         return ResponseEntity.ok(response);
     }
 
