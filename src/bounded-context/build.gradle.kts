@@ -1,15 +1,9 @@
-// src/bounded-context/build.gradle.kts
-dependencies {
-    implementation(project(":shared"))
+plugins {
+    `java-library`
 }
 
-sourceSets {
-    main {
-        java.srcDirs("main")
-    }
-    test {
-        java.srcDirs("test")
-    }
+dependencies {
+    implementation(project(":shared"))
 }
 
 tasks.bootJar {

@@ -14,10 +14,10 @@ tasks.bootJar {
 
 sourceSets {
     main {
-        java.srcDirs("main")
+        java.srcDir("main")
         resources.srcDir("main/resources")
     }
     test {
-        java.srcDirs("test")
+        java.srcDir("test")
     }
 }

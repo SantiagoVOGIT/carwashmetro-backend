@@ -1,10 +1,5 @@
-sourceSets {
-    main {
-        java.srcDirs("main")
-    }
-    test {
-        java.srcDirs("test")
-    }
+plugins {
+    `java-library`
 }
 
 tasks.bootJar {

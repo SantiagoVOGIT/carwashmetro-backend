@@ -16,7 +16,7 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "java")
+    apply(plugin = "java-library")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "com.diffplug.spotless")
@@ -43,6 +43,15 @@ subprojects {
             removeUnusedImports()
             trimTrailingWhitespace()
             endWithNewline()
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDir("main")
+        }
+        test {
+            java.srcDir("test")
         }
     }
 }
